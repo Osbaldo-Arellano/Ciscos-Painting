@@ -1,4 +1,3 @@
-// components/Projects.jsx
 import { Typography, Paper, Box, GlobalStyles } from '@mui/material';
 import Slider from 'react-slick';
 import ProjectSlide from './ProjectSlide';
@@ -37,44 +36,54 @@ export default function Projects() {
   const projectSettings = {
     dots: true,
     infinite: true,
-    speed: 2000, // Transition speed in milliseconds
+    speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
     adaptiveHeight: false,
-    autoplay: true,          // Enable auto-scrolling
-    autoplaySpeed: 4000,     // Delay between slides (3 seconds)
-    pauseOnHover: true,      // Pause on hover
-    pauseOnFocus: true,      // Pause when focused (e.g., keyboard nav)
-    cssEase: 'cubic-bezier(0.77, 0, 0.175, 1)',  // Custom smooth/bouncy easing
-    centerMode: false,        // Centers the active slide
-    swipeToSlide: true,      // Smooth swipe between slides
-    focusOnSelect: true,     // Click on slide to bring it forward
-    draggable: true,         // Allow dragging even with autoplay
-    };
+    autoplay: true,
+    autoplaySpeed: 4000,
+    pauseOnHover: true,
+    pauseOnFocus: true,
+    cssEase: 'cubic-bezier(0.77, 0, 0.175, 1)',
+    centerMode: false,
+    swipeToSlide: true,
+    focusOnSelect: true,
+    draggable: true,
+  };
 
   return (
-<>
-<GlobalStyles
-  styles={{
-    '.slick-dots li button:before': {
-      color: '#ccc !important',
-      opacity: 1,
-      fontSize: '12px',
-    },
-    '.slick-dots li.slick-active button:before': {
-      color: '#ccc !important', // example active dot color
-      opacity: 1,
-    },
-  }}
-/>
+    <>
+      <GlobalStyles
+        styles={{
+          '.slick-dots li button:before': {
+            color: '#ccc !important',
+            opacity: 1,
+            fontSize: '12px',
+          },
+          '.slick-dots li.slick-active button:before': {
+            color: '#fff !important',
+            opacity: 1,
+          },
+        }}
+      />
 
-
-    <Paper elevation={3} sx={{ p: 4, background:'#181818', mt:8, width:'100%' }}>
-      <Typography variant="h5" sx={{ ml:9, color: '#fff', alignSelf: 'flex-start', mb: 1 }}>
-                01/ Gallery
-      </Typography>
-      <Typography
+      <Paper
+        elevation={3}
+        sx={{
+          p: 4,
+          background: `radial-gradient(circle at center, #3a3a3a 0%, #1a1a1a 100%)`, // 👈 Radial gradient added here
+          mt: 8,
+          width: '100%',
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{ ml: 9, color: '#fff', alignSelf: 'flex-start', mb: 1 }}
+        >
+          01/ Gallery
+        </Typography>
+        <Typography
           component="h2"
           sx={{
             fontSize: { xs: '2.5rem', sm: '4rem', md: '4rem' },
@@ -84,25 +93,26 @@ export default function Projects() {
             fontWeight: 700,
             color: '#fff',
             alignSelf: 'flex-start',
-            ml:9, 
+            ml: 9,
           }}
         >
           Our Projects
-      </Typography>
-      <Box sx={{ 
-        mt: 4,
-        height: '10%',
-        ml:9
-      }}>
-        <Slider {...projectSettings}>
-          {projects.map((project, index) => (
-            <div key={index} style={{ height: '100px' }}> {/* Fixed height for each slide */}
-              <ProjectSlide project={project} />
-            </div>
-          ))}
-        </Slider>
-      </Box>
-    </Paper>
+        </Typography>
+        <Box
+          sx={{
+            mt: 4,
+            ml: 9,
+          }}
+        >
+          <Slider {...projectSettings}>
+            {projects.map((project, index) => (
+              <div key={index}>
+                <ProjectSlide project={project} />
+              </div>
+            ))}
+          </Slider>
+        </Box>
+      </Paper>
     </>
   );
 }

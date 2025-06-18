@@ -20,21 +20,19 @@ import {
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useState, useRef, useEffect } from 'react';
+import EstimateModal from '@/components/EstimateModal'; // <- adjust path if needed
 
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [estimateOpen, setEstimateOpen] = useState(false);
   const anchorRef = useRef<HTMLButtonElement>(null);
 
   const handleToggle = () => setOpen((prev) => !prev);
   const handleClose = (event: Event) => {
-    // Ignore if click is on the toggle button
-    if (anchorRef.current && anchorRef.current.contains(event.target as Node)) {
-      return;
-    }
+    if (anchorRef.current && anchorRef.current.contains(event.target as Node)) return;
     setOpen(false);
   };
-
   const handleListKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'Tab' || event.key === 'Escape') {
       event.preventDefault();
@@ -42,7 +40,6 @@ export default function Navbar() {
     }
   };
 
-  // Return focus to the button when menu closes
   const prevOpen = useRef(open);
   useEffect(() => {
     if (prevOpen.current === true && open === false) {
@@ -70,18 +67,17 @@ export default function Navbar() {
           zIndex: 1200,
         }}
       >
-        <Link href="/quote">
-          <Button
-            sx={{
-              color: 'white',
-              fontWeight: 500,
-              '&:hover': { color: '#ffcdd2' },
-              textTransform: 'none',
-            }}
-          >
-            FREE quote request HERE
-          </Button>
-        </Link>
+        <Button
+          onClick={() => setEstimateOpen(true)}
+          sx={{
+            color: 'white',
+            fontWeight: 500,
+            '&:hover': { color: '#ffcdd2' },
+            textTransform: 'none',
+          }}
+        >
+          FREE quote request HERE
+        </Button>
 
         <Link href="tel:5039999060" passHref>
           <Button
@@ -142,7 +138,6 @@ export default function Navbar() {
               <Popper
                 open={open}
                 anchorEl={anchorRef.current}
-                role={undefined}
                 placement="bottom-start"
                 transition
                 disablePortal
@@ -159,9 +154,8 @@ export default function Navbar() {
                           sx={{ p: 0 }}
                         >
                           {[
-                            { href: '/services/interior', label: 'Interior Painting' },
-                            { href: '/services/exterior', label: 'Exterior Painting' },
-                            { href: '/services/commercial', label: 'Commercial' },
+                            { href: '/services', label: 'Residential' },
+                            { href: '/services', label: 'Commercial' },
                           ].map(({ href, label }) => (
                             <MenuItem
                               key={href}
@@ -171,18 +165,17 @@ export default function Navbar() {
                               sx={{
                                 color: '#fff',
                                 px: 2,
-                                textDecoration: 'none',      // <-- add this here
+                                textDecoration: 'none',
                                 '&:hover': {
                                   backgroundColor: 'rgba(255,255,255,0.08)',
                                 },
-                                width: '100%',               // <-- full width clickable
+                                width: '100%',
                                 display: 'block',
                               }}
                             >
-                              {label} {/* No nested <a> here */}
+                              {label}
                             </MenuItem>
                           ))}
-
                         </MenuList>
                       </ClickAwayListener>
                     </Paper>
@@ -194,39 +187,37 @@ export default function Navbar() {
             <NavLink href="/gallery" current={pathname === '/gallery'}>
               Gallery
             </NavLink>
-            <NavLink href="/about" current={pathname === '/about'}>
-              About
-            </NavLink>
             <NavLink href="/contact" current={pathname === '/contact'}>
               Contact
             </NavLink>
           </Box>
 
           {/* Estimate Button */}
-          <Link href="/estimate" >
-            <Button
-              variant="outlined"
-              sx={{
-                ml: 3,
-                px: 2.5,
-                py: 0.8,
-                color: '#fff',
+          <Button
+            onClick={() => setEstimateOpen(true)}
+            variant="outlined"
+            sx={{
+              ml: 3,
+              px: 2.5,
+              py: 0.8,
+              color: '#fff',
+              borderColor: '#fff',
+              borderRadius: '999px',
+              textTransform: 'none',
+              fontWeight: 500,
+              '&:hover': {
+                backgroundColor: '#d32f2f',
                 borderColor: '#fff',
-                borderRadius: '999px',
-                textTransform: 'none',
-                fontWeight: 500,
-                '&:hover': {
-                  backgroundColor: '#d32f2f',
-                  borderColor: '#fff',
-                },
-              }}
-            >
-              Get Estimate
-            </Button>
-          </Link>
+              },
+            }}
+          >
+            Get Estimate
+          </Button>
         </Toolbar>
         <ScrollTopButton />
       </AppBar>
+
+      <EstimateModal open={estimateOpen} onClose={() => setEstimateOpen(false)} />
     </>
   );
 }
@@ -266,15 +257,7 @@ function ScrollTopButton() {
   );
 }
 
-function NavLink({
-  href,
-  children,
-  current,
-}: {
-  href: string;
-  children: React.ReactNode;
-  current: boolean;
-}) {
+function NavLink({ href, children, current }) {
   return (
     <Link href={href} passHref>
       <Button
@@ -305,7 +288,7 @@ function NavLink({
   );
 }
 
-const navLinkButtonStyle = (isActive: boolean) => ({
+const navLinkButtonStyle = (isActive) => ({
   color: '#fff',
   textTransform: 'none',
   fontSize: '1.1rem',

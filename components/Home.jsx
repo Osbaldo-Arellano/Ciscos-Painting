@@ -3,8 +3,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Box, Typography, Button, Grid } from '@mui/material';
 import StackedServiceCards from '@/components/StackedServiceCards';
+import { useState } from 'react';
+import EstimateModal from '@/components/EstimateModal'; 
 
 export default function Home() {
+  const [modalOpen, setModalOpen] = useState(false);
+  
   const servicesData = [
     {
       image: '/images/painting.jpg',
@@ -74,107 +78,111 @@ export default function Home() {
       </Head>
 
       <main>
+        <EstimateModal open={modalOpen} onClose={() => setModalOpen(false)} />
+
         <Box sx={{ marginBottom: 10 }}>
           {/* Hero Section */}
-          <section>
+        <section>
+          <Box
+            sx={{
+              position: 'relative',
+              height: { xs: '75vh', md: '100vh' },
+              width: '100%',
+              backgroundImage: 'url(/images/nice-house.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          >
             <Box
               sx={{
-                position: 'relative',
-                height: { xs: '75vh', md: '100vh' },
+                position: 'absolute',
+                top: 0,
+                left: 0,
                 width: '100%',
-                backgroundImage: 'url(/images/nice-house.jpg)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
+                height: '100%',
+                bgcolor: 'rgba(0, 0, 0, 0.6)',
+                zIndex: 1,
+              }}
+            />
+
+            <Box
+              component="header"
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                left: 0,
+                transform: 'translateY(-60%)',
+                zIndex: 2,
+                width: { xs: '90%', sm: '70%', md: '55%' },
+                p: { xs: 2, sm: 9 },
+                backgroundColor: 'rgba(0,0,0,0.4)',
+                backdropFilter: 'blur(6px)',
+                borderRadius: 2,
+                color: '#eee',
+              }}
+            >
+              <Typography variant="h6" sx={{ color: '#ccc', mb: 1 }}>
+                00/ Welcome
+              </Typography>
+              <Typography
+                component="h1"
+                sx={{
+                  fontSize: { xs: '1.8rem', sm: '2.5rem', md: '4rem' },
+                  fontFamily: '"Inter", sans-serif',
+                  lineHeight: 1.2,
+                  fontWeight: 700,
+                  mb: 2,
+                }}
+              >
+                With 20+ Years of Experience, We Are Here To Serve You
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                position: 'absolute',
+                bottom: { xs: 40, md: 100 },
+                left: { xs: '5%', md: '5%' },
+                color: '#fff',
+                maxWidth: { xs: '90%', sm: 400 },
+                zIndex: 2,
               }}
             >
               <Box
                 sx={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  bgcolor: 'rgba(0, 0, 0, 0.6)',
-                  zIndex: 1,
-                }}
-              />
-
-              <Box
-                component="header"
-                sx={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: 0,
-                  transform: 'translateY(-60%)',
-                  zIndex: 2,
-                  width: { xs: '90%', sm: '70%', md: '55%' },
-                  p: { xs: 2, sm: 9 },
-                  backgroundColor: 'rgba(0,0,0,0.4)',
+                  bgcolor: 'rgba(0,0,0,0.4)',
                   backdropFilter: 'blur(6px)',
                   borderRadius: 2,
+                  p: 2,
+                  mb: 3,
                   color: '#eee',
                 }}
               >
-                <Typography variant="h6" sx={{ color: '#ccc', mb: 1 }}>
-                  00/ Welcome
-                </Typography>
-                <Typography
-                  component="h1"
-                  sx={{
-                    fontSize: { xs: '1.8rem', sm: '2.5rem', md: '4rem' },
-                    fontFamily: '"Inter", sans-serif',
-                    lineHeight: 1.2,
-                    fontWeight: 700,
-                    mb: 2,
-                  }}
-                >
-                  With 20+ Years of Experience, We Are Here To Serve You
+                <Typography variant="body1" sx={{ fontSize: { xs: '0.9rem', md: '1rem' } }}>
+                  Get in touch with one of Salem&apos;s premier contractors.
                 </Typography>
               </Box>
 
-              <Box
+              {/* MODAL TRIGGER BUTTON */}
+              <Button
+                variant="contained"
+                size="medium"
+                onClick={() => setModalOpen(true)}
                 sx={{
-                  position: 'absolute',
-                  bottom: { xs: 40, md: 100 },
-                  left: { xs: '5%', md: '5%' },
+                  backgroundColor: '#f44336',
                   color: '#fff',
-                  maxWidth: { xs: '90%', sm: 400 },
-                  zIndex: 2,
+                  fontWeight: 'bold',
+                  borderRadius: '999px',
+                  px: 3,
+                  fontSize: { xs: '0.9rem', md: '1rem' },
+                  '&:hover': { backgroundColor: '#d32f2f' },
                 }}
               >
-                <Box
-                  sx={{
-                    bgcolor: 'rgba(0,0,0,0.4)',
-                    backdropFilter: 'blur(6px)',
-                    borderRadius: 2,
-                    p: 2,
-                    mb: 3,
-                    color: '#eee',
-                  }}
-                >
-                  <Typography variant="body1" sx={{ fontSize: { xs: '0.9rem', md: '1rem' } }}>
-                    Get in touch with one of Salem's premier contractors.
-                  </Typography>
-                </Box>
-
-                <Button
-                  variant="contained"
-                  size="medium"
-                  sx={{
-                    backgroundColor: '#f44336',
-                    color: '#fff',
-                    fontWeight: 'bold',
-                    borderRadius: '999px',
-                    px: 3,
-                    fontSize: { xs: '0.9rem', md: '1rem' },
-                    '&:hover': { backgroundColor: '#d32f2f' },
-                  }}
-                >
-                  Get Estimate
-                </Button>
-              </Box>
+                Get Estimate
+              </Button>
             </Box>
-          </section>
+          </Box>
+        </section>
 
           {/* About Section */}
           <section>

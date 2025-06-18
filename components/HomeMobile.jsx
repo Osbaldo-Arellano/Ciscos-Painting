@@ -112,7 +112,7 @@ export default function HomeMobile() {
       {/* About */}
       <Box sx={{ py: 6, px: 2 }}>
         <Typography variant="h6" sx={{ color: '#aaa', mb: 1 }}>
-         02/ About Us
+         01/ About Us
         </Typography>
         <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 3, color: '#fff' }}>
           Reviving Homes, Restoring Trust
@@ -190,7 +190,7 @@ export default function HomeMobile() {
       {/* Services */}
       <Box sx={{ bgcolor: '#1a1a1a', py: 6, px: 2 }}>
         <Typography variant="h6" sx={{ color: '#aaa', mb: 1 }}>
-          03/ Our Services
+          02/ Our Services
         </Typography>
         <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 3, color: '#fff' }}>
           Our Various Services Are Provided For You

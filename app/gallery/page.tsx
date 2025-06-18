@@ -41,7 +41,10 @@ export default function GalleryPage() {
       <Box sx={{ bgcolor: '#111', color: '#eee', minHeight: '100vh' }}>
         <HeroSection ref={heroRef} />
         {showScrollHint && <ScrollHint />}
-        <Box sx={{ marginLeft: 0, marginRight: 8, bgcolor: '#111' }}>
+        <Box sx={{ marginLeft: isDesktop ? 0 : -9,
+                   marginRight: isDesktop ? 10 : 0, 
+                   bgcolor: '#111' 
+                }}>
           <Projects />
         </Box>
         <Footer />
