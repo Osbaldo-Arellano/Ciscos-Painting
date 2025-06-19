@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { Box, Card, CardMedia, CardContent, Typography, Button, SxProps, Theme } from '@mui/material';
 
 type ServiceCardProps = {
@@ -107,25 +108,32 @@ export default function ServiceCard({
           <Typography variant="body2" color="text.secondary" mb={2}>
             {description}
           </Typography>
-          <Button
-            variant="contained"
-            size="small"
-            sx={{
-              borderRadius: '999px',
-              background: gradient,
-              color: 'white',
-              fontWeight: 600,
-              textTransform: 'none',
-              px: 3,
-              '&:hover': {
-                background: gradient,
-                opacity: 0.85,
-                boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
-              },
-            }}
+
+          <Link
+            href="/contact"
+            aria-label={`Learn more about ${title} services and contact us`}
+            style={{ textDecoration: 'none' }}
           >
-            Learn More
-          </Button>
+            <Button
+              variant="contained"
+              size="small"
+              sx={{
+                borderRadius: '999px',
+                background: gradient,
+                color: 'white',
+                fontWeight: 600,
+                textTransform: 'none',
+                px: 3,
+                '&:hover': {
+                  background: gradient,
+                  opacity: 0.85,
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                },
+              }}
+            >
+              Learn More
+            </Button>
+          </Link>
         </CardContent>
       </Box>
     </Card>

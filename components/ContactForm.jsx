@@ -43,9 +43,20 @@ export default function ContactForm() {
         gap: 2,
       }}
     >
-      <Typography variant="h4" component="h1" gutterBottom>
-        Contact Me
-      </Typography>
+      <Typography
+            component="h2"
+            sx={{
+                fontSize: { xs: '2.5rem', sm: '3rem', md: '3rem' },
+                fontFamily: '"Inter", sans-serif',
+                lineHeight: 1.3,
+                letterSpacing: '0.3px',
+                fontWeight: 700,
+                mb: 4,
+                color: '#ccc',
+            }}  
+            >
+    Contact Us                  
+    </Typography>
 
       <TextField
         label="Name"

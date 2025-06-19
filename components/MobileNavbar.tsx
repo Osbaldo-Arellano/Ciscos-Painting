@@ -120,16 +120,14 @@ export default function MobileNavbar() {
       >
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1 }}>
-            <Link href="/" passHref>
-              <Box sx={{ display: 'inline-block' }}>
-                <Image
-                  src="/images/logo.png"
-                  alt="Logo"
-                  width={120}
-                  height={100}
-                  priority
-                />
-              </Box>
+            <Link href="/" style={{ display: 'inline-block' }}>
+              <Image
+                src="/images/logo.png"
+                alt="Logo"
+                width={120}
+                height={100}
+                priority
+              />
             </Link>
           </Box>
           <IconButton onClick={toggleDrawer} aria-label="menu">
@@ -138,7 +136,6 @@ export default function MobileNavbar() {
         </Toolbar>
       </AppBar>
 
-      {/* Drawer */}
       <Drawer
         anchor="right"
         open={drawerOpen}
@@ -147,93 +144,153 @@ export default function MobileNavbar() {
           BackdropProps: {
             sx: {
               backdropFilter: drawerOpen ? 'blur(8px)' : 'none',
-              backgroundColor: drawerOpen ? 'rgba(0,0,0,0.2)' : 'transparent',
+              backgroundColor: drawerOpen ? 'rgba(0,0,0,0.4)' : 'transparent',
             },
           },
         }}
-      >
-        <Box
-          sx={{
-            width: 280,
+        sx={{
+          zIndex: 1500,
+          '& .MuiDrawer-paper': {
+            background: 'linear-gradient(135deg, #111, #222)',
+            color: '#eee',
+            width: 300,
+            borderLeft: '1px solid black',
+            boxShadow: '0 0 20px rgba(0,0,0,0.6)',
             display: 'flex',
             flexDirection: 'column',
-            height: '100%',
             justifyContent: 'space-between',
-          }}
-        >
-          <Box>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-start', p: 2 }}>
-              <IconButton onClick={toggleDrawer} aria-label="close drawer">
-                <CloseIcon />
-              </IconButton>
-            </Box>
-            <Divider />
-            <List>
-              <NavLink label="Home" href="/" toggleDrawer={toggleDrawer} />
-              <NavLink label="Gallery" href="/gallery" toggleDrawer={toggleDrawer} />
-              <NavLink label="About Us" href="/about" toggleDrawer={toggleDrawer} />
-              <NavLink label="Contact" href="/contact" toggleDrawer={toggleDrawer} />
+          },
+        }}
+      >
+        <Box sx={{ flexGrow: 1 }}>
+          {/* Banner with Company Logo */}
+          <Box
+            sx={{
+              background: 'linear-gradient(45deg, #666, #222 100%, #111)',
+              p: 2,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative',
+              borderBottom: '1px solid #b71c1c',
+            }}
+          >
 
-              <ListItem button onClick={() => setServicesOpen(!servicesOpen)}>
-                <ListItemText primary="Services" />
-                {servicesOpen ? <ExpandLess /> : <ExpandMore />}
-              </ListItem>
-              <Collapse in={servicesOpen} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  {['Interior', 'Exterior'].map((service) => (
-                    <ListItem
-                      key={service}
-                      button
-                      onClick={() => toggleDrawer()}
-                      sx={{
-                        pl: 4,
-                        '&:hover': {
-                          backgroundColor: 'rgba(0,0,0,0.04)',
-                        },
-                      }}
-                    >
-                      <ListItemText primary={service} />
-                    </ListItem>
-                  ))}
-                </List>
-              </Collapse>
-            </List>
+            <Image
+              src="/images/logo.png"
+              alt="Company Logo"
+              width={120}
+              height={80}
+              style={{ objectFit: 'contain' }}
+              priority
+            />
+            <IconButton
+              onClick={toggleDrawer}
+              aria-label="close drawer"
+              sx={{
+                position: 'absolute',
+                right: 8,
+                top: 8,
+                color: '#fff',
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
           </Box>
 
-          <Box sx={{ p: 2 }}>
-            <Button
-              fullWidth
-              variant="contained"
-              onClick={() => {
-                setModalOpen(true);
-                setDrawerOpen(false);
-              }}
+          <Divider sx={{ borderColor: 'rgba(255,255,255,0.1)' }} />
+
+          {/* Nav Links */}
+          <List>
+            <NavLink label="Home" href="/" toggleDrawer={toggleDrawer} />
+            <NavLink label="Gallery" href="/gallery" toggleDrawer={toggleDrawer} />
+            <NavLink label="About Us" href="/about" toggleDrawer={toggleDrawer} />
+            <NavLink label="Contact" href="/contact" toggleDrawer={toggleDrawer} />
+
+            <ListItem
+              onClick={() => setServicesOpen(!servicesOpen)}
               sx={{
-                backgroundColor: '#b71c1c',
-                color: 'white',
-                borderRadius: '20px',
-                fontWeight: 'bold',
+                color: '#eee',
+                cursor: 'pointer',
+                px: 2,
                 py: 1,
-                boxShadow: '0 4px 8px rgba(183, 28, 28, 0.4)',
                 '&:hover': {
-                  backgroundColor: '#a31818',
+                  bgcolor: 'rgba(255,255,255,0.05)',
                 },
               }}
             >
-              Get Estimate
-            </Button>
-          </Box>
+              <ListItemText primary="Services" />
+              {servicesOpen ? <ExpandLess sx={{ color: '#eee' }} /> : <ExpandMore sx={{ color: '#eee' }} />}
+            </ListItem>
+
+            <Collapse in={servicesOpen} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                {['Interior', 'Exterior'].map((service) => (
+                  <ListItem
+                    key={service}
+                    onClick={toggleDrawer}
+                    sx={{
+                      pl: 4,
+                      py: 0.5,
+                      cursor: 'pointer',
+                      '&:hover': {
+                        backgroundColor: 'rgba(255,255,255,0.05)',
+                      },
+                    }}
+                  >
+                    <NavLink label={service} href="/services" toggleDrawer={toggleDrawer} />
+                  </ListItem>
+                ))}
+              </List>
+            </Collapse>
+          </List>
+        </Box>
+
+        {/* CTA Button */}
+        <Box sx={{ p: 2 }}>
+          <Button
+            fullWidth
+            variant="contained"
+            onClick={() => {
+              setModalOpen(true);
+              setDrawerOpen(false);
+            }}
+            sx={{
+              backgroundColor: '#b71c1c',
+              color: 'white',
+              borderRadius: '25px',
+              fontWeight: 'bold',
+              py: 1.2,
+              fontSize: '1rem',
+              boxShadow: '0 4px 12px rgba(183, 28, 28, 0.5)',
+              '&:hover': {
+                backgroundColor: '#a31818',
+              },
+            }}
+          >
+            Get Estimate
+          </Button>
         </Box>
       </Drawer>
+
     </>
   );
 }
 
 function NavLink({ label, href, toggleDrawer }: any) {
   return (
-    <ListItem button component={Link} href={href} onClick={toggleDrawer}>
-      <ListItemText primary={label} />
-    </ListItem>
+    <Link href={href} style={{ textDecoration: 'none', color: 'inherit' }} onClick={toggleDrawer}>
+      <ListItem
+        sx={{
+          '&:hover': { backgroundColor: 'rgba(255,255,255,0.05)' },
+          cursor: 'pointer',
+          px: 2,
+          py: 1,
+        }}
+      >
+        <ListItemText primary={label} />
+      </ListItem>
+    </Link>
   );
 }
 

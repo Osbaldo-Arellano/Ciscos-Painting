@@ -20,7 +20,7 @@ import {
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useState, useRef, useEffect } from 'react';
-import EstimateModal from '@/components/EstimateModal'; // <- adjust path if needed
+import EstimateModal from '@/components/EstimateModal'; 
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -111,9 +111,24 @@ export default function Navbar() {
       >
         <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between' }}>
           {/* Logo */}
-          <Box sx={{ display: 'flex', alignItems: 'center', mt: 5 }}>
-            <Image src="/images/logo.png" alt="Logo" height={150} width={180} priority />
-          </Box>
+          <Link href="/" passHref>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                mt: 5,
+                cursor: 'pointer', // ✅ makes it feel clickable
+              }}
+            >
+              <Image
+                src="/images/logo.png"
+                alt="Logo"
+                height={150}
+                width={180}
+                priority
+              />
+            </Box>
+          </Link>
 
           {/* Nav Links */}
           <Box sx={{ display: 'flex', alignItems: 'center', ml: 4, gap: 2 }}>

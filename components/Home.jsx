@@ -5,6 +5,7 @@ import { Box, Typography, Button, Grid } from '@mui/material';
 import StackedServiceCards from '@/components/StackedServiceCards';
 import { useState } from 'react';
 import EstimateModal from '@/components/EstimateModal'; 
+import ContactForm from '@/components/ContactForm'
 
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -183,6 +184,38 @@ export default function Home() {
             </Box>
           </Box>
         </section>
+        {/* Services Section */}
+        <section>
+          <Box sx={{ background: '#1a1a1a', py: { xs: 8, md: 5 }, px: 9, marginTop:8, width: 'auto', marginRight: 10, borderRadius: 3}}>
+            <Typography variant="h5" sx={{ color: '#ccc', mb: 1 }}>
+              01/ Our Services
+            </Typography>
+            <Typography
+                component="h2"
+                sx={{
+                  fontSize: { xs: '2.5rem', sm: '4rem', md: '5rem' },
+                  fontFamily: '"Inter", sans-serif',
+                  lineHeight: 1.3,
+                  letterSpacing: '0.3px',
+                  fontWeight: 700,
+                  color: '#ccc',
+                  alignSelf: 'flex-start',
+                }}
+              >
+                We Have a Solution
+              </Typography>
+                          <Typography variant="h6" sx={{ color: '#ccc', mb: 1 }}>
+               Painting, Siding, Fences, Roofing, Drywall, Carpentry, Janitorial, Cabinet re-paint and finishing, and Restoration
+            </Typography>
+              <Box  sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                    }}
+              >
+                <StackedServiceCards services={servicesData} />
+              </Box>
+          </Box>
+        </section>
 
           {/* About Section */}
           <section>
@@ -205,7 +238,7 @@ export default function Home() {
               }}
             >
               <Typography variant="h5" sx={{ color: '#ccc', alignSelf: 'flex-start', mb: 1 }}>
-                01/ About Us
+                02/ About Us
               </Typography>
               <Typography
                 component="h2"
@@ -314,7 +347,10 @@ export default function Home() {
                     </Button>
                   </Link>
                 </Grid>
+                
               </Grid>
+
+              
 
               {/* Stats Cards Container */}
               <Box
@@ -332,10 +368,11 @@ export default function Home() {
                 }}
               >
                 {[
-                  ['20+ Years', 'Of Professional Experience', 'linear-gradient(90deg, #b71c1c, #880e4f)'],
+                  ['20+ Years', 'Of Professional Experience', 'linear-gradient(90deg, #b71c1c, #880e4f)'], 
                   ['10+ Years', 'Serving Salem and Portland since 2013.', 'linear-gradient(90deg, #4a148c, #1a237e)'],
                   ['Customer Satisfaction', 'We Strive to Please Our Customers.', 'linear-gradient(90deg, #00695c, #004d40)'],
                 ].map(([title, text, gradient], index) => (
+                  
                   <Box
                     key={index}
                     sx={{
@@ -410,39 +447,131 @@ export default function Home() {
             </Box>
           </section>
 
-          
-        {/* Services Section */}
-        <section>
-          <Box sx={{ background: '#1a1a1a', py: { xs: 8, md: 5 }, px: 9, width: 'auto', marginRight: 10, borderRadius: 3}}>
-            <Typography variant="h5" sx={{ color: '#ccc', mb: 1 }}>
-              02/ Our Services
-            </Typography>
-            <Typography
-                component="h2"
+          <section>
+            <Box
+              sx={{
+                background: '#1a1a1a',
+                py: { xs: 8, md: 9 },
+                px: { xs: 2, md: 9 },
+                mt: 8,
+                borderRadius: 3,
+                color: '#eee',
+                mr:10
+              }}
+            >
+              <Box
                 sx={{
-                  fontSize: { xs: '2.5rem', sm: '4rem', md: '5rem' },
-                  fontFamily: '"Inter", sans-serif',
-                  lineHeight: 1.3,
-                  letterSpacing: '0.3px',
-                  fontWeight: 700,
-                  color: '#ccc',
-                  alignSelf: 'flex-start',
+                  display: 'flex',
+                  flexDirection: { xs: 'column', md: 'row' },
+                  gap: 6,
                 }}
               >
-                We Have a Solution
-              </Typography>
-                          <Typography variant="h6" sx={{ color: '#ccc', mb: 1 }}>
-               Painting, Siding, Fences, Roofing, Drywall, Carpentry, Janitorial, Cabinet re-paint and finishing, and Restoration
-            </Typography>
-              <Box  sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
+                {/* Left side: Heading */}
+                <Box sx={{ flex: '0 0 400px', maxWidth: 500 }}>
+                  <Typography variant="h5" sx={{ color: '#ccc', mb: 1 }}>
+                    03 / Contact Us
+                  </Typography>
+                  <Typography
+                    component="h2"
+                    sx={{
+                      fontSize: { xs: '2.5rem', sm: '4rem', md: '5rem' },
+                      fontFamily: '"Inter", sans-serif',
+                      lineHeight: 1.3,
+                      letterSpacing: '0.3px',
+                      fontWeight: 700,
+                      mb: 4,
+                      color: '#ccc',
                     }}
-              >
-                <StackedServiceCards services={servicesData} />
+                  >
+                    From House to Home, with Care.
+                  </Typography>
+                </Box>
+
+                <Box
+                  sx={{
+                    flex: 1,
+                    p: 4,
+                    borderRadius: '16px',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    color: '#eee',
+                    background:
+                      'linear-gradient(25deg, #2e2e2e, #1a1a1a, #1a1231)',
+
+                    boxShadow: '0 8px 30px rgba(0,0,0,0.9)',
+
+                    // Glow effect circles for depth and softness
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+
+                      width: '280px',
+                      height: '280px',
+                      background:
+                        'radial-gradient(circle at center,rgb(216, 6, 6) 0%, transparent 70%)', // dark purple glow
+                      opacity: 0.3,
+                      borderRadius: '50%',
+                      filter: 'blur(70px)',
+                      zIndex: 0,
+                      transform: 'rotate(15deg)',
+                    },
+
+                    '&::after': {
+                      content: '""',
+                      position: 'absolute',
+                      width: '320px',
+                      height: '320px',
+                      background:
+                        'radial-gradient(circle at center, #000000 0%, transparent 80%)', // black glow
+                      opacity: 0.3,
+                      borderRadius: '50%',
+                      filter: 'blur(90px)',
+                      zIndex: 0,
+                      transform: 'rotate(-10deg)',
+                    },
+
+                    // Inner container to add a subtle dark overlay with a soft border
+                    '& > div': {
+                      position: 'relative',
+                      zIndex: 1,
+                      backgroundColor: 'rgba(20, 20, 30, 0.8)',
+                      borderRadius: '12px',
+                      padding: 3,
+                      boxShadow: 'inset 0 0 20px rgba(255, 255, 255, 0.05)',
+                    },
+
+                    // TextField styles for white text & subtle outlines
+                    '& .MuiTextField-root input, & textarea': {
+                      color: '#eee',
+
+                    },
+                    '& .MuiInputLabel-root': {
+                      color: '#bbb',
+
+                    },
+                    '& .MuiOutlinedInput-root': {
+                      zIndex: 2,
+                      '& fieldset': {
+                        borderColor: '#555',
+                      },
+                      '&:hover fieldset': {
+                        borderColor: '#b388eb', // subtle purple highlight on hover
+                      },
+                      '&.Mui-focused fieldset': {
+                        borderColor: '#b388eb',
+                        boxShadow: '0 0 8px #b388eb',
+                      },
+                    },
+                  }}
+                >
+                  <ContactForm />
+                </Box>
+
+
               </Box>
-          </Box>
-        </section>
+            </Box>
+          </section>
+
         </Box>
       </main>
     </>
