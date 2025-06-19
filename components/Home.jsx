@@ -537,7 +537,6 @@ export default function Home() {
 
                     },
                     '& .MuiOutlinedInput-root': {
-                      zIndex: 2,
                       '& fieldset': {
                         borderColor: '#555',
                       },
@@ -545,8 +544,8 @@ export default function Home() {
                         borderColor: '#b388eb', // subtle purple highlight on hover
                       },
                       '&.Mui-focused fieldset': {
-                        borderColor: '#b388eb',
-                        boxShadow: '0 0 8px #b388eb',
+                        borderColor: '#333',
+                        boxShadow: '0 0 8px #333',
                       },
                     },
                   }}
