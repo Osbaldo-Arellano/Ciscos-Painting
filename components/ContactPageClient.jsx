@@ -1,7 +1,15 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { Box, Typography, TextField, Button, Alert, useMediaQuery } from '@mui/material';
+import { useState, useRef } from 'react';
+import Head from 'next/head'; // Make sure you have next/head imported
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Alert,
+  useMediaQuery,
+} from '@mui/material';
 import DesktopNav from '@/components/Navbar';
 import MobileNav from '@/components/MobileNavbar';
 import Footer from '@/components/Footer';
@@ -13,9 +21,44 @@ export default function ContactPage() {
 
   return (
     <>
+      <Head>
+        <title>Contact Us | Cisco&apos;s Painting</title>
+        <meta
+          name="description"
+          content="Get in touch with Cisco's Painting for residential, commercial, and custom painting services. Fill out our contact form to start your project today."
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'ContactPage',
+              'url': 'https://yourwebsite.com/contact',
+              'mainEntity': {
+                '@type': 'LocalBusiness',
+                'name': "Cisco's Painting",
+                'telephone': '+15039999060',
+                'address': {
+                  '@type': 'PostalAddress',
+                  'streetAddress': '1489 Arabian Ave SE',
+                  'addressLocality': 'Salem',
+                  'addressRegion': 'OR',
+                  'postalCode': '97317',
+                  'addressCountry': 'US',
+                },
+              },
+            }),
+          }}
+        />
+      </Head>
+
       <GlobalStyles />
       {isDesktop ? <DesktopNav /> : <MobileNav />}
-      <Box sx={{ bgcolor: '#111', color: '#eee', minHeight: '100vh' }}>
+
+      <Box
+        component="main"
+        sx={{ bgcolor: '#111', color: '#eee', minHeight: '100vh' }}
+      >
         <HeroSection ref={heroRef} />
         <Footer />
       </Box>
@@ -28,6 +71,8 @@ const HeroSection = React.forwardRef((_, ref) => {
   return (
     <Box
       ref={ref}
+      component="section"
+      aria-labelledby="contact-heading"
       sx={{
         position: 'relative',
         height: '100vh',
@@ -56,13 +101,9 @@ const HeroSection = React.forwardRef((_, ref) => {
           width: { xs: '100%', md: '50%' },
         }}
       >
-        <Typography variant="h6" sx={{ color: '#bbb', mb: 1 }} className="fade-in">
-          Contact Us
-        </Typography>
         <Typography
+          id="contact-heading"
           component="h1"
-          className="fade-in"
-          style={{ animationDelay: '0.2s' }}
           sx={{
             fontSize: { xs: '2rem', sm: '2.5rem', md: '3.5rem' },
             fontFamily: '"Inter", sans-serif',
@@ -70,8 +111,10 @@ const HeroSection = React.forwardRef((_, ref) => {
             fontWeight: 700,
             mb: 2,
           }}
+          className="fade-in"
+          style={{ animationDelay: '0.2s' }}
         >
-          Let's Bring Your Vision to Life
+          Let&apos;s Bring Your Vision to Life
         </Typography>
         <Typography
           variant="body1"
@@ -79,7 +122,8 @@ const HeroSection = React.forwardRef((_, ref) => {
           style={{ animationDelay: '0.4s' }}
           sx={{ mb: 3, color: '#ddd' }}
         >
-          Whether it's a home, office, or custom project — we want to hear from you.
+          Whether it&apos;s a home, office, or custom project — we want to hear
+          from you.
         </Typography>
       </Box>
 
@@ -114,7 +158,8 @@ function ContactForm() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState({ success: null, message: '' });
 
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -130,18 +175,27 @@ function ContactForm() {
       setStatus({ success: result.success, message: result.message });
       if (result.success) setFormData({ name: '', email: '', message: '' });
     } catch {
-      setStatus({ success: false, message: 'Something went wrong. Please try again.' });
+      setStatus({
+        success: false,
+        message: 'Something went wrong. Please try again.',
+      });
     }
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      aria-describedby="form-feedback"
+      sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+    >
       <Typography variant="h5" sx={{ fontWeight: 700, color: '#eee' }}>
         Contact Us
       </Typography>
 
       <TextField
         label="Name"
+        id="name"
         name="name"
         value={formData.name}
         onChange={handleChange}
@@ -153,6 +207,7 @@ function ContactForm() {
 
       <TextField
         label="Email"
+        id="email"
         name="email"
         type="email"
         value={formData.email}
@@ -165,6 +220,7 @@ function ContactForm() {
 
       <TextField
         label="Message"
+        id="message"
         name="message"
         value={formData.message}
         onChange={handleChange}
@@ -177,7 +233,12 @@ function ContactForm() {
       />
 
       {status.message && (
-        <Alert severity={status.success ? 'success' : 'error'}>{status.message}</Alert>
+        <Alert
+          id="form-feedback"
+          severity={status.success ? 'success' : 'error'}
+        >
+          {status.message}
+        </Alert>
       )}
 
       <Button
@@ -213,9 +274,6 @@ function GlobalStyles() {
       .fade-in {
         opacity: 0;
         animation: fadeIn 0.8s ease forwards;
-      }
-      .fade-in-visible {
-        opacity: 1;
       }
     `}</style>
   );

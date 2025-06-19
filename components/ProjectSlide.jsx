@@ -1,8 +1,9 @@
+'use client';
+
 import { useState, useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import Image from 'next/image';
 
 export default function ProjectSlide({ project }) {
   const [mainSlider, setMainSlider] = useState(null);
@@ -26,7 +27,7 @@ export default function ProjectSlide({ project }) {
     touchMove: false,
     draggable: false,
     asNavFor: thumbnailSlider,
-    ref: mainRef
+    ref: mainRef,
   };
 
   const thumbnailSettings = {
@@ -43,73 +44,74 @@ export default function ProjectSlide({ project }) {
     asNavFor: mainSlider,
     ref: thumbRef,
     centerMode: true,
-    centerPadding: '0px'
+    centerPadding: '0px',
   };
 
   return (
-    <Box sx={{ 
-      display: 'flex', 
-      flexDirection: { xs: 'column', md: 'row' },
-      alignItems: 'stretch',
-      minHeight: 400
-    }}>
-      {/* LHS: Image Carousel with Thumbnails */}
-      <Box sx={{ 
-        width: { xs: '100%', md: '40%' },
-        minHeight: { xs: 300, md: 'auto' },
+    <Box
+      sx={{
         display: 'flex',
-        flexDirection: 'column'
-      }}>
+        flexDirection: { xs: 'column', md: 'row' },
+        alignItems: 'stretch',
+        minHeight: "70vh",
+      }}
+    >
+      {/* LHS: Image Carousel with Thumbnails */}
+      <Box
+        sx={{
+          width: { xs: '100%', md: '40%' },
+          minHeight: { xs: 300, md: 'auto' },
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         {/* Main Image Slider */}
         <Slider {...mainSettings} style={{ flex: 1 }}>
           {project.images.map((src, i) => (
-            <Box
-              key={i}
-              component="img"
-              src={src}
-              alt={`Slide ${i}`}
-              sx={{ 
-                width: '100%', 
-                height: { xs: 300, md: '100%' },
-                objectFit: 'cover',
-                display: 'block'
-              }}
-            />
+            <Box key={i} sx={{ position: 'relative', width: '100%', height: { xs: 300, md: '100%' } }}>
+              <Image
+                src={src}
+                alt={`${project.title} - image ${i + 1}`}
+                fill
+                style={{ objectFit: 'cover', borderRadius: 8 }}
+                priority={i === 0}
+                loading={i === 0 ? 'eager' : 'lazy'}
+              />
+            </Box>
           ))}
         </Slider>
-        
+
         {/* Thumbnail Preview */}
-        <Box sx={{ 
-          mt: 2,
-          px: 2,
-          maxWidth: '100%',
-          '.slick-slide': {
-            padding: '0 5px',
-            '& img': {
-              border: '2px solid transparent',
-              opacity: 0.6,
-              transition: 'all 0.3s ease',
-              cursor: 'pointer'
+        <Box
+          sx={{
+            mt: 2,
+            px: 2,
+            maxWidth: '100%',
+            '.slick-slide': {
+              padding: '0 5px',
+              '& img': {
+                border: '2px solid transparent',
+                opacity: 0.6,
+                transition: 'all 0.3s ease',
+                cursor: 'pointer',
+                borderRadius: 1,
+              },
+              '&.slick-center img': {
+                borderColor: 'primary.main',
+                opacity: 1,
+              },
             },
-            '&.slick-center img': {
-              borderColor: 'primary.main',
-              opacity: 1
-            }
-          }
-        }}>
+          }}
+        >
           <Slider {...thumbnailSettings}>
             {project.images.map((src, i) => (
-              <Box key={i}>
-                <Box
-                  component="img"
+              <Box key={i} sx={{ position: 'relative', height: 60 }}>
+                <Image
                   src={src}
-                  alt={`Thumbnail ${i}`}
-                  sx={{
-                    width: '100%',
-                    height: 60,
-                    objectFit: 'cover',
-                    borderRadius: 1
-                  }}
+                  alt={`${project.title} - thumbnail ${i + 1}`}
+                  fill
+                  style={{ objectFit: 'cover', borderRadius: 8 }}
+                  loading="lazy"
                 />
               </Box>
             ))}
@@ -156,7 +158,6 @@ export default function ProjectSlide({ project }) {
           {project.description}
         </Typography>
       </Box>
-
     </Box>
   );
 }

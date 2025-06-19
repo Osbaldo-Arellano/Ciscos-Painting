@@ -1,6 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
-import { Box, Card, CardMedia, CardContent, Typography, Button, SxProps, Theme } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  Button,
+  SxProps,
+  Theme,
+} from '@mui/material';
 
 type ServiceCardProps = {
   image: string;
@@ -27,6 +36,9 @@ export default function ServiceCard({
     <Card
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      role="article"
+      aria-label={`${title} service`}
+      tabIndex={0} // Make card keyboard focusable for accessibility
       sx={{
         width: { xs: '90vw', sm: '30vw' },
         cursor: 'pointer',
@@ -36,6 +48,11 @@ export default function ServiceCard({
         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
         position: 'relative',
         overflow: 'hidden',
+        outline: 'none',
+        '&:focus-visible': {
+          outline: '3px solid #b71c1c',
+          outlineOffset: '2px',
+        },
         '&::before': {
           content: '""',
           position: 'absolute',
@@ -45,11 +62,21 @@ export default function ServiceCard({
           height: 6,
           background: gradient,
         },
+        height: '100%',
         ...style,
       }}
+      onKeyDown={(e) => {
+        // Optional: trigger hover effects on keyboard "Enter" or "Space"
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onMouseEnter();
+        }
+      }}
+      onBlur={onMouseLeave}
     >
       {/* Background gradient overlay */}
       <Box
+        aria-hidden="true"
         sx={{
           position: 'absolute',
           top: 0,
@@ -59,20 +86,22 @@ export default function ServiceCard({
           background: gradient,
           opacity: 0.08,
           zIndex: 0,
+          pointerEvents: 'none',
         }}
       />
 
       {/* Vertical title label */}
       <Box
+        aria-hidden="true"
         sx={{
           position: 'absolute',
           bottom: 8,
           right: 8,
-          writingMode: 'vertical-rl', 
-          transform: 'rotate(180deg)', 
+          writingMode: 'vertical-rl',
+          transform: 'rotate(180deg)',
           fontSize: 14,
           color: '#fff',
-          background: 'rgba(0,0,0,0.8)', 
+          background: 'rgba(0,0,0,0.8)',
           px: 1,
           py: 1,
           borderRadius: 1,
@@ -81,6 +110,7 @@ export default function ServiceCard({
           textTransform: 'uppercase',
           fontWeight: 500,
           userSelect: 'none',
+          pointerEvents: 'none',
         }}
       >
         {title}
@@ -89,8 +119,8 @@ export default function ServiceCard({
       <Box sx={{ position: 'relative', zIndex: 1 }}>
         <CardMedia
           component="img"
-          image={image}
-          alt={title}
+          src={image}
+          alt={`${title} example image`}
           sx={{
             width: '100%',
             height: 250,
@@ -99,24 +129,30 @@ export default function ServiceCard({
             filter: isHovered ? 'brightness(1.05)' : 'brightness(1)',
             transition: 'filter 0.3s ease',
           }}
+          loading="lazy"
+          decoding="async"
         />
 
         <CardContent>
-          <Typography variant="h6" fontWeight={700} gutterBottom>
+          <Typography
+            variant="h6"
+            component="h3"
+            fontWeight={700}
+            gutterBottom
+          >
             {title}
           </Typography>
-          <Typography variant="body2" color="text.secondary" mb={2}>
-            {description}
-          </Typography>
-
-          <Link
-            href="/contact"
-            aria-label={`Learn more about ${title} services and contact us`}
-            style={{ textDecoration: 'none' }}
-          >
+          <Box sx={{ px: 1 }}>
+            <Typography variant="body2" color="text.secondary" mb={2}>
+              {description}
+            </Typography>
+          </Box>
+          <Link href="/contact" passHref legacyBehavior>
             <Button
+              component="a"
               variant="contained"
               size="small"
+              aria-label={`Learn more about ${title} services and contact us`}
               sx={{
                 borderRadius: '999px',
                 background: gradient,

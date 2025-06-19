@@ -24,6 +24,8 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Grid from '@mui/material/Grid';
+
 
 const services = [
   'Painting',
@@ -35,7 +37,6 @@ const services = [
   'Janitorial',
   'Cabinet re-paint and finishing',
   'Restoration',
-  'Contact',
 ];
 
 export default function MobileNavbar() {
@@ -47,8 +48,10 @@ export default function MobileNavbar() {
 
   return (
     <>
-      {/* Top red bar */}
+      {/* Top Call-to-Action */}
       <Box
+        component="section"
+        aria-label="Top Bar with Contact and Free Quote Button"
         sx={{
           backgroundColor: '#b71c1c',
           color: 'white',
@@ -58,10 +61,10 @@ export default function MobileNavbar() {
           justifyContent: 'space-between',
           alignItems: 'center',
           fontSize: '0.9rem',
-          userSelect: 'none',
         }}
       >
         <Button
+          aria-label="Request a free quote"
           sx={{
             color: 'white',
             fontWeight: 'bold',
@@ -70,12 +73,13 @@ export default function MobileNavbar() {
           }}
           onClick={() => setModalOpen(true)}
         >
-          FREE QUOTE HERE
+          FREE QUOTE
         </Button>
 
         <Button
           component="a"
-          href="tel:5032367003"
+          href="tel:5039999060"
+          aria-label="Call Cisco's Painting at 503-999-9060"
           sx={{
             color: 'white',
             fontWeight: 600,
@@ -87,8 +91,13 @@ export default function MobileNavbar() {
         </Button>
       </Box>
 
-      {/* Modal Estimate Form */}
-      <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+      {/* Estimate Form Modal */}
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        aria-labelledby="estimate-modal-title"
+        aria-describedby="estimate-modal-description"
+      >
         <Box
           sx={{
             bgcolor: '#111',
@@ -102,15 +111,19 @@ export default function MobileNavbar() {
             boxShadow: 24,
           }}
         >
-          <Typography variant="h5" sx={{ mb: 2 }}>
+          <Typography id="estimate-modal-title" variant="h1" sx={{ mb: 2, fontSize: '1.8rem' }}>
             Request Your Quote
+          </Typography>
+          <Typography id="estimate-modal-description" variant="body2" sx={{ mb: 2, color: '#ccc' }}>
+            Fill out this form for a personalized estimate from Cisco’s Painting.
           </Typography>
           <EstimateForm onClose={() => setModalOpen(false)} />
         </Box>
       </Modal>
 
-      {/* Main navbar */}
+      {/* Main Navigation */}
       <AppBar
+        component="nav"
         position="sticky"
         elevation={4}
         sx={{
@@ -120,22 +133,26 @@ export default function MobileNavbar() {
       >
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1 }}>
-            <Link href="/" style={{ display: 'inline-block' }}>
+            <Link href="/" aria-label="Go to Home page" style={{ display: 'inline-block' }}>
               <Image
                 src="/images/logo.png"
-                alt="Logo"
+                alt="Cisco's Painting Company Logo"
                 width={120}
                 height={100}
                 priority
               />
             </Link>
           </Box>
-          <IconButton onClick={toggleDrawer} aria-label="menu">
+          <IconButton
+            onClick={toggleDrawer}
+            aria-label="Open site navigation menu"
+          >
             <MenuIcon sx={{ color: '#ccc' }} />
           </IconButton>
         </Toolbar>
       </AppBar>
 
+      {/* Drawer Navigation */}
       <Drawer
         anchor="right"
         open={drawerOpen}
@@ -155,15 +172,11 @@ export default function MobileNavbar() {
             color: '#eee',
             width: 300,
             borderLeft: '1px solid black',
-            boxShadow: '0 0 20px rgba(0,0,0,0.6)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
           },
         }}
       >
         <Box sx={{ flexGrow: 1 }}>
-          {/* Banner with Company Logo */}
+          {/* Logo and Close */}
           <Box
             sx={{
               background: 'linear-gradient(45deg, #666, #222 100%, #111)',
@@ -175,18 +188,16 @@ export default function MobileNavbar() {
               borderBottom: '1px solid #b71c1c',
             }}
           >
-
             <Image
               src="/images/logo.png"
-              alt="Company Logo"
-              width={120}
-              height={80}
-              style={{ objectFit: 'contain' }}
+              alt="Cisco's Painting Logo"
+              width={140}
+              height={120}
               priority
             />
             <IconButton
               onClick={toggleDrawer}
-              aria-label="close drawer"
+              aria-label="Close navigation menu"
               sx={{
                 position: 'absolute',
                 right: 8,
@@ -200,54 +211,68 @@ export default function MobileNavbar() {
 
           <Divider sx={{ borderColor: 'rgba(255,255,255,0.1)' }} />
 
-          {/* Nav Links */}
-          <List>
-            <NavLink label="Home" href="/" toggleDrawer={toggleDrawer} />
-            <NavLink label="Gallery" href="/gallery" toggleDrawer={toggleDrawer} />
-            <NavLink label="About Us" href="/about" toggleDrawer={toggleDrawer} />
-            <NavLink label="Contact" href="/contact" toggleDrawer={toggleDrawer} />
+          <nav aria-label="Main site navigation">
+            <List>
+              <NavLink label="Home" href="/" toggleDrawer={toggleDrawer} />
+              <NavLink label="Gallery" href="/gallery" toggleDrawer={toggleDrawer} />
+              <NavLink label="Contact" href="/contact" toggleDrawer={toggleDrawer} />
 
-            <ListItem
-              onClick={() => setServicesOpen(!servicesOpen)}
-              sx={{
-                color: '#eee',
-                cursor: 'pointer',
-                px: 2,
-                py: 1,
-                '&:hover': {
-                  bgcolor: 'rgba(255,255,255,0.05)',
-                },
-              }}
-            >
-              <ListItemText primary="Services" />
-              {servicesOpen ? <ExpandLess sx={{ color: '#eee' }} /> : <ExpandMore sx={{ color: '#eee' }} />}
-            </ListItem>
+              <ListItem
+                onClick={() => setServicesOpen(!servicesOpen)}
+                sx={{
+                  color: '#eee',
+                  cursor: 'pointer',
+                  px: 2,
+                  py: 1,
+                  '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' },
+                }}
+                aria-expanded={servicesOpen}
+                aria-controls="services-submenu"
+                role="button"
+              >
+                <ListItemText primary="Services" />
+                {servicesOpen ? <ExpandLess sx={{ color: '#eee' }} /> : <ExpandMore sx={{ color: '#eee' }} />}
+              </ListItem>
 
-            <Collapse in={servicesOpen} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                {['Interior', 'Exterior'].map((service) => (
-                  <ListItem
-                    key={service}
-                    onClick={toggleDrawer}
-                    sx={{
-                      pl: 4,
-                      py: 0.5,
-                      cursor: 'pointer',
-                      '&:hover': {
-                        backgroundColor: 'rgba(255,255,255,0.05)',
-                      },
-                    }}
-                  >
-                    <NavLink label={service} href="/services" toggleDrawer={toggleDrawer} />
-                  </ListItem>
-                ))}
-              </List>
-            </Collapse>
-          </List>
+              <Collapse in={servicesOpen} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding id="services-submenu">
+                  {services.map((service) => (
+                    <ListItem
+                      key={service}
+                      onClick={toggleDrawer}
+                      sx={{
+                        pl: 4,
+                        py: 0.5,
+                        cursor: 'pointer',
+                        '&:hover': { backgroundColor: 'rgba(255,255,255,0.05)' },
+                      }}
+                    >
+                      <NavLink label={service} href={`/services#${service.toLowerCase().replace(/\s+/g, '-')}`} toggleDrawer={toggleDrawer} />
+                    </ListItem>
+                  ))}
+                </List>
+              </Collapse>
+            </List>
+          </nav>
+          
         </Box>
 
-        {/* CTA Button */}
         <Box sx={{ p: 2 }}>
+          {/* Contact Info */}
+          <Grid sx={{mb: 5}}>
+            <Typography component="h3" variant="subtitle1" sx={{ fontWeight: 'bold', color: 'white', mb: 1 }}>
+              Contact
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'gray', mb: 0.5 }}>
+              <Link href="tel:5039999060" >
+                (503) 999-9060
+              </Link>
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'gray' }}>
+              1489 Arabian Ave SE.<br />Salem, OR 97317
+            </Typography>
+          </Grid>
+
           <Button
             fullWidth
             variant="contained"
@@ -262,24 +287,24 @@ export default function MobileNavbar() {
               fontWeight: 'bold',
               py: 1.2,
               fontSize: '1rem',
-              boxShadow: '0 4px 12px rgba(183, 28, 28, 0.5)',
-              '&:hover': {
-                backgroundColor: '#a31818',
-              },
+              '&:hover': { backgroundColor: '#a31818' },
             }}
+            aria-label="Open Estimate Request Form"
           >
             Get Estimate
           </Button>
+          
         </Box>
+        
+                
       </Drawer>
-
     </>
   );
 }
 
-function NavLink({ label, href, toggleDrawer }: any) {
+function NavLink({ label, href, toggleDrawer }: { label: string; href: string; toggleDrawer: () => void }) {
   return (
-    <Link href={href} style={{ textDecoration: 'none', color: 'inherit' }} onClick={toggleDrawer}>
+    <Link href={href} onClick={toggleDrawer} style={{ textDecoration: 'none', color: 'inherit' }} aria-label={`Navigate to ${label}`}>
       <ListItem
         sx={{
           '&:hover': { backgroundColor: 'rgba(255,255,255,0.05)' },
@@ -303,10 +328,10 @@ function EstimateForm({ onClose }: { onClose: () => void }) {
     description: '',
   });
 
-  const handleChange = (e: any) =>
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log(formData);
     onClose();
@@ -374,7 +399,7 @@ function EstimateForm({ onClose }: { onClose: () => void }) {
         InputLabelProps={{ sx: { color: '#aaa' } }}
       />
       <Button type="submit" variant="contained" sx={{ bgcolor: '#b71c1c', '&:hover': { bgcolor: '#a31818' } }}>
-        Submit
+        Submit Estimate
       </Button>
     </Box>
   );

@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://ciscospainting.com
+
+# Sitemaps
+Sitemap: https://ciscospainting.com/sitemap.xml

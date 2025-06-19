@@ -1,221 +1,302 @@
-import { Box, Typography, Button, Grid, Paper, Card, CardContent } from '@mui/material';
-import BrushIcon from '@mui/icons-material/Brush';
+'use client';
 
-export default function HomeMobile() {
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Box, Typography, Button } from '@mui/material';
+import StackedServiceCards from '@/components/StackedServiceCards';
+import { useState } from 'react';
+import EstimateModal from '@/components/EstimateModal';
+import ContactForm from '@/components/ContactForm';
+import ServicesHorizontalScroll from '@/components/ServicesHorizontalScroll';
+
+export default function MobileHome() {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const servicesData = [
+    { image: '/images/painting.jpg', title: 'Painting', description: 'Professional painting services to refresh and beautify your property.' },
+    { image: '/images/siding.jpg', title: 'Siding', description: 'Durable siding installation and repair to protect and enhance your exterior.' },
+    { image: '/images/fences.jpg', title: 'Fences', description: 'Custom fence design and installation for privacy and security.' },
+    { image: '/images/roofing.jpg', title: 'Roofing', description: 'Reliable roofing solutions to keep your home safe and weatherproof.' },
+    { image: '/images/drywall.jpg', title: 'Drywall', description: 'Expert drywall installation, finishing, and repair services.' },
+    { image: '/images/carpentry.jpg', title: 'Carpentry', description: 'Skilled carpentry work tailored to your construction or renovation needs.' },
+    { image: '/images/janitorial.jpg', title: 'Janitorial', description: 'Comprehensive janitorial services for commercial and residential spaces.' },
+    { image: '/images/cabinet-repaint.jpg', title: 'Cabinet Re-paint', description: 'Transform your cabinets with professional repainting and finishing.' },
+    { image: '/images/restoration.jpg', title: 'Restoration', description: 'Quality restoration services to bring your property back to life.' },
+  ];
+
   return (
-    <Box sx={{ bgcolor: '#111', color: '#eee', width: '100%', overflowX: 'hidden' }}>
-      
-      {/* Top CTA */}
-      <Box sx={{ display: 'flex', justifyContent: 'center', px: 2, py: 3 }}>
-        <Button
-          variant="outlined"
-          size="small"
-          startIcon={<BrushIcon sx={{ color: '#f44336' }} />}
-          sx={{
-            color: '#eee',
-            borderColor: '#555',
-            borderRadius: '999px',
-            textTransform: 'none',
-            fontSize: '0.85rem',
-            px: 2,
-            '&:hover': { backgroundColor: '#222', borderColor: '#777' },
-          }}
-        >
-          Get a free estimate&nbsp;
-          <a href="/estimate" style={{ color: '#f44336', textDecoration: 'underline' }}>
-            here!
-          </a>
-        </Button>
-      </Box>
+    <>
+       <Head>
+        <title>Cisco's Painting | Salem's Premier Contractor</title>
+        <meta
+          name="description"
+          content="Cisco's Painting provides expert painting, siding, roofing, carpentry, and restoration services in Salem, Oregon and Portland metro."
+        />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://ciscospainting.com/" />
+        <meta property="og:title" content="Cisco's Painting" />
+        <meta property="og:description" content="Reviving Homes, Restoring Trust in Salem, Oregon." />
+        <meta property="og:image" content="https://ciscospainting.com/images/nice-house.jpg" />
+        <meta property="og:url" content="https://ciscospainting.com/" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Cisco's Painting" />
+        <meta name="twitter:description" content="Reviving Homes, Restoring Trust in Salem, Oregon." />
+        <meta name="twitter:image" content="https://ciscospainting.com/images/nice-house.jpg" />
 
-      {/* Heading */}
-      <Box sx={{ textAlign: 'center', py: 4, px: 2 }}>
-        <Typography
-          variant="h4"
-          sx={{
-            fontWeight: 'bold',
-            letterSpacing: '-0.5px',
-            fontSize: { xs: '1.8rem', sm: '2rem' },
-            color: '#fff',
-          }}
-        >
-          Transform or Restore your space with our painting and carpentry experts.
-        </Typography>
-      </Box>
-
-      {/* Hero Image */}
-      <Box
-        sx={{
-          position: 'relative',
-          height: '50vh',
-          width: '100vw',
-          maxWidth: '100%',
-          backgroundImage: 'url(images/home1.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        {/* Dark overlay */}
-        <Box
-          sx={{
-            position: 'absolute',
-            inset: 0,
-            bgcolor: 'rgba(0,0,0,0.6)',
-            zIndex: 1,
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "name": "Cisco's Painting",
+              "image": "https://ciscospainting.com/images/logo-bg.jpg",
+              "url": "https://ciscospainting.com/",
+              "telephone": "+1-503-999-9060",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "1489 Arabian Ave SE",
+                "addressLocality": "Salem",
+                "addressRegion": "OR",
+                "postalCode": "97317",
+                "addressCountry": "US"
+              },
+              "description":
+                "Professional painting, siding, roofing, carpentry, and restoration services in Salem, Oregon and Portland metro.",
+              "sameAs": [
+                "https://www.facebook.com/yourpage",
+                "https://www.instagram.com/yourprofile"
+              ]
+            }),
           }}
         />
-        {/* Overlay content */}
-        <Box
-          sx={{
-            position: 'absolute',
-            bottom: 16,
-            left: 0,
-            right: 0,
-            px: 2,
-            maxWidth: 400,
-            mx: 'auto',
-            boxSizing: 'border-box',
-            zIndex: 2,
-          }}
-        >
+      </Head>
+
+      <EstimateModal open={modalOpen} onClose={() => setModalOpen(false)} />
+
+      <Box>
+          {/* Hero Section */}
+        <section>
           <Box
             sx={{
-              bgcolor: 'rgba(0,0,0,0.4)',
-              backdropFilter: 'blur(6px)',
-              borderRadius: 2,
-              p: 2,
-              mb: 2,
+              position: 'relative',
+              height: { xs: '75vh', md: '100vh' },
+              width: '100%',
+              backgroundImage: 'url(/images/nice-house.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
             }}
           >
-            <Typography variant="body2" sx={{ color: '#ddd' }}>
-              Cisco's Painting is one of Salem's premier painting, repair, light remodel, and finish contractors.
-            </Typography>
-          </Box>
-
-          <Button
-            variant="contained"
-            size="small"
-            sx={{
-              backgroundColor: '#f44336',
-              color: '#fff',
-              fontWeight: 'bold',
-              borderRadius: '999px',
-              px: 3,
-              '&:hover': { backgroundColor: '#d32f2f' },
-            }}
-          >
-            Get Estimate
-          </Button>
-        </Box>
-      </Box>
-
-      {/* About */}
-      <Box sx={{ py: 6, px: 2 }}>
-        <Typography variant="h6" sx={{ color: '#aaa', mb: 1 }}>
-         01/ About Us
-        </Typography>
-        <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 3, color: '#fff' }}>
-          Reviving Homes, Restoring Trust
-        </Typography>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
             <Box
-              component="img"
-              src="images/home1.png"
-              alt="About"
-              sx={{ width: '100%', borderRadius: 2 }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography
-              variant="body2"
               sx={{
-                color: '#ccc',
-                lineHeight: 1.7,
-                fontSize: '0.95rem',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                bgcolor: 'rgba(0, 0, 0, 0.6)',
+                zIndex: 1,
+              }}
+            />
+
+            <Box
+              component="header"
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                left: 0,
+                transform: 'translateY(-60%)',
+                zIndex: 2,
+                width: { xs: '90%', sm: '70%', md: '55%' },
+                p: { xs: 2, sm: 9 },
+                backgroundColor: 'rgba(0,0,0,0.4)',
+                backdropFilter: 'blur(6px)',
+                borderRadius: 2,
+                color: '#eee',
               }}
             >
-              Cisco's Painting is one of Salem's premier painting, siding, fencing, roofing, drywall, carpentry,
-              janitorial, cabinet re-paint and finishing, and restoration finish contractors. Our skilled craftsmen
-              deliver top-tier results with a focus on clean execution and quality workmanship.
-            </Typography>
+              <Typography variant="h6" sx={{ color: '#ccc', mb: 1 }}>
+                00/ Welcome
+              </Typography>
+              <Typography
+                component="h1"
+                sx={{
+                  fontSize: { xs: '1.8rem', sm: '2.5rem', md: '4rem' },
+                  fontFamily: '"Inter", sans-serif',
+                  lineHeight: 1.2,
+                  fontWeight: 700,
+                  mb: 2,
+                }}
+              >
+                With 20+ Years of Experience, We Are Here To Serve You
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                position: 'absolute',
+                bottom: { xs: 40, md: 100 },
+                left: { xs: '5%', md: '5%' },
+                color: '#fff',
+                maxWidth: { xs: '90%', sm: 400 },
+                zIndex: 2,
+              }}
+            >
+              <Box
+                sx={{
+                  bgcolor: 'rgba(0,0,0,0.4)',
+                  backdropFilter: 'blur(6px)',
+                  borderRadius: 2,
+                  p: 2,
+                  mb: 3,
+                  color: '#eee',
+                }}
+              >
+                <Typography variant="body1" sx={{ fontSize: { xs: '0.9rem', md: '1rem' } }}>
+                  Get in touch with one of Salem&apos;s premier contractors.
+                </Typography>
+              </Box>
+
+              {/* MODAL TRIGGER BUTTON */}
+              <Button
+                variant="contained"
+                size="medium"
+                onClick={() => setModalOpen(true)}
+                sx={{
+                  backgroundColor: '#f44336',
+                  color: '#fff',
+                  fontWeight: 'bold',
+                  borderRadius: '999px',
+                  px: 3,
+                  fontSize: { xs: '0.9rem', md: '1rem' },
+                  '&:hover': { backgroundColor: '#d32f2f' },
+                }}
+              >
+                Get Estimate
+              </Button>
+            </Box>
+          </Box>
+        </section>
+
+        {/* Services */}
+        <Box sx={{ background: '#1a1a1a'}}>
+          <ServicesHorizontalScroll />
+        </Box>
+
+        {/* About */}
+        <Box sx={{ background: '#181818', py: 6, px: 2, color: '#ccc' }}>
+          <Typography variant="h5" sx={{ mb: 2 }}>
+            02 / About Us
+          </Typography>
+          <Typography variant="h3" sx={{ mb: 2, fontWeight: 700 }}>
+            Reviving Homes, Restoring Trust
+          </Typography>
+          <Image
+            src="/images/home1.png"
+            alt="home"
+            width={900}
+            height={600}
+            style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
+            priority
+          />
+          <Typography sx={{ mt: 2, fontSize: '1rem' }}>
+            Cisco's Painting is Salem's premier contractor for painting, siding, fencing, roofing, drywall, carpentry, janitorial, cabinet refinishing, and restoration.
+          </Typography>
+          <Link href="/gallery" passHref>
             <Button
               variant="outlined"
-              sx={{
-                mt: 2,
-                borderColor: '#555',
-                color: '#eee',
-                px: 3,
-                borderRadius: '999px',
-                fontSize: '0.85rem',
-                '&:hover': { backgroundColor: '#222', borderColor: '#777' },
-              }}
+              sx={{ color: '#ccc', borderColor: '#ccc', borderRadius: 999, mt: 3 }}
             >
-              About Us
+              View Gallery
             </Button>
-          </Grid>
-        </Grid>
-      </Box>
+          </Link>
+        </Box>
 
-      {/* Stats */}
-      <Box sx={{ px: 2, bgcolor: '#181818', py: 4 }}>
-        <Grid container spacing={2}>
-          {[
-            ['20+ Years', 'Of Professional Experience'],
-            ['10+ Years', 'Serving Salem and Portland since 2013'],
-            ['Customer Satisfaction', 'We strive to please our customers'],
-            ['100+ Projects', 'Completed since we began'],
-          ].map(([title, text], idx) => (
-            <Grid item xs={12} sm={6} key={idx}>
-              <Paper
-                sx={{
-                  p: 2,
-                  bgcolor: '#222',
-                  color: '#ddd',
-                  textAlign: 'center',
-                  borderRadius: 2,
-                }}
-                elevation={0}
-              >
-                <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-                  {title}
-                </Typography>
-                <Typography variant="body2">{text}</Typography>
-              </Paper>
-            </Grid>
-          ))}
-        </Grid>
+        {/* Contact */}
+        <Box
+                          sx={{
+                            flex: 1,
+                            p: 4,
+                            borderRadius: '16px',
+                            position: 'relative',
+                            overflow: 'hidden',
+                            color: '#eee',
+                            background:
+                              'linear-gradient(25deg, #2e2e2e, #1a1a1a, #1a1231)',
+        
+                            boxShadow: '0 8px 30px rgba(0,0,0,0.9)',
+        
+                            // Glow effect circles for depth and softness
+                            '&::before': {
+                              content: '""',
+                              position: 'absolute',
+        
+                              width: '280px',
+                              height: '280px',
+                              background:
+                                'radial-gradient(circle at center,rgb(216, 6, 6) 0%, transparent 70%)', // dark purple glow
+                              opacity: 0.3,
+                              borderRadius: '50%',
+                              filter: 'blur(70px)',
+                              zIndex: 0,
+                              transform: 'rotate(15deg)',
+                            },
+        
+                            '&::after': {
+                              content: '""',
+                              position: 'absolute',
+                              width: '320px',
+                              height: '320px',
+                              background:
+                                'radial-gradient(circle at center, #000000 0%, transparent 80%)', // black glow
+                              opacity: 0.3,
+                              borderRadius: '50%',
+                              filter: 'blur(90px)',
+                              zIndex: 0,
+                              transform: 'rotate(-10deg)',
+                            },
+        
+                            // Inner container to add a subtle dark overlay with a soft border
+                            '& > div': {
+                              position: 'relative',
+                              zIndex: 1,
+                              backgroundColor: 'rgba(20, 20, 30, 0.8)',
+                              borderRadius: '12px',
+                              padding: 3,
+                              boxShadow: 'inset 0 0 20px rgba(255, 255, 255, 0.05)',
+                            },
+        
+                            // TextField styles for white text & subtle outlines
+                            '& .MuiTextField-root input, & textarea': {
+                              color: '#eee',
+        
+                            },
+                            '& .MuiInputLabel-root': {
+                              color: '#bbb',
+        
+                            },
+                            '& .MuiOutlinedInput-root': {
+                              zIndex: 2,
+                              '& fieldset': {
+                                borderColor: '#555',
+                              },
+                              '&:hover fieldset': {
+                                borderColor: '#b388eb', // subtle purple highlight on hover
+                              },
+                              '&.Mui-focused fieldset': {
+                                borderColor: '#b388eb',
+                                boxShadow: '0 0 8px #b388eb',
+                              },
+                            },
+                          }}
+                        >
+                          <ContactForm />
+                        </Box>
       </Box>
-
-      {/* Services */}
-      <Box sx={{ bgcolor: '#1a1a1a', py: 6, px: 2 }}>
-        <Typography variant="h6" sx={{ color: '#aaa', mb: 1 }}>
-          02/ Our Services
-        </Typography>
-        <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 3, color: '#fff' }}>
-          Our Various Services Are Provided For You
-        </Typography>
-        <Grid container spacing={3}>
-          {[
-            ['Interior Painting', 'High-quality interior finishes for your home or business.'],
-            ['Carpentry Services', 'Custom carpentry for renovations, repairs, and remodels.'],
-            ['Restoration Work', 'Bringing historic and damaged properties back to life.'],
-          ].map(([title, text], idx) => (
-            <Grid item xs={12} key={idx}>
-              <Card sx={{ borderRadius: 2, boxShadow: 2, bgcolor: '#222', color: '#eee' }}>
-                <CardContent>
-                  <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: '#fff' }}>
-                    {title}
-                  </Typography>
-                  <Typography variant="body2" sx={{ mt: 1, color: '#bbb' }}>
-                    {text}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-    </Box>
+    </>
   );
 }
+
+

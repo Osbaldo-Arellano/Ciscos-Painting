@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Box } from '@mui/material';
 import ServiceCard from './ServiceCard';
@@ -66,12 +68,16 @@ export default function StackedServiceCards({ services }: StackedServiceCardsPro
   return (
     <Box
       ref={containerRef}
+      component="section"
+      aria-label="Stacked services showcasing craftsmanship and expertise"
       sx={{
         width: '100%',
         margin: 'auto',
         mt: 8,
         px: 2,
+        position: 'relative',
       }}
+      tabIndex={-1} // focusable container for accessibility and skip links
     >
       <Box
         sx={{
@@ -83,7 +89,7 @@ export default function StackedServiceCards({ services }: StackedServiceCardsPro
       >
         {services.map((service, index) => {
           const isHovered = hoveredIndex === index;
-          const zIndex = isHovered ? 10 : services.length - index; // 👈 Higher zIndex for first card
+          const zIndex = isHovered ? 10 : services.length - index;
 
           return (
             <Box
@@ -93,12 +99,18 @@ export default function StackedServiceCards({ services }: StackedServiceCardsPro
               sx={{
                 position: 'absolute',
                 top: 0,
-                left: index !== 0 ? `${index * (baseCardWidth + overlapOffset)}px` : 0, // 👈 Start from LEFT
+                left: index !== 0 ? `${index * (baseCardWidth + overlapOffset)}px` : 0,
                 zIndex,
                 transition: 'transform 0.3s ease, z-index 0.3s ease, left 0.3s ease',
                 transform: `translateY(${isHovered ? -10 : 0}px)`,
                 boxShadow: 3,
               }}
+              role="group"
+              aria-labelledby={`service-title-${index}`}
+              aria-describedby={`service-desc-${index}`}
+              tabIndex={0} // keyboard focusable for accessibility
+              onFocus={() => setHoveredIndex(index)} // sync focus with hover effect
+              onBlur={() => setHoveredIndex(null)}
             >
               <ServiceCard
                 image={service.image}
@@ -108,11 +120,12 @@ export default function StackedServiceCards({ services }: StackedServiceCardsPro
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 gradient={randomizedGradients[index % randomizedGradients.length]}
+                aria-labelledby={`service-title-${index}`}
+                aria-describedby={`service-desc-${index}`}
               />
             </Box>
           );
         })}
-
       </Box>
     </Box>
   );

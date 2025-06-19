@@ -21,6 +21,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useState, useRef, useEffect } from 'react';
 import EstimateModal from '@/components/EstimateModal'; 
+import { ReactNode } from 'react';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -47,6 +48,7 @@ export default function Navbar() {
     }
     prevOpen.current = open;
   }, [open]);
+
 
   return (
     <>
@@ -117,7 +119,7 @@ export default function Navbar() {
                 display: 'flex',
                 alignItems: 'center',
                 mt: 5,
-                cursor: 'pointer', // ✅ makes it feel clickable
+                cursor: 'pointer',
               }}
             >
               <Image
@@ -272,7 +274,13 @@ function ScrollTopButton() {
   );
 }
 
-function NavLink({ href, children, current }) {
+type NavLinkProps = {
+  href: string;
+  children: ReactNode;
+  current?: boolean;
+};
+
+function NavLink({ href, children, current }: NavLinkProps) {
   return (
     <Link href={href} passHref>
       <Button
@@ -302,13 +310,23 @@ function NavLink({ href, children, current }) {
     </Link>
   );
 }
-
-const navLinkButtonStyle = (isActive) => ({
+const navLinkButtonStyle = (isCurrent: boolean) => ({
   color: '#fff',
   textTransform: 'none',
   fontSize: '1.1rem',
   fontWeight: 400,
-  '&:hover': {
-    backgroundColor: 'rgba(255,255,255,0.08)',
+  position: 'relative',
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    left: 0,
+    bottom: -4,
+    width: isCurrent ? '100%' : '0%',
+    height: 2,
+    backgroundColor: '#b71c1c',
+    transition: 'width 0.3s ease',
+  },
+  '&:hover::after': {
+    width: '100%',
   },
 });

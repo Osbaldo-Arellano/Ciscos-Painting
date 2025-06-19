@@ -1,18 +1,10 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Box, Typography, useMediaQuery, Grid } from '@mui/material';
+import React, { useEffect, useRef } from 'react';
+import { Box, Typography } from '@mui/material';
 import ServiceCard from './ServiceCard';
 
-type Service = {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  gradient: string;
-};
-
-const servicesData: Service[] = [
+const servicesData = [
   {
     id: 1,
     title: 'Painting',
@@ -85,9 +77,7 @@ const servicesData: Service[] = [
   },
 ];
 
-export default function Services() {
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
-  const isDesktop = useMediaQuery('(min-width:768px)');
+export default function ServicesHorizontalScroll() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -97,7 +87,7 @@ export default function Services() {
           if (entry.isIntersecting) entry.target.classList.add('fade-in-visible');
         });
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.1 }
     );
 
     if (containerRef.current) {
@@ -110,98 +100,58 @@ export default function Services() {
 
   return (
     <Box
-      ref={containerRef}
       component="section"
       aria-labelledby="services-heading"
-      sx={{
-        bgcolor: '#111',
-        color: '#eee',
-        minHeight: '100vh',
-        px: { xs: 2, md: 10 },
-        py: 8,
-        overflow: 'hidden',
-      }}
+      sx={{ background: '#1a1a1a', py: 6, px: 2 }}
     >
       <Typography
-        variant="h6"
-        id="services-subheading"
-        sx={{ color: '#bbb', mb: 1 }}
-        className="fade-in"
-      >
-        01/ Quality Workmanship
-      </Typography>
-
-      <Typography
-        component="h1"
         id="services-heading"
+        variant="h5"
+        sx={{ color: '#ccc', mb: 2 }}
         className="fade-in"
-        style={{ animationDelay: '0.2s' }}
-        sx={{
-          fontSize: { xs: '1.8rem', sm: '2.5rem', md: '4rem' },
-          fontFamily: '"Inter", sans-serif',
-          lineHeight: 1.2,
-          fontWeight: 700,
-          mb: 2,
-        }}
+        tabIndex={-1} // Makes it focusable for skip links
       >
-        Quality Workmanship You Can Trust
-      </Typography>
-
-      <Typography
-        variant="body1"
-        className="fade-in"
-        style={{ animationDelay: '0.4s' }}
-        sx={{ mb: 3, color: '#ddd' }}
-        aria-describedby="services-description"
-      >
-        From painting to roofing, siding to restoration, Cisco's Painting covers it all.
-        <br />
-        Experience craftsmanship built on care and expertise.
+        01 / Our Services ➦
       </Typography>
 
       <Box
+        ref={containerRef}
         sx={{
           display: 'flex',
-          justifyContent: 'center',
-          width: '100%',
-          overflow: 'visible',
+          overflowX: 'auto',
+          scrollSnapType: 'x mandatory',
+          gap: 2,
+          pb: 2,
+          scrollBehavior: 'smooth',
+          scrollPaddingInline: 2,
+          '& > *': {
+            scrollSnapAlign: 'center',
+            flex: '0 0 85%',
+            maxWidth: '100%',
+          },
         }}
+        role="list"
+        aria-label="List of services"
       >
-        <Grid
-          container
-          spacing={4}
-          justifyContent="center"
-          maxWidth="1200px"
-          sx={{ overflow: 'visible' }}
-          role="list"
-          aria-label="Services offered by Cisco's Painting"
-        >
-          {servicesData.map(({ id, title, description, image, gradient }) => (
-            <Grid
-              key={id}
-              className="fade-in"
-              style={{ transitionDelay: `${id * 0.1}s` }}
-              sx={{
-                position: 'relative',
-                zIndex: hoveredId === id ? 2 : 1,
-                transition: 'z-index 0.3s ease',
-                outline: 'none',
-              }}
-              role="listitem"
-              tabIndex={-1}
-            >
-              <ServiceCard
-                image={image}
-                title={title}
-                description={description}
-                isHovered={hoveredId === id}
-                onMouseEnter={() => setHoveredId(id)}
-                onMouseLeave={() => setHoveredId(null)}
-                gradient={gradient}
-              />
-            </Grid>
-          ))}
-        </Grid>
+        {servicesData.map((service, index) => (
+          <Box
+            key={service.id}
+            className="fade-in"
+            style={{ animationDelay: `${index * 0.1}s` }}
+            sx={{ flexShrink: 0 }}
+            role="listitem"
+          >
+            <ServiceCard
+              image={service.image}
+              title={service.title}
+              description={service.description}
+              isHovered={false}
+              onMouseEnter={() => {}}
+              onMouseLeave={() => {}}
+              gradient={service.gradient}
+            />
+          </Box>
+        ))}
       </Box>
     </Box>
   );

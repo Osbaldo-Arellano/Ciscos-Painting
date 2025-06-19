@@ -35,7 +35,11 @@ export default function ServicesPageClient() {
     <>
       <GlobalStyles />
       {isDesktop ? <DesktopNav /> : <MobileNav />}
-      <Box sx={{ bgcolor: '#111', color: '#eee', minHeight: '100vh' }}>
+      <Box
+        component="main"
+        sx={{ bgcolor: '#111', color: '#eee', minHeight: '100vh' }}
+        tabIndex={-1} // Makes main content focusable for skip links
+      >
         <HeroSection ref={heroRef} />
         {showScrollHint && <ScrollHint />}
         <Box
@@ -78,6 +82,8 @@ function GlobalStyles() {
 const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => (
   <Box
     ref={ref}
+    component="section"
+    aria-labelledby="hero-heading"
     sx={{
       position: 'relative',
       height: { xs: '75vh', md: '100vh' },
@@ -95,6 +101,7 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => (
         bgcolor: 'rgba(0, 0, 0, 0.7)',
         zIndex: 1,
       }}
+      aria-hidden="true"
     />
     <Box
       component="header"
@@ -110,10 +117,15 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => (
         backdropFilter: 'blur(6px)',
         borderRadius: 2,
         color: '#eee',
-        textAlign: 'left', // left align text for entire header
+        textAlign: 'left',
       }}
     >
-      <Typography variant="h6" sx={{ color: '#bbb', mb: 1 }} className="fade-in">
+      <Typography
+        id="hero-heading"
+        variant="h6"
+        sx={{ color: '#bbb', mb: 1 }}
+        className="fade-in"
+      >
         00/ Our Services
       </Typography>
       <Typography
@@ -144,7 +156,6 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => (
   </Box>
 ));
 
-
 function ScrollHint() {
   return (
     <Box
@@ -152,6 +163,7 @@ function ScrollHint() {
         position: 'fixed',
         bottom: 20,
         left: '50%',
+        transform: 'translateX(-50%)',
         bgcolor: 'rgba(0,0,0,0.7)',
         backdropFilter: 'blur(6px)',
         px: 4,
@@ -167,6 +179,9 @@ function ScrollHint() {
         boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
       }}
       className="fade-in"
+      role="region"
+      aria-live="polite"
+      aria-label="Scroll down hint"
     >
       <Typography
         variant="body1"
@@ -190,6 +205,7 @@ function ScrollHint() {
           transform: 'rotate(45deg)',
           mb: '2px',
         }}
+        aria-hidden="true"
       />
     </Box>
   );

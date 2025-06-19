@@ -65,19 +65,6 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>Cisco's Painting | Salem's Premier Contractor</title>
-        <meta
-          name="description"
-          content="Cisco's Painting provides expert painting, siding, roofing, carpentry, and restoration services in Salem, Oregon and Portland metro."
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta property="og:title" content="Cisco's Painting" />
-        <meta property="og:description" content="Reviving Homes, Restoring Trust in Salem, Oregon." />
-        <meta property="og:image" content="/images/nice-house.jpg" />
-        <meta property="og:type" content="website" />
-      </Head>
-
       <main>
         <EstimateModal open={modalOpen} onClose={() => setModalOpen(false)} />
 
