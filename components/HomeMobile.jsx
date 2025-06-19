@@ -218,7 +218,7 @@ export default function MobileHome() {
         <Box
                           sx={{
                             flex: 1,
-                            p: 4,
+                            p: 2,
                             borderRadius: '16px',
                             position: 'relative',
                             overflow: 'hidden',
@@ -278,7 +278,6 @@ export default function MobileHome() {
         
                             },
                             '& .MuiOutlinedInput-root': {
-                              zIndex: 2,
                               '& fieldset': {
                                 borderColor: '#555',
                               },
