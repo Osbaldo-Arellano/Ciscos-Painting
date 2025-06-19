@@ -216,83 +216,79 @@ export default function MobileHome() {
 
         {/* Contact */}
         <Box
-                          sx={{
-                            flex: 1,
-                            p: 2,
-                            borderRadius: '16px',
-                            position: 'relative',
-                            overflow: 'hidden',
-                            color: '#eee',
-                            background:
-                              'linear-gradient(25deg, #2e2e2e, #1a1a1a, #1a1231)',
-        
-                            boxShadow: '0 8px 30px rgba(0,0,0,0.9)',
-        
-                            // Glow effect circles for depth and softness
-                            '&::before': {
-                              content: '""',
-                              position: 'absolute',
-        
-                              width: '280px',
-                              height: '280px',
-                              background:
-                                'radial-gradient(circle at center,rgb(216, 6, 6) 0%, transparent 70%)', // dark purple glow
-                              opacity: 0.3,
-                              borderRadius: '50%',
-                              filter: 'blur(70px)',
-                              zIndex: 0,
-                              transform: 'rotate(15deg)',
-                            },
-        
-                            '&::after': {
-                              content: '""',
-                              position: 'absolute',
-                              width: '320px',
-                              height: '320px',
-                              background:
-                                'radial-gradient(circle at center, #000000 0%, transparent 80%)', // black glow
-                              opacity: 0.3,
-                              borderRadius: '50%',
-                              filter: 'blur(90px)',
-                              zIndex: 0,
-                              transform: 'rotate(-10deg)',
-                            },
-        
-                            // Inner container to add a subtle dark overlay with a soft border
-                            '& > div': {
-                              position: 'relative',
-                              zIndex: 1,
-                              backgroundColor: 'rgba(20, 20, 30, 0.8)',
-                              borderRadius: '12px',
-                              padding: 3,
-                              boxShadow: 'inset 0 0 20px rgba(255, 255, 255, 0.05)',
-                            },
-        
-                            // TextField styles for white text & subtle outlines
-                            '& .MuiTextField-root input, & textarea': {
-                              color: '#eee',
-        
-                            },
-                            '& .MuiInputLabel-root': {
-                              color: '#bbb',
-        
-                            },
-                            '& .MuiOutlinedInput-root': {
-                              '& fieldset': {
-                                borderColor: '#555',
-                              },
-                              '&:hover fieldset': {
-                                borderColor: '#b388eb', // subtle purple highlight on hover
-                              },
-                              '&.Mui-focused fieldset': {
-                                borderColor: '#b388eb',
-                                boxShadow: '0 0 8px #b388eb',
-                              },
-                            },
-                          }}
-                        >
-                          <ContactForm />
-                        </Box>
+          sx={{
+            flex: 1,
+            p: 2,
+            borderRadius: '16px',
+            position: 'relative',
+            overflow: 'hidden',
+            color: '#eee',
+            background:
+              'linear-gradient(25deg, #2e2e2e, #1a1a1a, #1a1231)',
+
+            boxShadow: '0 8px 30px rgba(0,0,0,0.9)',
+
+            // Glow effect circles for depth and softness
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              width: '280px',
+              height: '280px',
+              background:
+                'radial-gradient(circle at center, rgb(216, 6, 6) 0%, transparent 70%)', // red glow
+              opacity: 0.3,
+              borderRadius: '50%',
+              filter: 'blur(70px)',
+              zIndex: 0,
+              transform: 'rotate(15deg)',
+            },
+
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              width: '320px',
+              height: '320px',
+              background:
+                'radial-gradient(circle at center, #000000 0%, transparent 80%)',
+              opacity: 0.3,
+              borderRadius: '50%',
+              filter: 'blur(90px)',
+              zIndex: 0,
+              transform: 'rotate(-10deg)',
+            },
+
+            '& > div': {
+              position: 'relative',
+              zIndex: 1,
+              backgroundColor: 'rgba(20, 20, 30, 0.8)',
+              borderRadius: '12px',
+              padding: 3,
+              boxShadow: 'inset 0 0 20px rgba(255, 255, 255, 0.05)',
+            },
+
+            '& .MuiTextField-root input, & textarea': {
+              color: '#eee',
+            },
+            '& .MuiInputLabel-root': {
+              color: '#bbb',
+            },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: '#555',
+              },
+              '&:hover fieldset': {
+                borderColor: '#d80606', // bright red on hover
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: '#d80606',
+                boxShadow: '0 0 8px #d80606', // red glow on focus
+              },
+            },
+          }}
+        >
+          <ContactForm />
+        </Box>
+
       </Box>
     </>
   );
