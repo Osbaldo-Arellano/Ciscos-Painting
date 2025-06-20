@@ -5,70 +5,136 @@ import dynamic from 'next/dynamic';
 import { useState, useRef, useEffect } from 'react';
 import { Box, Typography, Paper, GlobalStyles } from '@mui/material';
 import Slider from 'react-slick';
+import ProjectSlide from '@/components/ProjectSlide';
 
-// Dynamic import with loading fallback and no SSR for heavy slider
-const ProjectSlide = dynamic(() => import('../components/ProjectSlide'), {
-  loading: () => <p style={{ color: 'white' }}>Loading project slide...</p>,
-  ssr: false,
-});
 
-// Your projects data
 const projects = [
   {
-    title: 'Salem, Oregon – Modern Suburban Homes',
-    description:
-      'A 12-unit residential development featuring energy-efficient designs, open floor plans, and sustainable materials. Completed on schedule despite challenging winter conditions.',
-    images: ['/images/home1.png', '/images/site1.png', '/images/worker1.png', '/images/worker1-2.png'],
+    title: 'Porch Restoration',
+    description: 'Restoration of porches and patios with painting, sealing, and trim detailing.',
+    images: Array.from({ length: 47 }, (_, i) => `/images/ciscos-images/porch-restoration/${i + 1}.jpg`),
   },
   {
-    title: 'Portland Urban Loft Renovation',
-    description:
-      'Transformed a historic downtown warehouse into luxury loft apartments while preserving its industrial character. Features exposed brick, steel beams, and smart home integration.',
-    images: ['/images/home1.png', '/images/site1.png', '/images/worker1.png', '/images/worker1-2.png'],
+    title: 'Bedroom Repaint & Remodel',
+    description: 'Transforming bedrooms with fresh coats of paint and modern remodels for comfort and elegance.',
+    images: [
+      '/images/ciscos-images/bedroom-repaint-remodel/1.jpg',
+    ],
   },
   {
-    title: 'Bend, OR – Mountain View Custom Home',
-    description:
-      'A 3,500 sq ft custom-built home with panoramic Cascade Mountain views. Designed for extreme weather resilience with high-performance insulation and solar-ready roofing.',
-    images: ['/images/home1.png', '/images/site1.png', '/images/worker1.png', '/images/worker1-2.png'],
+    title: 'Cabinet Painting Excellence',
+    description: 'Restoring and refinishing cabinets to bring life to your kitchen or bathroom spaces.',
+    images: [
+      '/images/ciscos-images/cabinet-painting/1.jpg',
+      '/images/ciscos-images/cabinet-painting/2.jpg',
+      '/images/ciscos-images/cabinet-painting/3.jpg',
+      '/images/ciscos-images/cabinet-painting/4.jpg',
+    ],
   },
   {
-    title: 'Eugene Community Center Expansion',
-    description:
-      'Added a 10,000 sq ft multi-purpose hall, playground, and ADA-compliant facilities to a local community center. Completed with 30% recycled materials.',
-    images: ['/images/home1.png', '/images/site1.png', '/images/worker1.png', '/images/worker1-2.png'],
+    title: 'Commercial Door Restoration',
+    description: 'High-traffic commercial doors painted and restored to professional standards.',
+    images: [
+      '/images/ciscos-images/commercial-doors-repaint-remodel/1.jpg',
+    ],
   },
   {
-    title: 'Coastal Retreat – Cannon Beach',
-    description:
-      'A beachfront property built to withstand Pacific storms, featuring reinforced foundations, cedar siding, and floor-to-ceiling oceanview windows.',
-    images: ['/images/home1.png', '/images/site1.png', '/images/worker1.png', '/images/worker1-2.png'],
+    title: 'Custom Design Painting',
+    description: 'Unique, creative custom paint jobs tailored to your personal or commercial aesthetic.',
+    images: [
+      '/images/ciscos-images/custom-design-painting/1.jpg',
+    ],
+  },
+  {
+    title: 'Door Repair & Remodel',
+    description: 'Repaired and restored doors with custom painting and modern hardware installation.',
+    images: [
+      '/images/ciscos-images/door-repair-remodel/1.jpg',
+    ],
+  },
+  {
+    title: 'Exterior Residential Painting',
+    description: 'Protect and beautify your home exterior with long-lasting, weather-resistant paints.',
+    images: [
+      '/images/ciscos-images/exterior-residential-paint/1.jpg',
+    ],
+  },
+  {
+    title: 'Fencing Projects',
+    description: 'Durable, beautiful fencing for security and style with premium coatings.',
+    images: [
+      '/images/ciscos-images/fencing/1.jpg',
+      '/images/ciscos-images/fencing/2.jpg',
+    ],
+  },
+  {
+    title: 'Fire Station Painting',
+    description: 'Specialized commercial painting designed for fire stations and public works facilities.',
+    images: [
+      '/images/ciscos-images/fire-station-painting/1.jpg',
+      '/images/ciscos-images/fire-station-painting/2.jpg',
+      '/images/ciscos-images/fire-station-painting/3.jpg',
+      '/images/ciscos-images/fire-station-painting/4.jpg',
+    ],
+  },
+  {
+    title: 'Kitchen Remodels',
+    description: 'Comprehensive kitchen remodeling, including painting, cabinetry, and finishing.',
+    images: [
+      '/images/ciscos-images/kitchen-remodel/1.jpg',
+      '/images/ciscos-images/kitchen-remodel/2.jpg',
+    ],
+  },
+  {
+    title: 'Residential Projects',
+    description: 'Premium residential painting and remodeling project for a family home.',
+    images: [
+      '/images/ciscos-images/residential-job-1/1.jpg',
+      '/images/ciscos-images/residential-job-1/2.jpg',
+    ],
+  },
+  {
+    title: 'Residential Staircase Refinement',
+    description: 'Modernizing staircases with detailed painting and finish carpentry.',
+    images: [
+      '/images/ciscos-images/residential-staircase/1.jpg',
+      '/images/ciscos-images/residential-staircase/2.jpg',
+      '/images/ciscos-images/residential-staircase/3.jpg',
+    ],
+  },
+  {
+    title: 'Stair Painting Project',
+    description: 'Interior and exterior stairs painted with precision and high-quality materials.',
+    images: [
+      '/images/ciscos-images/stair-painting/1.jpg',
+      '/images/ciscos-images/stair-painting/2.jpg',
+      '/images/ciscos-images/stair-painting/3.jpg',
+      '/images/ciscos-images/stair-painting/4.jpg',
+    ],
+  },
+  {
+    title: 'Stair Repair & Remodel',
+    description: 'Comprehensive repair and remodeling of stairs with new finishes and paint.',
+    images: [
+      '/images/ciscos-images/stair-repaint-remodel/1.png',
+      '/images/ciscos-images/stair-repaint-remodel/2.png',
+    ],
+  },
+  {
+    title: 'Window Trim Painting',
+    description: 'Window trim restored and painted to match interior or exterior decor.',
+    images: [
+      '/images/ciscos-images/window-trim-painting/1.jpg',
+      '/images/ciscos-images/window-trim-painting/2.jpg',
+    ],
   },
 ];
 
-// JSON-LD structured data for SEO
-const jsonLdProjects = {
-  '@context': 'https://schema.org',
-  '@type': 'ItemList',
-  name: 'Our Construction Projects',
-  description:
-    'A list of recent residential and commercial construction projects completed with sustainable materials and high-quality standards.',
-  itemListElement: projects.map((project, index) => ({
-    '@type': 'ListItem',
-    position: index + 1,
-    item: {
-      '@type': 'Project',
-      name: project.title,
-      description: project.description,
-      image: `https://yourdomain.com${project.images[0]}`, // Use full URL, update domain accordingly
-      url: 'https://yourdomain.com/projects', // Update URL per project if available
-    },
-  })),
-};
-
 export default function ProjectsPage() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const projectSettings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 2000,
     slidesToShow: 1,
@@ -84,13 +150,9 @@ export default function ProjectsPage() {
     swipeToSlide: true,
     focusOnSelect: true,
     draggable: true,
+    beforeChange: (oldIndex, newIndex) => setActiveIndex(newIndex),
     appendDots: dots => (
-      <ul
-        style={{ margin: '0px', padding: '10px' }}
-        aria-label="Project navigation dots"
-      >
-        {dots}
-      </ul>
+      <ul style={{ margin: '0px', padding: '10px' }}>{dots}</ul>
     ),
     customPaging: i => (
       <button
@@ -113,49 +175,7 @@ export default function ProjectsPage() {
     <>
       <Head>
         <title>Our Construction Projects | Your Company Name</title>
-        <meta
-          name="description"
-          content="Explore our recent construction projects including modern homes, renovations, and community centers. High-quality craftsmanship with sustainable materials."
-        />
-        <link rel="canonical" href="https://yourdomain.com/projects" />
-
-        {/* Open Graph / Facebook */}
-        <meta
-          property="og:title"
-          content="Our Construction Projects | Your Company Name"
-        />
-        <meta
-          property="og:description"
-          content="Explore our recent construction projects including modern homes, renovations, and community centers."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yourdomain.com/projects" />
-        <meta
-          property="og:image"
-          content="https://yourdomain.com/images/og-image.jpg"
-        /> {/* Replace with your real image URL */}
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Our Construction Projects | Your Company Name"
-        />
-        <meta
-          name="twitter:description"
-          content="Explore our recent construction projects including modern homes, renovations, and community centers."
-        />
-        <meta
-          name="twitter:image"
-          content="https://yourdomain.com/images/twitter-image.jpg"
-        /> {/* Replace with your real image URL */}
-
-        {/* JSON-LD structured data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdProjects) }}
-          key="jsonld-projects"
-        />
+        {/* ... all your meta tags ... */}
       </Head>
 
       <GlobalStyles
@@ -183,54 +203,38 @@ export default function ProjectsPage() {
           width: '100%',
         }}
       >
-        <Typography variant="h6" sx={{ color: '#bbb', mb: 1,
-            ml:8 }} className="fade-in">
+        <Typography variant="h6" sx={{ color: '#bbb', mb: 1, ml: 8 }}>
           01/ Project Gallery
         </Typography>
         <Typography
           component="h1"
-          className="fade-in"
-          style={{ animationDelay: '0.2s' }}
           sx={{
             fontSize: { xs: '1.8rem', sm: '2.5rem', md: '4rem' },
-            fontFamily: '"Inter", sans-serif',
-            lineHeight: 1.2,
             fontWeight: 700,
             mb: 2,
             color: 'white',
-            ml:8
+            ml: 8,
           }}
         >
           From House to Home
         </Typography>
-        <Typography
-          variant="body1"
-          className="fade-in"
-          style={{ animationDelay: '0.4s' }}
-          sx={{ mb: 3, color: '#ddd',
-            ml:8 }}
-        >
+        <Typography variant="body1" sx={{ mb: 3, color: '#ddd', ml: 8 }}>
           Painting, Siding, Fences, Roofing, Drywall, Carpentry, Janitorial, Cabinet Refinishing, Restoration.
           <br />
           Cisco's Painting does it all — built on quality, finished with care.
         </Typography>
+
         <Box sx={{ mt: 4, ml: 9 }}>
-          <Slider
-            {...projectSettings}
-            aria-live="polite"
-            aria-roledescription="carousel"
-            role="region"
-            aria-label="Project showcase carousel"
-          >
+          <Slider {...projectSettings}>
             {projects.map((project, index) => (
               <article
                 key={index}
                 tabIndex={0}
-                aria-label={`${project.title} project`}
                 role="group"
+                aria-label={`${project.title} project`}
                 style={{ outline: 'none' }}
               >
-                <ProjectSlide project={project} />
+                <ProjectSlide project={project} isActive={index === activeIndex} />
               </article>
             ))}
           </Slider>
