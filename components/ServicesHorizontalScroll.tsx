@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Box, Typography, useTheme  } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ServiceCard from './ServiceCard';
 
@@ -80,10 +80,10 @@ const servicesData = [
 
 export default function ServicesHorizontalScroll() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const thumbnailRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const theme = useTheme();
 
+  // Fade-in animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -104,56 +104,40 @@ export default function ServicesHorizontalScroll() {
     return () => observer.disconnect();
   }, []);
 
+  // Corrected scroll handler using visual center
   const handleScroll = () => {
     if (!containerRef.current) return;
-    const scrollLeft = containerRef.current.scrollLeft;
-    const cardWidth = containerRef.current.offsetWidth * 0.85 + 16; // 85% + gap
-    const index = Math.round(scrollLeft / cardWidth);
-    setActiveIndex(index);
+    const container = containerRef.current;
+    const containerCenter = container.scrollLeft + container.offsetWidth / 2;
+
+    const children = Array.from(container.children);
+    let closestIndex = 0;
+    let closestDistance = Infinity;
+
+    children.forEach((child, i) => {
+      const el = child as HTMLElement;
+      const elCenter = el.offsetLeft + el.offsetWidth / 2;
+      const distance = Math.abs(containerCenter - elCenter);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = i;
+      }
+    });
+
+    setActiveIndex(closestIndex);
   };
 
   return (
-    <Box
-      component="section"
-      aria-labelledby="services-heading"
-      sx={{
-        background: '#1a1a1a',
-        py: 6,
-        px: 2,
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      <Typography
-        id="services-heading"
-        variant="h4"
-        sx={{ color: '#ccc', mb: 2 }}
-        className="fade-in"
-        tabIndex={-1}
-      >
+    <Box component="section" sx={{ background: '#1a1a1a', py: 6, px: 2, position: 'relative', overflow: 'hidden' }}>
+      <Typography variant="h4" sx={{ color: '#ccc', mb: 2 }} className="fade-in" tabIndex={-1}>
         01 / Our Services
       </Typography>
       <Typography variant="h3" sx={{ mb: 2, fontWeight: 700, color: '#ccc' }}>
         We Have a Solution
       </Typography>
 
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          mb: 2,
-          gap: 1,
-        }}
-      >
-        <Typography
-          variant="h6"
-          sx={{
-            color: '#aaa',
-            fontWeight: 400,
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 1 }}>
+        <Typography variant="h6" sx={{ color: '#aaa', fontWeight: 400 }}>
           Swipe to see more services
         </Typography>
         <ChevronRightIcon
@@ -165,7 +149,7 @@ export default function ServicesHorizontalScroll() {
         />
       </Box>
 
-      {/* Main Horizontal Scroll */}
+      {/* Main Scroll Area */}
       <Box
         ref={containerRef}
         onScroll={handleScroll}
@@ -177,24 +161,11 @@ export default function ServicesHorizontalScroll() {
           pb: 2,
           scrollBehavior: 'smooth',
           scrollPaddingInline: 2,
-          position: 'relative',
           '& > *': {
             scrollSnapAlign: 'center',
             flex: '0 0 85%',
-            maxWidth: '100%',
           },
-          '&::before, &::after': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            width: '40px',
-            zIndex: 2,
-            pointerEvents: 'none',
-          }
         }}
-        role="list"
-        aria-label="List of services"
       >
         {servicesData.map((service, index) => (
           <Box
@@ -202,7 +173,6 @@ export default function ServicesHorizontalScroll() {
             className="fade-in"
             style={{ animationDelay: `${index * 0.1}s` }}
             sx={{ flexShrink: 0 }}
-            role="listitem"
           >
             <ServiceCard
               image={service.image}
@@ -217,9 +187,8 @@ export default function ServicesHorizontalScroll() {
         ))}
       </Box>
 
-      {/* Thumbnail Navigation */}
+      {/* Thumbnails */}
       <Box
-        ref={thumbnailRef}
         sx={{
           mt: 2,
           display: 'flex',
@@ -233,11 +202,15 @@ export default function ServicesHorizontalScroll() {
           <Box
             key={service.id}
             onClick={() => {
-              const cardWidth = containerRef.current!.offsetWidth * 0.85 + 16;
-              containerRef.current!.scrollTo({
-                left: cardWidth * index,
-                behavior: 'smooth',
-              });
+              const container = containerRef.current;
+              if (!container) return;
+              const card = container.children[index] as HTMLElement;
+              if (card) {
+                container.scrollTo({
+                  left: card.offsetLeft - container.offsetWidth / 2 + card.offsetWidth / 2,
+                  behavior: 'smooth',
+                });
+              }
             }}
             sx={{
               width: 60,
@@ -259,11 +232,9 @@ export default function ServicesHorizontalScroll() {
         ))}
       </Box>
 
-      {/* Animation keyframes for the chevron */}
       <style jsx global>{`
         @keyframes bounceRight {
-          0%,
-          100% {
+          0%, 100% {
             transform: translateX(0);
           }
           50% {
