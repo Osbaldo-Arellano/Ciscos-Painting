@@ -46,9 +46,6 @@ export default function ResponsiveHome() {
         </>
       ) : (
         <>
-          <Box component="nav" aria-label="Primary mobile navigation">
-            <MobileNav />
-          </Box>
 
           <Box component="main" tabIndex={-1} aria-label="Homepage main content">
             <MobileHome />

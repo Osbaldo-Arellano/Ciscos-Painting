@@ -106,13 +106,16 @@ export default function ServicesHorizontalScroll() {
     >
       <Typography
         id="services-heading"
-        variant="h5"
+        variant="h4"
         sx={{ color: '#ccc', mb: 2 }}
         className="fade-in"
         tabIndex={-1} // Makes it focusable for skip links
       >
-        01 / Our Services ➦
+        01 / Our Services 
       </Typography>
+                  <Typography variant="h5" sx={{ color: '#ccc', mb: 0, py:1 }}>
+              swipe to see more ➦
+            </Typography>
 
       <Box
         ref={containerRef}

@@ -154,7 +154,7 @@ export default function Services() {
         sx={{ mb: 3, color: '#ddd' }}
         aria-describedby="services-description"
       >
-        From painting to roofing, siding to restoration, Cisco's Painting covers it all.
+        From painting to roofing, siding to restoration, Cisco's General Contractor in Painting covers it all.
         <br />
         Experience craftsmanship built on care and expertise.
       </Typography>
@@ -174,7 +174,7 @@ export default function Services() {
           maxWidth="1200px"
           sx={{ overflow: 'visible' }}
           role="list"
-          aria-label="Services offered by Cisco's Painting"
+          aria-label="Services offered by Cisco's General Contractor in Painting"
         >
           {servicesData.map(({ id, title, description, image, gradient }) => (
             <Grid

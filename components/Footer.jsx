@@ -10,7 +10,7 @@ export default function Footer() {
         {/* Company Info */}
         <Grid item xs={12} md={5}>
           <Typography component="h2" variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
-            Cisco's Painting
+            Cisco's General Contractor in Painting
           </Typography>
           <Typography variant="body2" sx={{ color: 'gray' }}>
             General Contractor
@@ -98,7 +98,7 @@ export default function Footer() {
 
       {/* Copyright */}
       <Box sx={{ borderTop: '1px solid #333', textAlign: 'center', pt: 3, mt: 4, color: 'gray', fontSize: '0.8rem' }}>
-        © 2024 Cisco's Painting. All rights reserved.
+        © 2024 Cisco's General Contractor in Painting. All rights reserved.
       </Box>
     </Box>
   );

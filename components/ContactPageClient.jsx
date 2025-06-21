@@ -25,7 +25,7 @@ export default function ContactPage() {
         <title>Contact Us | Cisco&apos;s Painting</title>
         <meta
           name="description"
-          content="Get in touch with Cisco's Painting for residential, commercial, and custom painting services. Fill out our contact form to start your project today."
+          content="Get in touch with Cisco's General Contractor in Painting for residential, commercial, and custom painting services. Fill out our contact form to start your project today."
         />
         <script
           type="application/ld+json"
@@ -36,7 +36,7 @@ export default function ContactPage() {
               'url': 'https://yourwebsite.com/contact',
               'mainEntity': {
                 '@type': 'LocalBusiness',
-                'name': "Cisco's Painting",
+                'name': "Cisco's General Contractor in Painting",
                 'telephone': '+15039999060',
                 'address': {
                   '@type': 'PostalAddress',

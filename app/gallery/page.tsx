@@ -37,27 +37,27 @@ export default function GalleryPage() {
   return (
     <>
       <Head>
-        <title>Gallery | Cisco's Painting - Oregon's Trusted Contractor</title>
+        <title>Gallery | Cisco's General Contractor in Painting - Oregon's Trusted Contractor</title>
         <meta
           name="description"
-          content="Explore Cisco's Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013."
+          content="Explore Cisco's General Contractor in Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013."
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://ciscospainting.com/gallery" />
 
-        <meta property="og:title" content="Gallery | Cisco's Painting" />
+        <meta property="og:title" content="Gallery | Cisco's General Contractor in Paintingg" />
         <meta
           property="og:description"
-          content="Explore Cisco's Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013."
+          content="Explore Cisco's General Contractor in Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013."
         />
         <meta property="og:image" content="https://ciscospainting.com/images/gallery-banner.jpg" />
         <meta property="og:url" content="https://ciscospainting.com/gallery" />
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Gallery | Cisco's Painting" />
+        <meta name="twitter:title" content="Gallery | Cisco's General Contractor in Painting" />
         <meta
           name="twitter:description"
-          content="Explore Cisco's Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013."
+          content="Explore Cisco's General Contractor in Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013."
         />
         <meta name="twitter:image" content="https://ciscospainting.com/images/gallery-banner.jpg" />
 
@@ -68,7 +68,7 @@ export default function GalleryPage() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              name: "Cisco's Painting",
+              name: "Cisco's General Contractor in Painting",
               image: "https://ciscospainting.com/images/logo-bg.jpg",
               url: "https://ciscospainting.com/gallery",
               telephone: "+1-503-999-9060",
@@ -81,7 +81,7 @@ export default function GalleryPage() {
                 addressCountry: "US"
               },
               description:
-                "Explore Cisco's Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013.",
+                "Explore Cisco's General Contractor in Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013.",
             }),
           }}
         />
@@ -207,7 +207,7 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => (
       >
         Painting, Siding, Fences, Roofing, Drywall, Carpentry, Janitorial, Cabinet Refinishing, Restoration.
         <br />
-        Cisco's Painting does it all — built on quality, finished with care.
+        Cisco's General Contractor in Painting does it all — built on quality, finished with care.
       </Typography>
     </Box>
   </Box>

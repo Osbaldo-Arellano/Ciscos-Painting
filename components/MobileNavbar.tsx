@@ -79,7 +79,7 @@ export default function MobileNavbar() {
         <Button
           component="a"
           href="tel:5039999060"
-          aria-label="Call Cisco's Painting at 503-999-9060"
+          aria-label="Call Cisco's General Contractor in Painting at 503-999-9060"
           sx={{
             color: 'white',
             fontWeight: 600,
@@ -136,7 +136,7 @@ export default function MobileNavbar() {
             <Link href="/" aria-label="Go to Home page" style={{ display: 'inline-block' }}>
               <Image
                 src="/images/logo.png"
-                alt="Cisco's Painting Company Logo"
+                alt="Cisco's General Contractor in Painting Company Logo"
                 width={120}
                 height={100}
                 priority
@@ -190,7 +190,7 @@ export default function MobileNavbar() {
           >
             <Image
               src="/images/logo.png"
-              alt="Cisco's Painting Logo"
+              alt="Cisco's General Contractor in Painting Logo"
               width={140}
               height={120}
               priority

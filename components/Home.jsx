@@ -297,10 +297,10 @@ export default function Home() {
                         letterSpacing: '0.3px',
                         textShadow: '2px 2px 6px rgba(0,0,0,0.8)',
                         userSelect: 'none',
-                        width: '1500px'
+                        width: '1000px'
                       }}
                     >
-                      Cisco's Painting
+                      Cisco's General Contractor in Painting
                     </Box>
 
                     <Typography
@@ -312,7 +312,7 @@ export default function Home() {
                         letterSpacing: '0.3px',
                       }}
                     >
-                      Cisco's Painting is one of Salem's premier painting, siding, fencing, roofing, drywall, carpentry,
+                      Cisco's General Contractor in Painting is one of Salem's premier painting, siding, fencing, roofing, drywall, carpentry,
                       janitorial, cabinet repaint and finishing, and restoration finish contractors. Our skilled craftsmen
                       deliver top-tier results with a focus on clean execution and quality workmanship.
                     </Typography>

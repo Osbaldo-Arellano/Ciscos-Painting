@@ -136,16 +136,15 @@ export default function ProjectsPage() {
   const projectSettings = {
     dots: false,
     infinite: true,
-    speed: 2000,
+    speed: 800,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
     adaptiveHeight: false,
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 2500,
     pauseOnHover: true,
     pauseOnFocus: true,
-    cssEase: 'cubic-bezier(0.77, 0, 0.175, 1)',
     centerMode: false,
     swipeToSlide: true,
     focusOnSelect: true,
@@ -173,11 +172,6 @@ export default function ProjectsPage() {
 
   return (
     <>
-      <Head>
-        <title>Our Construction Projects | Your Company Name</title>
-        {/* ... all your meta tags ... */}
-      </Head>
-
       <GlobalStyles
         styles={{
           '.slick-dots li button:before': {
@@ -221,7 +215,7 @@ export default function ProjectsPage() {
         <Typography variant="body1" sx={{ mb: 3, color: '#ddd', ml: 8 }}>
           Painting, Siding, Fences, Roofing, Drywall, Carpentry, Janitorial, Cabinet Refinishing, Restoration.
           <br />
-          Cisco's Painting does it all — built on quality, finished with care.
+          Cisco's General Contractor in Painting does it all — built on quality, finished with care.
         </Typography>
 
         <Box sx={{ mt: 4, ml: 9 }}>

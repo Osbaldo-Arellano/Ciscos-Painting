@@ -156,7 +156,6 @@ function handleThumbnailClick(i) {
               '& img': {
                 border: '2px solid transparent',
                 opacity: 0.6,
-                transition: 'all 0.3s ease',
                 cursor: 'pointer',
                 borderRadius: 1,
               },

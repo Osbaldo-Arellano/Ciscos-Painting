@@ -9,6 +9,8 @@ import { useState } from 'react';
 import EstimateModal from '@/components/EstimateModal';
 import ContactForm from '@/components/ContactForm';
 import ServicesHorizontalScroll from '@/components/ServicesHorizontalScroll';
+import MobileNavbar from '@/components/MobileNavbar'; // adjust path if needed
+
 
 export default function MobileHome() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -28,19 +30,19 @@ export default function MobileHome() {
   return (
     <>
        <Head>
-        <title>Cisco's Painting | Salem's Premier Contractor</title>
+        <title>Cisco's General Contractor in Painting | Salem's Premier Contractor</title>
         <meta
           name="description"
-          content="Cisco's Painting provides expert painting, siding, roofing, carpentry, and restoration services in Salem, Oregon and Portland metro."
+          content="Cisco's General Contractor in Painting provides expert painting, siding, roofing, carpentry, and restoration services in Salem, Oregon and Portland metro."
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://ciscospainting.com/" />
-        <meta property="og:title" content="Cisco's Painting" />
+        <meta property="og:title" content="Cisco's General Contractor in Painting" />
         <meta property="og:description" content="Reviving Homes, Restoring Trust in Salem, Oregon." />
         <meta property="og:image" content="https://ciscospainting.com/images/nice-house.jpg" />
         <meta property="og:url" content="https://ciscospainting.com/" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Cisco's Painting" />
+        <meta name="twitter:title" content="Cisco's General Contractor in Painting" />
         <meta name="twitter:description" content="Reviving Homes, Restoring Trust in Salem, Oregon." />
         <meta name="twitter:image" content="https://ciscospainting.com/images/nice-house.jpg" />
 
@@ -51,7 +53,7 @@ export default function MobileHome() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              "name": "Cisco's Painting",
+              "name": "Cisco's General Contractor in Painting",
               "image": "https://ciscospainting.com/images/logo-bg.jpg",
               "url": "https://ciscospainting.com/",
               "telephone": "+1-503-999-9060",
@@ -75,6 +77,9 @@ export default function MobileHome() {
       </Head>
 
       <EstimateModal open={modalOpen} onClose={() => setModalOpen(false)} />
+
+                    <MobileNavbar />
+        
 
       <Box>
           {/* Hero Section */}
@@ -202,7 +207,7 @@ export default function MobileHome() {
             priority
           />
           <Typography sx={{ mt: 2, fontSize: '1rem' }}>
-            Cisco's Painting is Salem's premier contractor for painting, siding, fencing, roofing, drywall, carpentry, janitorial, cabinet refinishing, and restoration.
+            Cisco's General Contractor in Painting is Salem's premier contractor for painting, siding, fencing, roofing, drywall, carpentry, janitorial, cabinet refinishing, and restoration.
           </Typography>
           <Link href="/gallery" passHref>
             <Button
