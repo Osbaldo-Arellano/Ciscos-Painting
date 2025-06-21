@@ -2,7 +2,7 @@ import { Box, Typography, Button, TextField, Grid, Link } from '@mui/material';
 
 export default function Footer() {
   return (
-    <Box component="footer" sx={{ backgroundColor: '#111', color: 'white', py: 0, px: { xs: 2, md: 10 } }}>
+    <Box component="footer" sx={{ backgroundColor: '#111', color: 'white', py: 0, px: { xs: 2, md: 10 }}}>
       
       {/* Main Footer Content */}
       <Grid container spacing={4} justifyContent="space-between" sx={{ borderTop: '1px solid #333', pt: 5 }}>
@@ -97,7 +97,7 @@ export default function Footer() {
         </Grid>
 
       {/* Copyright */}
-      <Box sx={{ borderTop: '1px solid #333', textAlign: 'center', pt: 3, mt: 4, color: 'gray', fontSize: '0.8rem' }}>
+      <Box sx={{ borderTop: '1px solid #333', textAlign: 'center', pt: 3, mt: 4, color: 'gray', fontSize: '0.8rem', py: 4 }}>
         © 2024 Cisco's General Contractor in Painting. All rights reserved.
       </Box>
     </Box>
