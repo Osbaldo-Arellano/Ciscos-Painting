@@ -240,7 +240,7 @@ function VideoGallerySection() {
   const videoUrls = [
     '/images/videos/VID_20250620_133517.mp4',
     '/images/videos/VID_20250620_133517.mp4',
-    '/images/videos/VID_20250620_133517.mp4', // add a third if needed
+    '/images/videos/VID_20250620_133517.mp4', 
   ];
 
   return (
