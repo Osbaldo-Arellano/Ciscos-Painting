@@ -197,18 +197,12 @@ export default function ProjectsPage() {
           width: '100%',
         }}
       >
-        <Typography variant="h6" sx={{ color: '#bbb', mb: 1, ml: 8 }}>
+        <Typography variant="h4" sx={{ color: '#ccc', mb: 1, ml:8 }}>
           01/ Project Gallery
         </Typography>
         <Typography
-          component="h1"
-          sx={{
-            fontSize: { xs: '1.8rem', sm: '2.5rem', md: '4rem' },
-            fontWeight: 700,
-            mb: 2,
-            color: 'white',
-            ml: 8,
-          }}
+          variant="h3" 
+          sx={{ mb: 4, fontWeight: 700, color: '#eee' , ml:8}}
         >
           From House to Home
         </Typography>

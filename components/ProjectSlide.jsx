@@ -93,7 +93,7 @@ export default function ProjectSlide({ project, isActive }) {
 
   const mainSettings = {
     asNavFor: thumbnailSlider,
-    dots: true,
+    dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 1,

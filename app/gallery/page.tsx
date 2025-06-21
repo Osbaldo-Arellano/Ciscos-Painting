@@ -44,21 +44,13 @@ export default function GalleryPage() {
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://ciscospainting.com/gallery" />
-
         <meta property="og:title" content="Gallery | Cisco's General Contractor in Paintingg" />
-        <meta
-          property="og:description"
-          content="Explore Cisco's General Contractor in Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013."
-        />
+        <meta property="og:description" content="Explore Cisco's General Contractor in Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013." />
         <meta property="og:image" content="https://ciscospainting.com/images/gallery-banner.jpg" />
         <meta property="og:url" content="https://ciscospainting.com/gallery" />
-
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Gallery | Cisco's General Contractor in Painting" />
-        <meta
-          name="twitter:description"
-          content="Explore Cisco's General Contractor in Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013."
-        />
+        <meta name="twitter:description" content="Explore Cisco's General Contractor in Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013." />
         <meta name="twitter:image" content="https://ciscospainting.com/images/gallery-banner.jpg" />
 
         {/* JSON-LD Structured Data */}
@@ -80,16 +72,13 @@ export default function GalleryPage() {
                 postalCode: "97317",
                 addressCountry: "US"
               },
-              description:
-                "Explore Cisco's General Contractor in Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013.",
+              description: "Explore Cisco's General Contractor in Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013.",
             }),
           }}
         />
       </Head>
 
-
       <GlobalStyles />
-
       {isDesktop ? <DesktopNav /> : <MobileNav />}
 
       <Box sx={{ bgcolor: '#111', color: '#eee', minHeight: '100vh' }}>
@@ -107,6 +96,9 @@ export default function GalleryPage() {
         >
           <Projects aria-label="Gallery of completed projects" />
         </Box>
+
+        {/* 🔥 New Video Gallery Section */}
+        <VideoGallerySection />
 
         <Footer />
       </Box>
@@ -141,7 +133,6 @@ function GlobalStyles() {
 const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => (
   <Box
     ref={ref}
-    aria-labelledby="gallery-hero-title"
     sx={{
       position: 'relative',
       height: { xs: '75vh', md: '100vh' },
@@ -152,14 +143,7 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => (
     }}
     className="fade-in"
   >
-    <Box
-      sx={{
-        position: 'absolute',
-        inset: 0,
-        bgcolor: 'rgba(0, 0, 0, 0.7)',
-        zIndex: 1,
-      }}
-    />
+    <Box sx={{ position: 'absolute', inset: 0, bgcolor: 'rgba(0, 0, 0, 0.7)', zIndex: 1 }} />
     <Box
       component="header"
       sx={{
@@ -177,18 +161,11 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => (
         textAlign: 'left',
       }}
     >
-      <Typography
-        variant="h6"
-        sx={{ color: '#bbb', mb: 1 }}
-        className="fade-in"
-        id="gallery-hero-title"
-      >
+      <Typography variant="h6" sx={{ color: '#bbb', mb: 1 }} id="gallery-hero-title">
         00/ See Our Work
       </Typography>
       <Typography
         component="h1"
-        className="fade-in"
-        style={{ animationDelay: '0.2s' }}
         sx={{
           fontSize: { xs: '1.8rem', sm: '2.5rem', md: '4rem' },
           fontFamily: '"Inter", sans-serif',
@@ -199,12 +176,7 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => (
       >
         Proudly Serving Oregon Since 2013
       </Typography>
-      <Typography
-        variant="body1"
-        className="fade-in"
-        style={{ animationDelay: '0.4s' }}
-        sx={{ mb: 3, color: '#ddd' }}
-      >
+      <Typography variant="body1" sx={{ mb: 3, color: '#ddd' }}>
         Painting, Siding, Fences, Roofing, Drywall, Carpentry, Janitorial, Cabinet Refinishing, Restoration.
         <br />
         Cisco's General Contractor in Painting does it all — built on quality, finished with care.
@@ -235,10 +207,7 @@ function ScrollHint() {
         maxWidth: 320,
         boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
       }}
-      className="fade-in"
       role="note"
-      aria-live="polite"
-      aria-atomic="true"
     >
       <Typography
         variant="body1"
@@ -247,7 +216,6 @@ function ScrollHint() {
           fontWeight: 700,
           letterSpacing: 2,
           textTransform: 'uppercase',
-          fontFamily: '"Inter", sans-serif',
           fontSize: '0.875rem',
         }}
       >
@@ -262,8 +230,86 @@ function ScrollHint() {
           transform: 'rotate(45deg)',
           mb: '2px',
         }}
-        aria-hidden="true"
       />
     </Box>
   );
 }
+
+// 💡 Video Gallery Section Component
+function VideoGallerySection() {
+  const videoUrls = [
+    '/images/videos/VID_20250620_133517.mp4',
+    '/images/videos/VID_20250620_133517.mp4',
+    '/images/videos/VID_20250620_133517.mp4', // add a third if needed
+  ];
+
+  return (
+    <Box
+      component="section"
+      sx={{
+        py: 8,
+        px: { xs: 2, sm: 4 },
+        bgcolor: '#121212',
+        textAlign: 'left',
+        ml: { sm: 0, md: 9 },
+        background: `radial-gradient(circle at center, #3a3a3a 0%, #1a1a1a 100%)`,
+        borderRadius:1,
+        marginBottom:8
+      }}
+    >
+      <Typography variant="h4" sx={{ color: '#ccc', mb: 1 }}>
+        02 / Videos in Action
+      </Typography>
+      <Typography variant="h3" sx={{ mb: 4, fontWeight: 700, color: '#eee' }}>
+        See Our Process
+      </Typography>
+
+      <Box
+        sx={{
+          display: 'flex',
+          overflowX: 'auto',
+          gap: 2,
+          pb: 3,
+          scrollSnapType: 'x mandatory',
+          '& > *': {
+            scrollSnapAlign: 'center',
+          },
+        }}
+      >
+        {videoUrls.map((url, idx) => (
+          <Box
+            key={idx}
+            sx={{
+              minWidth: { xs: '85%', sm: '60%', md: '30%', lg: '25%' }, 
+              flexShrink: 0,
+              borderRadius: 2,
+              overflow: 'hidden',
+              position: 'relative',
+              aspectRatio: '9 / 16', // fallback below if unsupported
+              backgroundColor: '#000',
+              '@supports not (aspect-ratio: 1)': {
+                paddingTop: '177.78%', // 16:9 ratio
+              },
+            }}
+          >
+            <video
+              controls
+              src={url}
+              poster="/images/video-thumb.jpg"
+              preload="metadata"
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+              }}
+            />
+          </Box>
+        ))}
+      </Box>
+    </Box>
+  );
+}
+
