@@ -192,9 +192,15 @@ export default function MobileHome() {
 
         {/* About */}
         <Box sx={{ background: '#181818', py: 6, px: 2, color: '#ccc' }}>
-          <Typography variant="h5" sx={{ mb: 2 }}>
-            02 / About Us
-          </Typography>
+          <Typography
+        id="services-heading"
+        variant="h4"
+        sx={{ color: '#ccc', mb: 2 }}
+        className="fade-in"
+        tabIndex={-1}
+      >
+        02 / About Us
+      </Typography>
           <Typography variant="h3" sx={{ mb: 2, fontWeight: 700 }}>
             Reviving Homes, Restoring Trust
           </Typography>

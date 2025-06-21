@@ -227,6 +227,7 @@ export default function Home() {
               <Typography variant="h5" sx={{ color: '#ccc', alignSelf: 'flex-start', mb: 1 }}>
                 02/ About Us
               </Typography>
+              
               <Typography
                 component="h2"
                 sx={{

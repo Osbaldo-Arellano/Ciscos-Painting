@@ -12,23 +12,34 @@ export default function ProjectSlide({ project, isActive }) {
   const [thumbnailSlider, setThumbnailSlider] = useState(null);
   const theme = useTheme();
 
-  // Track last scroll position to detect scroll direction
   const lastScrollY = useRef(0);
-  // Track current slide index to prevent going out of bounds
   const currentSlide = useRef(0);
-  // Throttle scroll events to avoid rapid slide changes
   const scrollTimeout = useRef(null);
 
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
-    setMainSlider(mainRef.current);
-    setThumbnailSlider(thumbRef.current);
+    setMounted(true);
+
+    if (
+      mainRef.current &&
+      typeof mainRef.current.slickGoTo === 'function'
+    ) {
+      setMainSlider(mainRef.current);
+    }
+
+    if (
+      thumbRef.current &&
+      typeof thumbRef.current.slickGoTo === 'function'
+    ) {
+      setThumbnailSlider(thumbRef.current);
+    }
   }, []);
 
   useEffect(() => {
-    if (!mainSlider) return;
+    if (!mainSlider || typeof mainSlider.slickGoTo !== 'function') return;
 
     function handleScroll() {
-
       const scrollY = window.scrollY || window.pageYOffset;
       const direction = scrollY > lastScrollY.current ? 'down' : 'up';
       lastScrollY.current = scrollY;
@@ -37,14 +48,16 @@ export default function ProjectSlide({ project, isActive }) {
       let targetSlide = currentSlide.current;
 
       if (direction === 'down' && currentSlide.current < slideCount - 1) {
-        targetSlide = currentSlide.current + 1;
+        targetSlide++;
       } else if (direction === 'up' && currentSlide.current > 0) {
-        targetSlide = currentSlide.current - 1;
+        targetSlide--;
       }
 
       if (targetSlide !== currentSlide.current) {
-        mainSlider.slickGoTo(targetSlide, false);
-        currentSlide.current = targetSlide;
+        if (typeof mainSlider.slickGoTo === 'function') {
+          mainSlider.slickGoTo(targetSlide, false);
+          currentSlide.current = targetSlide;
+        }
       }
 
       scrollTimeout.current = setTimeout(() => {
@@ -52,28 +65,31 @@ export default function ProjectSlide({ project, isActive }) {
       }, 300);
     }
 
+    window.addEventListener('scroll', handleScroll);
 
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+    };
   }, [mainSlider, project.images.length]);
 
-  if (!isActive) return null;
+  if (!isActive || !mounted) return null;
 
   const hasMultipleImages = project.images.length > 1;
 
-  // When main slide changes, update currentSlide ref
   function handleMainAfterChange(index) {
     currentSlide.current = index;
   }
 
-
-
-function handleThumbnailClick(i) {
-  // Safely call slickGoTo on mainRef.current
-  if (mainRef.current && typeof mainRef.current.slickGoTo === 'function') {
-    mainRef.current.slickGoTo(i);
-    currentSlide.current = i;
+  function handleThumbnailClick(i) {
+    if (
+      mainRef.current &&
+      typeof mainRef.current.slickGoTo === 'function'
+    ) {
+      mainRef.current.slickGoTo(i);
+      currentSlide.current = i;
+    }
   }
-}
-
 
   const mainSettings = {
     asNavFor: thumbnailSlider,
@@ -91,7 +107,16 @@ function handleThumbnailClick(i) {
     afterChange: handleMainAfterChange,
     appendDots: (dots) => (
       <Box sx={{ mt: 2 }}>
-        <ul style={{ margin: 0, padding: 0, display: 'flex', justifyContent: 'center' }}>{dots}</ul>
+        <ul
+          style={{
+            margin: 0,
+            padding: 0,
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          {dots}
+        </ul>
       </Box>
     ),
     customPaging: () => (
@@ -125,14 +150,30 @@ function handleThumbnailClick(i) {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, minHeight: '70vh' }}>
-      <Box sx={{ width: { xs: '100%', md: '40%' }, display: 'flex', flexDirection: 'column' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: { xs: 'column', md: 'row' },
+        minHeight: '70vh',
+      }}
+    >
+      <Box
+        sx={{
+          width: { xs: '100%', md: '40%' },
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         {/* Main Slider */}
         <Slider {...mainSettings}>
           {project.images.map((src, i) => (
             <Box
               key={i}
-              sx={{ position: 'relative', width: '100%', height: { xs: 250, sm: 300, md: 700 } }}
+              sx={{
+                position: 'relative',
+                width: '100%',
+                height: { xs: 250, sm: 300, md: 700 },
+              }}
             >
               <Image
                 src={src}
@@ -185,7 +226,9 @@ function handleThumbnailClick(i) {
               ))}
             </Slider>
           ) : (
-            <Box sx={{ position: 'relative', height: 60, width: 80, mx: 'auto' }}>
+            <Box
+              sx={{ position: 'relative', height: 60, width: 80, mx: 'auto' }}
+            >
               <Image
                 src={project.images[0]}
                 alt={`${project.title} - thumbnail`}
@@ -214,7 +257,7 @@ function handleThumbnailClick(i) {
         <Typography
           component="h1"
           sx={{
-            fontSize: { xs: '2rem', sm: '2rem', md: '3rem'},
+            fontSize: { xs: '2rem', sm: '2rem', md: '3rem' },
             textAlign: { xs: 'center', md: 'left' },
             fontWeight: 700,
             mb: 2,

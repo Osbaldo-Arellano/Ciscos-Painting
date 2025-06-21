@@ -16,7 +16,7 @@ const servicesData: Service[] = [
   {
     id: 1,
     title: 'Painting',
-    description: 'Interior and exterior painting with premium finishes.',
+    description: 'Our Specialty! Interior and exterior painting with premium finishes.',
     image: '/images/painting.jpg',
     gradient: 'linear-gradient(45deg, #b71c1c, #d32f2f)',
   },
