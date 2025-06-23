@@ -10,6 +10,7 @@ import ContactForm from '@/components/ContactForm'
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   
+  
   const servicesData = [
     {
       image: '/images/painting.jpg',
