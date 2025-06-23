@@ -5,15 +5,14 @@ import Head from 'next/head'; // Make sure you have next/head imported
 import {
   Box,
   Typography,
-  TextField,
-  Button,
-  Alert,
   useMediaQuery,
 } from '@mui/material';
 import DesktopNav from '@/components/Navbar';
 import MobileNav from '@/components/MobileNavbar';
 import Footer from '@/components/Footer';
 import React from 'react';
+import ContactForm from '@/components/ContactForm'
+
 
 export default function ContactPage() {
   const isDesktop = useMediaQuery('(min-width: 768px)');
@@ -21,37 +20,6 @@ export default function ContactPage() {
 
   return (
     <>
-      <Head>
-        <title>Contact Us | Cisco&apos;s Painting</title>
-        <meta
-          name="description"
-          content="Get in touch with Cisco's General Contractor in Painting for residential, commercial, and custom painting services. Fill out our contact form to start your project today."
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'ContactPage',
-              'url': 'https://yourwebsite.com/contact',
-              'mainEntity': {
-                '@type': 'LocalBusiness',
-                'name': "Cisco's General Contractor in Painting",
-                'telephone': '+15039999060',
-                'address': {
-                  '@type': 'PostalAddress',
-                  'streetAddress': '1489 Arabian Ave SE',
-                  'addressLocality': 'Salem',
-                  'addressRegion': 'OR',
-                  'postalCode': '97317',
-                  'addressCountry': 'US',
-                },
-              },
-            }),
-          }}
-        />
-      </Head>
-
       <GlobalStyles />
       {isDesktop ? <DesktopNav /> : <MobileNav />}
 
@@ -153,110 +121,6 @@ const HeroSection = React.forwardRef((_, ref) => {
     </Box>
   );
 });
-
-function ContactForm() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState({ success: null, message: '' });
-
-  const handleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus({ success: null, message: '' });
-
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      const result = await res.json();
-      setStatus({ success: result.success, message: result.message });
-      if (result.success) setFormData({ name: '', email: '', message: '' });
-    } catch {
-      setStatus({
-        success: false,
-        message: 'Something went wrong. Please try again.',
-      });
-    }
-  };
-
-  return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      aria-describedby="form-feedback"
-      sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
-    >
-      <Typography variant="h5" sx={{ fontWeight: 700, color: '#eee' }}>
-        Contact Us
-      </Typography>
-
-      <TextField
-        label="Name"
-        id="name"
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
-        required
-        fullWidth
-        InputProps={{ sx: { bgcolor: '#222', color: '#eee' } }}
-        InputLabelProps={{ sx: { color: '#aaa' } }}
-      />
-
-      <TextField
-        label="Email"
-        id="email"
-        name="email"
-        type="email"
-        value={formData.email}
-        onChange={handleChange}
-        required
-        fullWidth
-        InputProps={{ sx: { bgcolor: '#222', color: '#eee' } }}
-        InputLabelProps={{ sx: { color: '#aaa' } }}
-      />
-
-      <TextField
-        label="Message"
-        id="message"
-        name="message"
-        value={formData.message}
-        onChange={handleChange}
-        required
-        multiline
-        rows={4}
-        fullWidth
-        InputProps={{ sx: { bgcolor: '#222', color: '#eee' } }}
-        InputLabelProps={{ sx: { color: '#aaa' } }}
-      />
-
-      {status.message && (
-        <Alert
-          id="form-feedback"
-          severity={status.success ? 'success' : 'error'}
-        >
-          {status.message}
-        </Alert>
-      )}
-
-      <Button
-        type="submit"
-        variant="contained"
-        size="large"
-        sx={{
-          bgcolor: '#c62828',
-          ':hover': { bgcolor: '#b71c1c' },
-          fontWeight: 700,
-          alignSelf: 'flex-start',
-        }}
-      >
-        Send Message
-      </Button>
-    </Box>
-  );
-}
 
 function GlobalStyles() {
   return (

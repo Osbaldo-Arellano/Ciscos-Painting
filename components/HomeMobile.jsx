@@ -77,10 +77,7 @@ export default function MobileHome() {
       </Head>
 
       <EstimateModal open={modalOpen} onClose={() => setModalOpen(false)} />
-
-                    <MobileNavbar />
-        
-
+      <MobileNavbar />
       <Box>
           {/* Hero Section */}
         <section>

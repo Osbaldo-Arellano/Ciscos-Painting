@@ -1,17 +1,17 @@
-// app/api/contact/route.ts  (or pages/api/contact.js)
-
 import nodemailer from 'nodemailer';
 import { NextResponse } from 'next/server';
 
 export async function POST(request) {
   try {
-    // pull out the exact keys your form is sending:
-    const { name, email, phone_number, message } = await request.json();
+    const { name, email, phone, jobs, description } = await request.json();
 
     if (
       !name ||
-      !phone_number ||
-      !message
+      !email ||
+      !phone ||
+      !Array.isArray(jobs) ||
+      jobs.length === 0 ||
+      !description
     ) {
       return NextResponse.json(
         { success: false, message: 'Please fill out all required fields.' },
@@ -28,19 +28,20 @@ export async function POST(request) {
     });
 
     const mailOptions = {
-      from: process.env.FROM_EMAIL,
-      to: process.env.TO_EMAIL,
-      subject: `Nuevo Contacto: ${name}`,
-      text:
-        `Nombre: ${name}\n` +
-        `Correo electrónico: ${email}\n` +
-        `Teléfono: ${phone_number}\n\n` +
-        `Mensaje:\n${message}`,
-    };
+          from: process.env.FROM_EMAIL,
+          to: process.env.TO_EMAIL,
+          subject: `Nueva solicitud de presupuesto de ${name}`,
+          text:
+            `Nombre: ${name}\n` +
+            `Correo electrónico: ${email}\n` +
+            `Teléfono: ${phone}\n\n` +
+            `Servicios solicitados:\n  • ${jobs.join('\n  • ')}\n\n` +
+            `Descripción:\n${description}`,
+        };
 
     await transporter.sendMail(mailOptions);
 
-    return NextResponse.json({ success: true, message: 'Message sent!' });
+    return NextResponse.json({ success: true, message: 'Estimate request sent!' });
   } catch (error) {
     console.error('Email error:', error);
     return NextResponse.json(

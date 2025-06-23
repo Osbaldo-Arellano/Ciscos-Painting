@@ -12,6 +12,8 @@ import {
   FormControlLabel,
   FormGroup,
   Typography,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 
 const jobOptions = [
@@ -27,36 +29,61 @@ const jobOptions = [
   'Contact',
 ];
 
-export default function EstimateModal({ open, onClose }) {
+export default function EstimateModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    jobs: [],
+    jobs: [] as string[],
     description: '',
   });
+  const [submitting, setSubmitting] = useState(false);
+  const [toastOpen, setToastOpen] = useState(false);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleJobChange = (job) => {
-    setFormData((prev) => ({
+  const handleJobChange = (job: string) => {
+    setFormData(prev => ({
       ...prev,
       jobs: prev.jobs.includes(job)
-        ? prev.jobs.filter((j) => j !== job)
+        ? prev.jobs.filter(j => j !== job)
         : [...prev.jobs, job],
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form Submitted:', formData);
-    onClose();
+    if (submitting) return;
+    setSubmitting(true);
+
+    try {
+      const res = await fetch('/api/contact/modal', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const json = await res.json();
+      if (json.success) {
+        setToastOpen(true);
+        setTimeout(() => 
+        onClose(), 1200)
+      } else {
+        // handle validation/server error
+        alert(json.message);
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Something went wrong. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
+    <>
     <Dialog
       open={open}
       onClose={onClose}
@@ -66,19 +93,13 @@ export default function EstimateModal({ open, onClose }) {
       aria-labelledby="estimate-dialog-title"
       aria-describedby="estimate-dialog-description"
     >
-      <DialogTitle
-        id="estimate-dialog-title"
-        sx={{ bgcolor: '#1a1a1a', color: '#fff' }}
-      >
+      <DialogTitle id="estimate-dialog-title" sx={{ bgcolor: '#1a1a1a', color: '#fff' }}>
         Get an Estimate
       </DialogTitle>
 
-      <DialogContent
-        id="estimate-dialog-description"
-        sx={{ bgcolor: '#1a1a1a', color: '#fff' }}
-      >
+      <DialogContent id="estimate-dialog-description" sx={{ bgcolor: '#1a1a1a', color: '#fff' }}>
         <Typography variant="body2" sx={{ mb: 2, color: '#ccc' }}>
-          Fill out the form below, and we’ll get back to you with an estimate.
+          Fill out the form below, and we’ll get back to you with an estimate!
         </Typography>
 
         <form onSubmit={handleSubmit}>
@@ -127,7 +148,7 @@ export default function EstimateModal({ open, onClose }) {
           </Typography>
 
           <FormGroup sx={{ mb: 2 }}>
-            {jobOptions.map((job) => (
+            {jobOptions.map(job => (
               <FormControlLabel
                 key={job}
                 control={
@@ -160,11 +181,12 @@ export default function EstimateModal({ open, onClose }) {
           />
 
           <DialogActions>
-            <Button onClick={onClose} sx={{ color: '#ccc' }}>
+            <Button onClick={onClose} sx={{ color: '#ccc' }} disabled={submitting}>
               Cancel
             </Button>
             <Button
               type="submit"
+              disabled={submitting}
               sx={{
                 bgcolor: '#c62828',
                 ':hover': { bgcolor: '#b71c1c' },
@@ -172,11 +194,27 @@ export default function EstimateModal({ open, onClose }) {
                 fontWeight: 600,
               }}
             >
-              Submit
+              {submitting ? 'Sending…' : 'Submit'}
             </Button>
           </DialogActions>
         </form>
       </DialogContent>
     </Dialog>
-  );
-}
+
+     {/* Success Toast */}
+     <Snackbar
+       open={toastOpen}
+       autoHideDuration={2000}
+       onClose={() => setToastOpen(false)}
+       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+     >
+       <Alert
+         onClose={() => setToastOpen(false)}
+         severity="success"
+         sx={{ width: '100%' }}
+       >
+         Message sent successfully!
+       </Alert>
+     </Snackbar>
+  </>
+)}
