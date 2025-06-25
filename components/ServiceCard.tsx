@@ -147,9 +147,8 @@ export default function ServiceCard({
               {description}
             </Typography>
           </Box>
-          <Link href="/contact" passHref legacyBehavior>
+          <Link href="/contact" passHref>
             <Button
-              component="a"
               variant="contained"
               size="small"
               aria-label={`Learn more about ${title} services and contact us`}

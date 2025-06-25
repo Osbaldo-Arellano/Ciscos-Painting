@@ -81,7 +81,7 @@ export default function Navbar() {
           FREE quote request HERE
         </Button>
 
-        <Link href="tel:5039999060" passHref>
+        <Link href="tel:5039999060" passHref >
           <Button
             sx={{
               color: 'white',
@@ -95,7 +95,6 @@ export default function Navbar() {
           </Button>
         </Link>
       </Box>
-
       {/* Main Navbar */}
       <AppBar
         position="absolute"
@@ -113,7 +112,7 @@ export default function Navbar() {
       >
         <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between' }}>
           {/* Logo */}
-          <Link href="/" passHref>
+          <Link href="/" passHref >
             <Box
               sx={{
                 display: 'flex',
@@ -233,7 +232,6 @@ export default function Navbar() {
         </Toolbar>
         <ScrollTopButton />
       </AppBar>
-
       <EstimateModal open={estimateOpen} onClose={() => setEstimateOpen(false)} />
     </>
   );
@@ -282,7 +280,7 @@ type NavLinkProps = {
 
 function NavLink({ href, children, current }: NavLinkProps) {
   return (
-    <Link href={href} passHref>
+    <Link href={href} passHref >
       <Button
         sx={{
           color: '#fff',

@@ -118,7 +118,7 @@ export default function Footer() {
           },
         }}
       >
-        Website designed and coded by <a href='https://xicanoweb.codes'>Xicano Web Services</a>
+        Website designed and coded by <a href='https://xicanoweb.carrd.co/'>Xicano Web Services</a>
       </Box>
 
     </Box>

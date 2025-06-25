@@ -29,53 +29,52 @@ export default function MobileHome() {
 
   return (
     <>
-       <Head>
-        <title>Cisco's GC Painting | Salem's Premier Contractor</title>
-        <meta
-          name="description"
-          content="Cisco's GC Painting provides expert painting, siding, roofing, carpentry, and restoration services in Salem, Oregon and Portland metro."
-        />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://ciscospainting.com/" />
-        <meta property="og:title" content="Cisco's GC Painting" />
-        <meta property="og:description" content="Reviving Homes, Restoring Trust in Salem, Oregon." />
-        <meta property="og:image" content="https://ciscospainting.com/images/nice-house.jpg" />
-        <meta property="og:url" content="https://ciscospainting.com/" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Cisco's GC Painting" />
-        <meta name="twitter:description" content="Reviving Homes, Restoring Trust in Salem, Oregon." />
-        <meta name="twitter:image" content="https://ciscospainting.com/images/nice-house.jpg" />
+      <Head>
+       <title>Cisco's GC Painting | Salem's Premier Contractor</title>
+       <meta
+         name="description"
+         content="Cisco's GC Painting provides expert painting, siding, roofing, carpentry, and restoration services in Salem, Oregon and Portland metro."
+       />
+       <meta name="robots" content="index, follow" />
+       <link rel="canonical" href="https://ciscospainting.com/" />
+       <meta property="og:title" content="Cisco's GC Painting" />
+       <meta property="og:description" content="Reviving Homes, Restoring Trust in Salem, Oregon." />
+       <meta property="og:image" content="https://ciscospainting.com/images/nice-house.jpg" />
+       <meta property="og:url" content="https://ciscospainting.com/" />
+       <meta name="twitter:card" content="summary_large_image" />
+       <meta name="twitter:title" content="Cisco's GC Painting" />
+       <meta name="twitter:description" content="Reviving Homes, Restoring Trust in Salem, Oregon." />
+       <meta name="twitter:image" content="https://ciscospainting.com/images/nice-house.jpg" />
 
-        {/* JSON-LD Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "LocalBusiness",
-              "name": "Cisco's GC Painting",
-              "image": "https://ciscospainting.com/images/logo-bg.jpg",
-              "url": "https://ciscospainting.com/",
-              "telephone": "+1-503-999-9060",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "1489 Arabian Ave SE",
-                "addressLocality": "Salem",
-                "addressRegion": "OR",
-                "postalCode": "97317",
-                "addressCountry": "US"
-              },
-              "description":
-                "Professional painting, siding, roofing, carpentry, and restoration services in Salem, Oregon and Portland metro.",
-              "sameAs": [
-                "https://www.facebook.com/yourpage",
-                "https://www.instagram.com/yourprofile"
-              ]
-            }),
-          }}
-        />
-      </Head>
-
+       {/* JSON-LD Structured Data */}
+       <script
+         type="application/ld+json"
+         dangerouslySetInnerHTML={{
+           __html: JSON.stringify({
+             "@context": "https://schema.org",
+             "@type": "LocalBusiness",
+             "name": "Cisco's GC Painting",
+             "image": "https://ciscospainting.com/images/logo-bg.jpg",
+             "url": "https://ciscospainting.com/",
+             "telephone": "+1-503-999-9060",
+             "address": {
+               "@type": "PostalAddress",
+               "streetAddress": "1489 Arabian Ave SE",
+               "addressLocality": "Salem",
+               "addressRegion": "OR",
+               "postalCode": "97317",
+               "addressCountry": "US"
+             },
+             "description":
+               "Professional painting, siding, roofing, carpentry, and restoration services in Salem, Oregon and Portland metro.",
+             "sameAs": [
+               "https://www.facebook.com/yourpage",
+               "https://www.instagram.com/yourprofile"
+             ]
+           }),
+         }}
+       />
+     </Head>
       <EstimateModal open={modalOpen} onClose={() => setModalOpen(false)} />
       <MobileNavbar />
       <Box>

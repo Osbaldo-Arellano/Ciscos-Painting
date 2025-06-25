@@ -76,10 +76,8 @@ export default function MobileNavbar() {
           📱 (503) 999-9060
         </Button>
       </Box>
-
       {/* Shared Estimate Modal */}
       <EstimateModal open={modalOpen} onClose={() => setModalOpen(false)} />
-
       {/* AppBar */}
       <AppBar position="sticky" sx={{ background: 'radial-gradient(circle at right, #111 10%, #333 50%)', px: 2 }}>
         <Toolbar disableGutters>
@@ -93,7 +91,6 @@ export default function MobileNavbar() {
           </IconButton>
         </Toolbar>
       </AppBar>
-
       {/* Drawer */}
       <Drawer
         anchor="right"
