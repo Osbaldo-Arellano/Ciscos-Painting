@@ -209,7 +209,7 @@ export default function ProjectsPage() {
         <Typography variant="body1" sx={{ mb: 3, color: '#ddd', ml: 8 }}>
           Painting, Siding, Fences, Roofing, Drywall, Carpentry, Janitorial, Cabinet Refinishing, Restoration.
           <br />
-          Cisco's General Contractor in Painting does it all — built on quality, finished with care.
+          Cisco's GC Painting does it all — built on quality, finished with care.
         </Typography>
 
         <Box sx={{ mt: 4, ml: 9 }}>

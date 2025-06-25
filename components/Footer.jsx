@@ -10,7 +10,7 @@ export default function Footer() {
         {/* Company Info */}
         <Grid item xs={12} md={5}>
           <Typography component="h2" variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
-            Cisco's General Contractor in Painting
+            Cisco's GC Painting
           </Typography>
           <Typography variant="body2" sx={{ color: 'gray' }}>
             General Contractor
@@ -97,9 +97,30 @@ export default function Footer() {
         </Grid>
 
       {/* Copyright */}
-      <Box sx={{ borderTop: '1px solid #333', textAlign: 'center', pt: 3, mt: 4, color: 'gray', fontSize: '0.8rem', py: 4 }}>
-        © 2024 Cisco's General Contractor in Painting. All rights reserved.
+      <Box sx={{ textAlign: 'center', pt: 3, mt: 4, color: 'gray', fontSize: '0.8rem', py: 4 }}>
+        © 2024 Cisco's GC Painting. All rights reserved.
       </Box>
+      <Box
+        sx={{
+          borderTop: '1px solid #333',
+          textAlign: 'center',
+          pt: 3,
+          mt: 4,
+          color: 'gray',
+          fontSize: '0.8rem',
+          py: 4,
+          '& a': {
+            color: '#ccc',
+            textDecoration: 'none', // optional: removes underline
+          },
+          '& a:hover': {
+            textDecoration: 'underline', // optional: underline on hover
+          },
+        }}
+      >
+        Website designed and coded by <a href='https://xicanoweb.codes'>Xicano Web Services</a>
+      </Box>
+
     </Box>
   );
 }

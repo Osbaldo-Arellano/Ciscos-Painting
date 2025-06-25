@@ -30,19 +30,19 @@ export default function MobileHome() {
   return (
     <>
        <Head>
-        <title>Cisco's General Contractor in Painting | Salem's Premier Contractor</title>
+        <title>Cisco's GC Painting | Salem's Premier Contractor</title>
         <meta
           name="description"
-          content="Cisco's General Contractor in Painting provides expert painting, siding, roofing, carpentry, and restoration services in Salem, Oregon and Portland metro."
+          content="Cisco's GC Painting provides expert painting, siding, roofing, carpentry, and restoration services in Salem, Oregon and Portland metro."
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://ciscospainting.com/" />
-        <meta property="og:title" content="Cisco's General Contractor in Painting" />
+        <meta property="og:title" content="Cisco's GC Painting" />
         <meta property="og:description" content="Reviving Homes, Restoring Trust in Salem, Oregon." />
         <meta property="og:image" content="https://ciscospainting.com/images/nice-house.jpg" />
         <meta property="og:url" content="https://ciscospainting.com/" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Cisco's General Contractor in Painting" />
+        <meta name="twitter:title" content="Cisco's GC Painting" />
         <meta name="twitter:description" content="Reviving Homes, Restoring Trust in Salem, Oregon." />
         <meta name="twitter:image" content="https://ciscospainting.com/images/nice-house.jpg" />
 
@@ -53,7 +53,7 @@ export default function MobileHome() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              "name": "Cisco's General Contractor in Painting",
+              "name": "Cisco's GC Painting",
               "image": "https://ciscospainting.com/images/logo-bg.jpg",
               "url": "https://ciscospainting.com/",
               "telephone": "+1-503-999-9060",
@@ -202,15 +202,15 @@ export default function MobileHome() {
             Reviving Homes, Restoring Trust
           </Typography>
           <Image
-            src="/images/home1.png"
+            src="/images/home2.jpg"
             alt="home"
             width={900}
-            height={600}
+            height={700}
             style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
             priority
           />
           <Typography sx={{ mt: 2, fontSize: '1rem' }}>
-            Cisco's General Contractor in Painting is Salem's premier contractor for painting, siding, fencing, roofing, drywall, carpentry, janitorial, cabinet refinishing, and restoration.
+            Cisco's GC Painting is Salem's premier contractor for painting, siding, fencing, roofing, drywall, carpentry, janitorial, cabinet refinishing, and restoration.
           </Typography>
           <Link href="/gallery" passHref>
             <Button

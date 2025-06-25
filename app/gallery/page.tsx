@@ -37,20 +37,20 @@ export default function GalleryPage() {
   return (
     <>
       <Head>
-        <title>Gallery | Cisco's General Contractor in Painting - Oregon's Trusted Contractor</title>
+        <title>Gallery | Cisco's GC Painting - Oregon's Trusted Contractor</title>
         <meta
           name="description"
-          content="Explore Cisco's General Contractor in Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013."
+          content="Explore Cisco's GC Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013."
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://ciscospainting.com/gallery" />
-        <meta property="og:title" content="Gallery | Cisco's General Contractor in Paintingg" />
-        <meta property="og:description" content="Explore Cisco's General Contractor in Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013." />
+        <meta property="og:title" content="Gallery | Cisco's GC Paintingg" />
+        <meta property="og:description" content="Explore Cisco's GC Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013." />
         <meta property="og:image" content="https://ciscospainting.com/images/gallery-banner.jpg" />
         <meta property="og:url" content="https://ciscospainting.com/gallery" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Gallery | Cisco's General Contractor in Painting" />
-        <meta name="twitter:description" content="Explore Cisco's General Contractor in Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013." />
+        <meta name="twitter:title" content="Gallery | Cisco's GC Painting" />
+        <meta name="twitter:description" content="Explore Cisco's GC Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013." />
         <meta name="twitter:image" content="https://ciscospainting.com/images/gallery-banner.jpg" />
 
         {/* JSON-LD Structured Data */}
@@ -60,7 +60,7 @@ export default function GalleryPage() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              name: "Cisco's General Contractor in Painting",
+              name: "Cisco's GC Painting",
               image: "https://ciscospainting.com/images/logo-bg.jpg",
               url: "https://ciscospainting.com/gallery",
               telephone: "+1-503-999-9060",
@@ -72,7 +72,7 @@ export default function GalleryPage() {
                 postalCode: "97317",
                 addressCountry: "US"
               },
-              description: "Explore Cisco's General Contractor in Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013.",
+              description: "Explore Cisco's GC Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013.",
             }),
           }}
         />
@@ -179,7 +179,7 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => (
       <Typography variant="body1" sx={{ mb: 3, color: '#ddd' }}>
         Painting, Siding, Fences, Roofing, Drywall, Carpentry, Janitorial, Cabinet Refinishing, Restoration.
         <br />
-        Cisco's General Contractor in Painting does it all — built on quality, finished with care.
+        Cisco's GC Painting does it all — built on quality, finished with care.
       </Typography>
     </Box>
   </Box>
@@ -239,8 +239,8 @@ function ScrollHint() {
 function VideoGallerySection() {
   const videoUrls = [
     '/images/videos/VID_20250620_133517.mp4',
-    '/images/videos/VID_20250620_133517.mp4',
-    '/images/videos/VID_20250620_133517.mp4', 
+    '/images/videos/VID_20250623_143404.mp4',
+    '/images/videos/VID_20250623_143410.mp4', 
   ];
 
   return (

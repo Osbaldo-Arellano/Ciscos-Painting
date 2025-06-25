@@ -5,27 +5,27 @@ export default function HomePage() {
   return (
     <>
       <Head>
-        <title>Home | Cisco's General Contracor in Painting - Quality Craftsmanship in Oregon</title>
+        <title>Home | Cisco's GC Painting  - Quality Craftsmanship in Oregon</title>
         <meta
           name="description"
-          content="Cisco's General Contracor in Painting offers expert residential and commercial painting, roofing, siding, carpentry, and restoration services in Salem, Oregon and Portland metro since 2013."
+          content="Cisco's GC Painting offers expert residential and commercial painting, roofing, siding, carpentry, and restoration services in Salem, Oregon and Portland metro since 2013."
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://ciscospainting.com" />
 
-        <meta property="og:title" content="Home | Cisco's General Contractor in Painting" />
+        <meta property="og:title" content="Home | Cisco's GC Painting" />
         <meta
           property="og:description"
-          content="Cisco's General Contracor in Painting offers expert residential and commercial painting, roofing, siding, carpentry, and restoration services in Salem, Oregon and Portland metro since 2013."
+          content="Cisco's GC Painting offers expert residential and commercial painting, roofing, siding, carpentry, and restoration services in Salem, Oregon and Portland metro since 2013."
         />
         <meta property="og:image" content="https://ciscospainting.com/images/logo-bg.jpg" />
         <meta property="og:url" content="https://ciscospainting.com" />
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Home | Cisco's General Contractor in Painting" />
+        <meta name="twitter:title" content="Home | Cisco's GC Painting" />
         <meta
           name="twitter:description"
-          content="Cisco's General Contracor in Painting offers expert residential and commercial painting, roofing, siding, carpentry, and restoration services in Salem, Oregon and Portland metro since 2013."
+          content="Cisco's GC Painting offers expert residential and commercial painting, roofing, siding, carpentry, and restoration services in Salem, Oregon and Portland metro since 2013."
         />
         <meta name="twitter:image" content="https://ciscospainting.com/images/logo-bg.jpg" />
 
@@ -38,7 +38,7 @@ export default function HomePage() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              name: "Cisco's General Contractor in Painting",
+              name: "Cisco's GC Painting",
               image: "https://ciscospainting.com/images/logo-bg.jpg",
               url: "https://ciscospainting.com",
               telephone: "+1-503-999-9060",

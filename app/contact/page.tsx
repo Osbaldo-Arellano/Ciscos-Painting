@@ -5,15 +5,15 @@ export default function ContactPage() {
   return (
     <>
       <Head>
-        <title>Contact Cisco's General Contractor in Painting| Get a Free Estimate in Salem, Oregon</title>
+        <title>Contact Cisco's GC Painting| Get a Free Estimate in Salem, Oregon</title>
         <meta
           name="description"
-          content="Contact Cisco's General Contractor in Painting for expert painting, siding, roofing, carpentry, and restoration services in Salem, Oregon and Portland metro."
+          content="Contact Cisco's GC Painting for expert painting, siding, roofing, carpentry, and restoration services in Salem, Oregon and Portland metro."
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://ciscospainting.com/contact" />
 
-        <meta property="og:title" content="Contact Cisco's General Contractor in Painting" />
+        <meta property="og:title" content="Contact Cisco's GC Painting" />
         <meta
           property="og:description"
           content="Reach out for a free estimate or questions about painting, siding, roofing, carpentry, and restoration services."
@@ -22,7 +22,7 @@ export default function ContactPage() {
         <meta property="og:url" content="https://ciscospainting.com/contact" />
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Contact Cisco's General Contractor in Painting" />
+        <meta name="twitter:title" content="Contact Cisco's GC Painting" />
         <meta
           name="twitter:description"
           content="Reach out for a free estimate or questions about painting, siding, roofing, carpentry, and restoration services."
@@ -36,7 +36,7 @@ export default function ContactPage() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              "name": "Cisco's General Contractor in Painting",
+              "name": "Cisco's GC Painting",
               "image": "https://ciscospainting.com/images/logo-bg.jpg",
               "url": "https://ciscospainting.com/contact",
               "telephone": "+1-503-999-9060",
