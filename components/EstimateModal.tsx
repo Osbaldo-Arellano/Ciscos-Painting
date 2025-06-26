@@ -68,8 +68,13 @@ export default function EstimateModal({ open, onClose }: { open: boolean; onClos
       const json = await res.json();
       if (json.success) {
         setToastOpen(true);
-        setTimeout(() => 
-        onClose(), 1200)
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          jobs: [],
+          description: '',
+        });
       } else {
         // handle validation/server error
         alert(json.message);
@@ -203,11 +208,14 @@ export default function EstimateModal({ open, onClose }: { open: boolean; onClos
 
      {/* Success Toast */}
      <Snackbar
-       open={toastOpen}
-       autoHideDuration={2000}
-       onClose={() => setToastOpen(false)}
-       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-     >
+        open={toastOpen}
+        autoHideDuration={2000}
+        onClose={() => {
+          setToastOpen(false);
+          onClose(); // Only close modal after toast disappears
+        }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
        <Alert
          onClose={() => setToastOpen(false)}
          severity="success"
