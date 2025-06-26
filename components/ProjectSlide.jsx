@@ -33,7 +33,21 @@ export default function ProjectSlide({ project, isActive, slideIndex }) {
 
   function handleMainAfterChange(index) {
     setActiveImageIndex(index);
+
+    // Try immediately
+    if (thumbnailSlider?.innerSlider?.slickGoTo) {
+      thumbnailSlider.slickGoTo(index);
+    } else {
+      // Retry after a short delay if not ready yet
+      setTimeout(() => {
+        if (thumbnailSlider?.innerSlider?.slickGoTo) {
+          thumbnailSlider.slickGoTo(index);
+        }
+      }, 50); // try 100ms if still flaky
+    }
   }
+
+
 
   function handleThumbnailClick(i) {
     if (mainRef.current && typeof mainRef.current.slickGoTo === 'function') {
@@ -70,6 +84,7 @@ export default function ProjectSlide({ project, isActive, slideIndex }) {
     swipe: true,
     touchMove: true,
     draggable: true,
+    centerMode: false,
     ref: thumbRef,
   };
 
@@ -110,21 +125,24 @@ export default function ProjectSlide({ project, isActive, slideIndex }) {
                     <CircularProgress color="inherit" size={40} />
                   </Box>
                 )}
-                <Image
-                  src={src}
-                  alt={`${project.title} - image ${i + 1}`}
-                  fill
-                  style={{
-                    objectFit: 'cover',
-                    borderRadius: 8,
-                    transition: 'opacity 0.3s ease-in-out',
-                    cursor: isMobile ? 'zoom-in' : 'default',
-                  }}
-                  priority={i === 0}
-                  loading={i === 0 ? 'eager' : 'lazy'}
-                  onClick={() => isMobile && setZoomedImage(src)}
-                  onLoad={() => handleImageLoad(i)}
-                />
+              <Image
+                src={src}
+                alt={`${project.title} - image ${i + 1}`}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // helps browser choose best resolution
+                style={{
+                  objectFit: 'cover',
+                  borderRadius: 8,
+                  transition: 'opacity 0.3s ease-in-out',
+                  cursor: isMobile ? 'zoom-in' : 'default',
+                }}
+                priority={i < 2} // only prioritize first 2 images
+                loading={i < 2 ? 'eager' : 'lazy'} // avoid eager loading every image
+                placeholder="empty" // consider using 'blur' if you have blurDataURL
+                onClick={() => isMobile && setZoomedImage(src)}
+                onLoad={() => handleImageLoad(i)}
+              />
+
               </Box>
             ))}
           </Slider>
@@ -241,17 +259,16 @@ export default function ProjectSlide({ project, isActive, slideIndex }) {
             cursor: 'zoom-out',
           }}
         >
-          <Box
-            component="img"
+          <Image
             src={zoomedImage}
             alt="Zoomed"
-            sx={{
-              maxWidth: '90vw',
-              maxHeight: '90vh',
+            fill
+            sizes="90vw"
+            style={{
               objectFit: 'contain',
-              borderRadius: 2,
-              boxShadow: 24,
+              borderRadius: 8,
             }}
+            priority
           />
         </Box>
       )}
