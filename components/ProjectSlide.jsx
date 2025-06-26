@@ -1,4 +1,3 @@
-// Updated ProjectSlide component with image loading animations
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
@@ -6,12 +5,12 @@ import { Box, Typography, useTheme, CircularProgress } from '@mui/material';
 import Slider from 'react-slick';
 import Image from 'next/image';
 
-export default function ProjectSlide({ project, isActive }) {
+export default function ProjectSlide({ project, isActive, slideIndex }) {
   const mainRef = useRef(null);
   const thumbRef = useRef(null);
   const [mainSlider, setMainSlider] = useState(null);
   const [thumbnailSlider, setThumbnailSlider] = useState(null);
-  const [loadedImages, setLoadedImages] = useState([]);
+  const [loadedFirstImages, setLoadedFirstImages] = useState(new Set());
   const theme = useTheme();
 
   const lastScrollY = useRef(0);
@@ -39,7 +38,7 @@ export default function ProjectSlide({ project, isActive }) {
       const direction = scrollY > lastScrollY.current ? 'down' : 'up';
       lastScrollY.current = scrollY;
 
-      const slideCount = project.images.length;
+      const slideCount = document.querySelectorAll('[data-project-slide]').length;
       let targetSlide = currentSlide.current;
 
       if (direction === 'down' && currentSlide.current < slideCount - 1) {
@@ -48,7 +47,10 @@ export default function ProjectSlide({ project, isActive }) {
         targetSlide--;
       }
 
-      if (targetSlide !== currentSlide.current && loadedImages.includes(targetSlide)) {
+      if (
+        targetSlide !== currentSlide.current &&
+        loadedFirstImages.has(targetSlide)
+      ) {
         mainSlider.slickGoTo(targetSlide, false);
         currentSlide.current = targetSlide;
       }
@@ -64,7 +66,7 @@ export default function ProjectSlide({ project, isActive }) {
       window.removeEventListener('scroll', handleScroll);
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
-  }, [mainSlider, loadedImages, project.images.length]);
+  }, [mainSlider, loadedFirstImages]);
 
   if (!isActive || !mounted) return null;
 
@@ -81,8 +83,10 @@ export default function ProjectSlide({ project, isActive }) {
     }
   }
 
-  const handleImageLoad = (index) => {
-    setLoadedImages((prev) => [...new Set([...prev, index])]);
+  const handleImageLoad = (slideIdx, imgIdx) => {
+    if (imgIdx === 0) {
+      setLoadedFirstImages((prev) => new Set(prev).add(slideIdx));
+    }
   };
 
   const mainSettings = {
@@ -120,6 +124,7 @@ export default function ProjectSlide({ project, isActive }) {
 
   return (
     <Box
+      data-project-slide
       sx={{
         display: 'flex',
         flexDirection: { xs: 'column', md: 'row' },
@@ -139,33 +144,14 @@ export default function ProjectSlide({ project, isActive }) {
               key={i}
               sx={{ position: 'relative', width: '100%', height: { xs: 250, sm: 300, md: 700 } }}
             >
-              {!loadedImages.includes(i) && (
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    zIndex: 1,
-                    bgcolor: 'rgba(0,0,0,0.3)',
-                    transition: 'opacity 0.5s ease-in-out',
-                  }}
-                >
-                  <CircularProgress color="inherit" size={40} />
-                </Box>
-              )}
               <Image
                 src={src}
                 alt={`${project.title} - image ${i + 1}`}
                 fill
-                style={{ objectFit: 'cover', borderRadius: 8, transition: 'opacity 0.5s ease-in-out', opacity: loadedImages.includes(i) ? 1 : 0 }}
+                style={{ objectFit: 'cover', borderRadius: 8, transition: 'opacity 0.3s ease-in-out' }}
                 priority={i === 0}
                 loading={i === 0 ? 'eager' : 'lazy'}
-                onLoad={() => handleImageLoad(i)}
+                onLoad={() => handleImageLoad(slideIndex, i)}
               />
             </Box>
           ))}

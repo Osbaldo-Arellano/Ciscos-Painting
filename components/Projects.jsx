@@ -222,7 +222,7 @@ export default function ProjectsPage() {
                 aria-label={`${project.title} project`}
                 style={{ outline: 'none' }}
               >
-                <ProjectSlide project={project} isActive={index === activeIndex} />
+                <ProjectSlide project={project} isActive={index === activeIndex} slideIndex={index} />
               </article>
             ))}
           </Slider>
