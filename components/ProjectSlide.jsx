@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Box, Typography, useTheme, CircularProgress } from '@mui/material';
+import { Box, Typography, useTheme, CircularProgress, useMediaQuery } from '@mui/material';
 import Slider from 'react-slick';
 import Image from 'next/image';
 
@@ -11,7 +11,11 @@ export default function ProjectSlide({ project, isActive, slideIndex }) {
   const [mainSlider, setMainSlider] = useState(null);
   const [thumbnailSlider, setThumbnailSlider] = useState(null);
   const [loadedImages, setLoadedImages] = useState([]);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [zoomedImage, setZoomedImage] = useState(null);
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
 
   useEffect(() => {
     if (mainRef.current && typeof mainRef.current.slickGoTo === 'function') {
@@ -27,7 +31,9 @@ export default function ProjectSlide({ project, isActive, slideIndex }) {
 
   const hasMultipleImages = project.images.length > 1;
 
-  function handleMainAfterChange(index) {}
+  function handleMainAfterChange(index) {
+    setActiveImageIndex(index);
+  }
 
   function handleThumbnailClick(i) {
     if (mainRef.current && typeof mainRef.current.slickGoTo === 'function') {
@@ -40,7 +46,6 @@ export default function ProjectSlide({ project, isActive, slideIndex }) {
   };
 
   const mainSettings = {
-    // REMOVE: asNavFor
     dots: false,
     infinite: false,
     speed: 500,
@@ -56,162 +61,201 @@ export default function ProjectSlide({ project, isActive, slideIndex }) {
   };
 
   const thumbnailSettings = {
-    // REMOVE: asNavFor
     dots: false,
     infinite: hasMultipleImages,
     speed: 500,
     slidesToShow: Math.min(3, project.images.length),
     slidesToScroll: 1,
-    focusOnSelect: false, // 👈 disable auto-focus behavior
     arrows: false,
     swipe: true,
     touchMove: true,
     draggable: true,
     ref: thumbRef,
-    centerMode: hasMultipleImages,
-    centerPadding: '0px',
   };
 
   return (
-    <Box
-      data-project-slide
-      sx={{
-        display: 'flex',
-        flexDirection: { xs: 'column', md: 'row' },
-        minHeight: '70vh',
-      }}
-    >
+    
+    <>
       <Box
+        data-project-slide
         sx={{
-          width: { xs: '100%', md: '40%' },
           display: 'flex',
-          flexDirection: 'column',
+          flexDirection: { xs: 'column', md: 'row' },
+          minHeight: '70vh',
         }}
       >
-        <Slider {...mainSettings}>
-          {project.images.map((src, i) => (
-            <Box
-              key={i}
-              sx={{ position: 'relative', width: '100%', height: { xs: 250, sm: 300, md: 700 } }}
-            >
-              {!loadedImages.includes(i) && (
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    zIndex: 1,
-                    bgcolor: 'rgba(0,0,0,0.3)',
+        {/* Image Section */}
+        <Box sx={{ width: { xs: '100%', md: '40%' }, display: 'flex', flexDirection: 'column' }}>
+          <Slider {...mainSettings}>
+            {project.images.map((src, i) => (
+              <Box
+                key={i}
+                sx={{ position: 'relative', width: '100%', height: { xs: 250, sm: 300, md: 700 } }}
+              >
+                {!loadedImages.includes(i) && (
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      zIndex: 1,
+                      bgcolor: 'rgba(0,0,0,0.3)',
+                    }}
+                  >
+                    <CircularProgress color="inherit" size={40} />
+                  </Box>
+                )}
+                <Image
+                  src={src}
+                  alt={`${project.title} - image ${i + 1}`}
+                  fill
+                  style={{
+                    objectFit: 'cover',
+                    borderRadius: 8,
+                    transition: 'opacity 0.3s ease-in-out',
+                    cursor: isMobile ? 'zoom-in' : 'default',
                   }}
-                >
-                  <CircularProgress color="inherit" size={40} />
-                </Box>
-              )}
-              <Image
-                src={src}
-                alt={`${project.title} - image ${i + 1}`}
-                fill
-                style={{ objectFit: 'cover', borderRadius: 8, transition: 'opacity 0.3s ease-in-out' }}
-                priority={i === 0}
-                loading={i === 0 ? 'eager' : 'lazy'}
-                onLoad={() => handleImageLoad(i)}
-              />
-            </Box>
-          ))}
-        </Slider>
+                  priority={i === 0}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  onClick={() => isMobile && setZoomedImage(src)}
+                  onLoad={() => handleImageLoad(i)}
+                />
+              </Box>
+            ))}
+          </Slider>
 
+          {/* Thumbnail Nav */}
+          <Box
+            sx={{
+              mt: 3,
+              px: 2,
+              '.slick-slide': {
+                padding: '0 5px',
+                '& img': {
+                  border: '2px solid transparent',
+                  opacity: 0.6,
+                  cursor: 'pointer',
+                  borderRadius: 1,
+                },
+              },
+            }}
+          >
+            {hasMultipleImages ? (
+              <Slider {...thumbnailSettings}>
+                {project.images.map((src, i) => (
+                  <Box
+                    key={i}
+                    sx={{
+                      position: 'relative',
+                      height: 60,
+                      outline: 'none',
+                      borderRadius: 1,
+                      border: i === activeImageIndex ? '2px solid red' : '2px solid transparent',
+                      overflow: 'hidden',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => handleThumbnailClick(i)}
+                  >
+                    <Image
+                      src={src}
+                      alt={`${project.title} - thumbnail ${i + 1}`}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                      loading="lazy"
+                    />
+                  </Box>
+                ))}
+              </Slider>
+            ) : (
+              <Box sx={{ position: 'relative', height: 60, width: 80, mx: 'auto' }}>
+                <Image
+                  src={project.images[0]}
+                  alt={`${project.title} - thumbnail`}
+                  fill
+                  style={{ objectFit: 'cover', borderRadius: 8 }}
+                  loading="lazy"
+                />
+              </Box>
+            )}
+          </Box>
+        </Box>
+
+        {/* Description Section */}
         <Box
           sx={{
-            mt: 3,
-            px: 2,
-            '.slick-slide': {
-              padding: '0 5px',
-              '& img': {
-                border: '2px solid transparent',
-                opacity: 0.6,
-                cursor: 'pointer',
-                borderRadius: 1,
-              },
-              '&.slick-current img': {
-                borderColor: 'primary.main',
-                opacity: 1,
-              },
-            },
+            width: { xs: '95%', md: '60%' },
+            p: { xs: 2, md: 4 },
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            bgcolor: 'transparent',
+            maxWidth: 700,
+            mx: 'auto',
           }}
         >
-          {hasMultipleImages ? (
-            <Slider {...thumbnailSettings}>
-              {project.images.map((src, i) => (
-                <Box
-                  key={i}
-                  sx={{ position: 'relative', height: 60 }}
-                  onClick={() => handleThumbnailClick(i)}
-                >
-                  <Image
-                    src={src}
-                    alt={`${project.title} - thumbnail ${i + 1}`}
-                    fill
-                    style={{ objectFit: 'cover', borderRadius: 8 }}
-                    loading="lazy"
-                  />
-                </Box>
-              ))}
-            </Slider>
-          ) : (
-            <Box sx={{ position: 'relative', height: 60, width: 80, mx: 'auto' }}>
-              <Image
-                src={project.images[0]}
-                alt={`${project.title} - thumbnail`}
-                fill
-                style={{ objectFit: 'cover', borderRadius: 8 }}
-                loading="lazy"
-              />
-            </Box>
-          )}
+          <Typography
+            component="h1"
+            sx={{
+              fontSize: { xs: '2rem', sm: '2rem', md: '3rem' },
+              textAlign: { xs: 'center', md: 'left' },
+              fontWeight: 700,
+              mb: 2,
+              color: '#ccc',
+            }}
+          >
+            {project.title}
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: 'rgba(255, 255, 255, 0.8)',
+              fontWeight: 400,
+              lineHeight: 1.6,
+              textAlign: { xs: 'left', md: 'left' },
+            }}
+          >
+            {project.description}
+          </Typography>
         </Box>
       </Box>
 
-      <Box
-        sx={{
-          width: { xs: '95%', md: '60%' },
-          p: { xs: 2, md: 4 },
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          bgcolor: 'transparent',
-          maxWidth: 700,
-          mx: 'auto',
-        }}
-      >
-        <Typography
-          component="h1"
+      {isMobile && zoomedImage && (
+        <Box
+          onClick={() => setZoomedImage(null)}
           sx={{
-            fontSize: { xs: '2rem', sm: '2rem', md: '3rem' },
-            textAlign: { xs: 'center', md: 'left' },
-            fontWeight: 700,
-            mb: 2,
-            color: '#ccc',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            zIndex: 1300,
+            width: '100vw',
+            height: '100vh',
+            bgcolor: 'rgba(0,0,0,0.95)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'zoom-out',
           }}
         >
-          {project.title}
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            color: 'rgba(255, 255, 255, 0.8)',
-            fontWeight: 400,
-            lineHeight: 1.6,
-            textAlign: { xs: 'left', md: 'left' },
-          }}
-        >
-          {project.description}
-        </Typography>
-      </Box>
-    </Box>
+          <Box
+            component="img"
+            src={zoomedImage}
+            alt="Zoomed"
+            sx={{
+              maxWidth: '90vw',
+              maxHeight: '90vh',
+              objectFit: 'contain',
+              borderRadius: 2,
+              boxShadow: 24,
+            }}
+          />
+        </Box>
+      )}
+
+    </>
   );
 }

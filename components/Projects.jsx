@@ -3,10 +3,16 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import { useState, useRef, useEffect, useMemo } from 'react';
-import { Box, Typography, Paper, GlobalStyles } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Paper,
+  GlobalStyles,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import ProjectSlide from '@/components/ProjectSlide';
 
-// Dynamically load Slider to keep SSR bundle light
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
 
 const projects = [
@@ -132,10 +138,10 @@ const projects = [
 ];
 
 export default function ProjectsPage() {
-  // Track currently active slide
   const [activeIndex, setActiveIndex] = useState(0);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  // Memoize slider settings to avoid re-creation on each render
   const projectSettings = useMemo(
     () => ({
       dots: false,
@@ -153,7 +159,6 @@ export default function ProjectsPage() {
     []
   );
 
-  // Slick dot styles via GlobalStyles
   const dotStyles = {
     '.slick-dots': {
       bottom: '-24px',
@@ -165,7 +170,6 @@ export default function ProjectsPage() {
   return (
     <>
       <GlobalStyles styles={dotStyles} />
-
       <Paper
         elevation={3}
         component="section"
@@ -177,37 +181,59 @@ export default function ProjectsPage() {
           width: '100%',
         }}
       >
-        <Typography variant="h4" sx={{ color: '#ccc', mb: 1, ml: {sm: 0, md: 8} }}>
+        <Typography variant="h4" sx={{ color: '#ccc', mb: 1, ml: { sm: 0, md: 8 } }}>
           01/ Project Gallery
         </Typography>
-        <Typography variant="h3" sx={{ mb: 4, fontWeight: 700, color: '#eee', ml: {sm: 0, md: 8} }}>
+        <Typography variant="h3" sx={{ mb: 4, fontWeight: 700, color: '#eee', ml: { sm: 0, md: 8 } }}>
           From House to Home
         </Typography>
-        <Typography variant="body1" sx={{ mb: 3, color: '#ddd', ml: {sm: 0, md: 8} }}>
+        <Typography variant="body1" sx={{ mb: 3, color: '#ddd', ml: { sm: 0, md: 8 } }}>
           Painting, Siding, Fences, Roofing, Drywall, Carpentry, Janitorial,
           Cabinet Refinishing, Restoration.
           <br />
-          Cisco's GC Painting does it all — built on quality, finished with
-          care.
+          Cisco&apos;s GC Painting does it all — built on quality, finished with care.
         </Typography>
 
         <Box sx={{ mt: 4, mx: 'auto', width: '90%' }}>
-          <Slider {...projectSettings}>
+          {isMobile ? (
+            // Vertical layout for mobile
+          <Box display="flex" flexDirection="column" gap={4}>
             {projects.map((proj, idx) => (
               <Box
                 key={proj.title}
-                tabIndex={0}
-                role="group"
-                aria-label={`${proj.title} project`}
-                sx={{ outline: 'none' }}
+                sx={{
+                  borderBottom: '2px solid #444', 
+                }}
               >
                 <ProjectSlide
                   project={proj}
-                  isActive={idx === activeIndex}
+                  isActive={true}
+                  slideIndex={idx}
                 />
               </Box>
             ))}
-          </Slider>
+          </Box>
+
+          ) : (
+            // Desktop slider
+            <Slider {...projectSettings}>
+              {projects.map((proj, idx) => (
+                <Box
+                  key={proj.title}
+                  tabIndex={0}
+                  role="group"
+                  aria-label={`${proj.title} project`}
+                  sx={{ outline: 'none' }}
+                >
+                  <ProjectSlide
+                    project={proj}
+                    isActive={idx === activeIndex}
+                    slideIndex={idx}
+                  />
+                </Box>
+              ))}
+            </Slider>
+          )}
         </Box>
       </Paper>
     </>
