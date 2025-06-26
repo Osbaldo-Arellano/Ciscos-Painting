@@ -6,45 +6,42 @@ import Image from 'next/image';
 
 export default function PageLoader({
   children,
-  waitForImage,
 }: {
   children: React.ReactNode;
-  waitForImage?: string;
 }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); // logic toggle
+  const [fadeOut, setFadeOut] = useState(false);     // controls CSS fade
 
   useEffect(() => {
-    // If already loaded once this session, skip loading
     const hasSeenLoader = sessionStorage.getItem('seen-home-loader');
     if (hasSeenLoader === 'true') {
       setIsLoading(false);
       return;
     }
 
-    if (!waitForImage) {
-      setTimeout(() => {
-        setIsLoading(false);
-        sessionStorage.setItem('seen-home-loader', 'true');
-      }, 800);
-      return;
+    const handleLoad = () => {
+      setFadeOut(true); // start fade-out
+      sessionStorage.setItem('seen-home-loader', 'true');
+      setTimeout(() => setIsLoading(false), 500); // match fade duration
+    };
+
+    if (document.readyState === 'complete') {
+      handleLoad(); // already ready
+    } else {
+      window.addEventListener('load', handleLoad);
     }
 
-    const img = new window.Image();
-    img.src = waitForImage;
-
-    img.onload = () => {
-      setIsLoading(false);
-      sessionStorage.setItem('seen-home-loader', 'true');
+    return () => {
+      window.removeEventListener('load', handleLoad);
     };
-    img.onerror = () => {
-      setIsLoading(false);
-      sessionStorage.setItem('seen-home-loader', 'true');
-    };
-  }, [waitForImage]);
+  }, []);
 
-  if (isLoading) {
-    return (
+  if (!isLoading) return <>{children}</>;
+
+  return (
+    <>
       <Box
+        className={`loader-container ${fadeOut ? 'fade-out' : ''}`}
         sx={{
           position: 'fixed',
           top: 0,
@@ -59,6 +56,8 @@ export default function PageLoader({
           justifyContent: 'center',
           textAlign: 'center',
           color: '#eee',
+          opacity: fadeOut ? 0 : 1,
+          transition: 'opacity 0.5s ease-in-out',
         }}
       >
         <Image
@@ -83,8 +82,6 @@ export default function PageLoader({
         </Typography>
         <CircularProgress size={48} sx={{ color: '#f44336' }} />
       </Box>
-    );
-  }
-
-  return <>{children}</>;
+    </>
+  );
 }

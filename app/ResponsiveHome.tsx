@@ -26,7 +26,7 @@ export default function ResponsiveHome() {
   }, []);
 
   return (
-    <PageLoader waitForImage='/images/nice-house.jpg'>
+    <PageLoader>
       <Box component="div" sx={{ bgcolor: '#111', width: '100%', minHeight: '100vh' }}>
         {isDesktop ? (
           <>
