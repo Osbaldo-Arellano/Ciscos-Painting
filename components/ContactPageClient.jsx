@@ -6,6 +6,7 @@ import {
   Box,
   Typography,
   useMediaQuery,
+  Link
 } from '@mui/material';
 import DesktopNav from '@/components/Navbar';
 import MobileNav from '@/components/MobileNavbar';
@@ -94,6 +95,23 @@ const HeroSection = React.forwardRef((_, ref) => {
           Whether it&apos;s a home, office, or custom project — we want to hear
           from you.
         </Typography>
+          <Typography component="h3" variant="subtitle1" sx={{ fontWeight: 'bold', color: 'white', mb: 1 }}>
+            Contact
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'gray', mb: 0.5 }}>
+            <Link href="tel:5039999060" underline="hover" sx={{ color: 'gray', '&:hover': { color: '#b71c1c' } }}>
+              (503) 999-9060
+            </Link>
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'gray' }}>
+            <Link href="mailto:paintingciscos@gmail.com" color="inherit" underline="hover">
+              paintingciscos@gmail.com
+            </Link>
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'gray' }}>
+            1489 Arabian Ave SE.<br />Salem, OR 97317
+          </Typography>
+        
       </Box>
 
       {/* Contact form section */}

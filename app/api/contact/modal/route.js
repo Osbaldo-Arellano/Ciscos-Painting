@@ -28,7 +28,7 @@ export async function POST(request) {
     });
 
     const mailOptions = {
-          from: process.env.FROM_EMAIL,
+          from: `"Cisco's GC Painting" <${process.env.FROM_EMAIL}>`,
           to: process.env.TO_EMAIL,
           subject: `Nueva solicitud de presupuesto de ${name}`,
           text:

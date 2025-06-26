@@ -9,6 +9,7 @@ import {
   Typography,
   Snackbar,
   Alert,
+  Link,
 } from '@mui/material';
 
 export default function ContactForm() {
@@ -82,7 +83,11 @@ export default function ContactForm() {
         >
           Contact Us
         </Typography>
-
+          <Typography variant="body2" sx={{ color: 'gray', mb: 0.5 }}>
+            <Link href="tel:5039999060" underline="hover" sx={{ color: 'gray', '&:hover': { color: '#b71c1c' } }}>
+              (503) 999-9060
+            </Link>
+          </Typography>
         <TextField
           name="name"
           label="Name"
