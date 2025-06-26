@@ -1,5 +1,9 @@
+# *
 User-agent: *
 Allow: /
 
-Host: https://ciscos-painting.vercel.app
-Sitemap: https://ciscos-painting.vercel.app/sitemap.xml
+# Host
+Host: https://www.ciscosgc.com/
+
+# Sitemaps
+Sitemap: https://www.ciscosgc.com/sitemap.xml

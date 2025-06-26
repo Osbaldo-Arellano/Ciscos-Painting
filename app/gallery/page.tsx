@@ -57,25 +57,58 @@ export default function GalleryPage() {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "LocalBusiness",
-              name: "Cisco's GC Painting",
-              image: "https://ciscospainting.com/images/logo-bg.jpg",
-              url: "https://ciscospainting.com/gallery",
-              telephone: "+1-503-999-9060",
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "1489 Arabian Ave SE",
-                addressLocality: "Salem",
-                addressRegion: "OR",
-                postalCode: "97317",
-                addressCountry: "US"
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "LocalBusiness",
+                name: "Cisco's GC Painting",
+                image: "https://ciscospainting.com/images/logo-bg.jpg",
+                url: "https://ciscospainting.com/gallery",
+                telephone: "+1-503-999-9060",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "1489 Arabian Ave SE",
+                  addressLocality: "Salem",
+                  addressRegion: "OR",
+                  postalCode: "97317",
+                  addressCountry: "US"
+                },
+                description: "Explore Cisco's GC Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013."
               },
-              description: "Explore Cisco's GC Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013.",
-            }),
+              {
+                "@context": "https://schema.org",
+                "@type": "CollectionPage",
+                name: "Project Gallery",
+                description: "A curated portfolio of residential and commercial work by Cisco's GC Painting.",
+                url: "https://ciscospainting.com/gallery",
+                hasPart: [
+                  {
+                    "@type": "VideoObject",
+                    name: "Project Walkthrough 1",
+                    contentUrl: "https://ciscospainting.com/images/videos/VID_20250620_133517.mp4",
+                    thumbnailUrl: "https://ciscospainting.com/images/video-thumb.jpg",
+                    uploadDate: "2025-06-20"
+                  },
+                  {
+                    "@type": "VideoObject",
+                    name: "Interior Paint Showcase",
+                    contentUrl: "https://ciscospainting.com/images/videos/VID_20250623_143404.mp4",
+                    thumbnailUrl: "https://ciscospainting.com/images/video-thumb.jpg",
+                    uploadDate: "2025-06-23"
+                  },
+                  {
+                    "@type": "VideoObject",
+                    name: "Exterior Siding & Trim Time-lapse",
+                    contentUrl: "https://ciscospainting.com/images/videos/VID_20250623_143410.mp4",
+                    thumbnailUrl: "https://ciscospainting.com/images/video-thumb.jpg",
+                    uploadDate: "2025-06-23"
+                  }
+                ]
+              }
+            ])
           }}
         />
+
       </Head>
 
       <GlobalStyles />

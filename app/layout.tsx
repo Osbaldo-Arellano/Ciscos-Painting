@@ -103,10 +103,6 @@ export default function RootLayout({
                   name: "Carpentry",
                   description: "Custom woodwork and carpentry craftsmanship."
                 }
-              ],
-              sameAs: [
-                "https://www.facebook.com/yourpage",
-                "https://www.instagram.com/yourprofile"
               ]
             }),
           }}

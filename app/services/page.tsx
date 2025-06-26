@@ -34,55 +34,55 @@ export default function ServicesPage() {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "LocalBusiness",
-              name: "Cisco's GC Painting",
-              image: "https://ciscospainting.com/images/logo-bg.jpg",
-              url: "https://ciscospainting.com/services",
-              telephone: "+1-503-999-9060",
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "1489 Arabian Ave SE",
-                addressLocality: "Salem",
-                addressRegion: "OR",
-                postalCode: "97317",
-                addressCountry: "US"
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "LocalBusiness",
+                name: "Cisco's GC Painting",
+                image: "https://ciscospainting.com/images/logo-bg.jpg",
+                url: "https://ciscospainting.com/services",
+                telephone: "+1-503-999-9060",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "1489 Arabian Ave SE",
+                  addressLocality: "Salem",
+                  addressRegion: "OR",
+                  postalCode: "97317",
+                  addressCountry: "US"
+                },
+                description:
+                  "Cisco's GC Painting provides expert services in painting, roofing, siding, fences, drywall, janitorial, cabinet refinishing, and more across the Salem and Portland metro areas."
               },
-              description:
-                "Offering quality painting, roofing, siding, and restoration services in Salem, Oregon and Portland metro.",
-              service: [
-                {
-                  "@type": "Service",
-                  name: "Painting",
-                  description: "Interior and exterior painting with premium finishes."
+              // Services as Products for rich results
+              ...[
+                { name: "Painting", desc: "Interior and exterior painting with premium finishes." },
+                { name: "Siding", desc: "Durable siding installation and repair services." },
+                { name: "Fences", desc: "Custom fence building and restoration for homes and businesses." },
+                { name: "Roofing", desc: "Professional roof repairs and full replacements." },
+                { name: "Drywall", desc: "Precise drywall hanging, taping, and texturing." },
+                { name: "Carpentry", desc: "Detailed carpentry for trim, framing, and custom builds." },
+                { name: "Janitorial", desc: "Commercial and residential cleaning services." },
+                { name: "Cabinet Repaint", desc: "Cabinet refinishing and repainting with quality finishes." },
+                { name: "Restoration", desc: "Full-service damage restoration for interiors and exteriors." }
+              ].map(service => ({
+                "@context": "https://schema.org",
+                "@type": "Product",
+                name: service.name,
+                description: service.desc,
+                brand: {
+                  "@type": "Brand",
+                  name: "Cisco's GC Painting"
                 },
-                {
-                  "@type": "Service",
-                  name: "Roofing",
-                  description: "Expert roofing solutions for all types of homes."
-                },
-                {
-                  "@type": "Service",
-                  name: "Siding",
-                  description: "Durable siding installation and repairs."
-                },
-                {
-                  "@type": "Service",
-                  name: "Restoration",
-                  description: "Comprehensive restoration services after damage."
-                },
-                {
-                  "@type": "Service",
-                  name: "Carpentry",
-                  description: "Custom woodwork and carpentry craftsmanship."
-                },
-              ],
-              sameAs: [
-                "https://www.facebook.com/yourpage",
-                "https://www.instagram.com/yourprofile"
-              ]
-            }),
+                url: "https://www.ciscosgc.com//services",
+                offers: {
+                  "@type": "Offer",
+                  priceCurrency: "USD",
+                  price: "0.00",
+                  availability: "https://schema.org/InStock",
+                  url: "https://www.ciscosgc.com//contact"
+                }
+              }))
+            ])
           }}
         />
       </Head>
