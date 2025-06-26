@@ -17,7 +17,6 @@ export default function ProjectSlide({ project, isActive }) {
   const lastScrollY = useRef(0);
   const currentSlide = useRef(0);
   const scrollTimeout = useRef(null);
-
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -153,6 +152,7 @@ export default function ProjectSlide({ project, isActive }) {
                     justifyContent: 'center',
                     zIndex: 1,
                     bgcolor: 'rgba(0,0,0,0.3)',
+                    transition: 'opacity 0.5s ease-in-out',
                   }}
                 >
                   <CircularProgress color="inherit" size={40} />
@@ -162,7 +162,7 @@ export default function ProjectSlide({ project, isActive }) {
                 src={src}
                 alt={`${project.title} - image ${i + 1}`}
                 fill
-                style={{ objectFit: 'cover', borderRadius: 8, transition: 'opacity 0.3s ease-in-out' }}
+                style={{ objectFit: 'cover', borderRadius: 8, transition: 'opacity 0.5s ease-in-out', opacity: loadedImages.includes(i) ? 1 : 0 }}
                 priority={i === 0}
                 loading={i === 0 ? 'eager' : 'lazy'}
                 onLoad={() => handleImageLoad(i)}
