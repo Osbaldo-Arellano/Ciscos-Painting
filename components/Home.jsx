@@ -13,47 +13,47 @@ export default function Home() {
   
   const servicesData = [
     {
-      image: '/images/painting.jpg',
+      image: '/images/painting.webp',
       title: 'Painting',
       description: 'Professional painting services to refresh and beautify your property.',
     },
     {
-      image: '/images/siding.jpg',
+      image: '/images/siding.webp',
       title: 'Siding',
       description: 'Durable siding installation and repair to protect and enhance your exterior.',
     },
     {
-      image: '/images/fences.jpg',
+      image: '/images/fences.webp',
       title: 'Fences',
       description: 'Custom fence design and installation for privacy and security.',
     },
     {
-      image: '/images/roofing.jpg',
+      image: '/images/roofing.webp',
       title: 'Roofing',
       description: 'Reliable roofing solutions to keep your home safe and weatherproof.',
     },
     {
-      image: '/images/drywall.jpg',
+      image: '/images/drywall.webp',
       title: 'Drywall',
       description: 'Expert drywall installation, finishing, and repair services.',
     },
     {
-      image: '/images/carpentry.jpg',
+      image: '/images/carpentry.webp',
       title: 'Carpentry',
       description: 'Skilled carpentry work tailored to your construction or renovation needs.',
     },
     {
-      image: '/images/janitorial.jpg',
+      image: '/images/janitorial.webp',
       title: 'Janitorial',
       description: 'Comprehensive janitorial services for commercial and residential spaces.',
     },
     {
-      image: '/images/cabinet-repaint.jpg',
+      image: '/images/cabinet-repaint.webp',
       title: 'Cabinet Re-paint and Finishing',
       description: 'Transform your cabinets with professional repainting and finishing.',
     },
     {
-      image: '/images/restoration.jpg',
+      image: '/images/restoration.webp',
       title: 'Restoration',
       description: 'Quality restoration services to bring your property back to life.',
     },
@@ -82,7 +82,7 @@ export default function Home() {
                   xl: '100vh',
                 },
                 width: '100%',
-                backgroundImage: 'url(/images/nice-house.jpg)',
+                backgroundImage: 'url(/images/nice-house.webp)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 
@@ -279,7 +279,7 @@ export default function Home() {
                       marginRight: 'auto',
                     }}>
                       <Image
-                        src="/images/home2.jpg"
+                        src="/images/home2.webp"
                         alt="A grey new home"
                         width={900}
                         height={600}

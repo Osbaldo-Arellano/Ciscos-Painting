@@ -16,15 +16,15 @@ export default function MobileHome() {
   const [modalOpen, setModalOpen] = useState(false);
 
   const servicesData = [
-    { image: '/images/painting.jpg', title: 'Painting', description: 'Professional painting services to refresh and beautify your property.' },
-    { image: '/images/siding.jpg', title: 'Siding', description: 'Durable siding installation and repair to protect and enhance your exterior.' },
-    { image: '/images/fences.jpg', title: 'Fences', description: 'Custom fence design and installation for privacy and security.' },
-    { image: '/images/roofing.jpg', title: 'Roofing', description: 'Reliable roofing solutions to keep your home safe and weatherproof.' },
-    { image: '/images/drywall.jpg', title: 'Drywall', description: 'Expert drywall installation, finishing, and repair services.' },
-    { image: '/images/carpentry.jpg', title: 'Carpentry', description: 'Skilled carpentry work tailored to your construction or renovation needs.' },
-    { image: '/images/janitorial.jpg', title: 'Janitorial', description: 'Comprehensive janitorial services for commercial and residential spaces.' },
-    { image: '/images/cabinet-repaint.jpg', title: 'Cabinet Re-paint', description: 'Transform your cabinets with professional repainting and finishing.' },
-    { image: '/images/restoration.jpg', title: 'Restoration', description: 'Quality restoration services to bring your property back to life.' },
+    { image: '/images/painting.webp', title: 'Painting', description: 'Professional painting services to refresh and beautify your property.' },
+    { image: '/images/siding.webp', title: 'Siding', description: 'Durable siding installation and repair to protect and enhance your exterior.' },
+    { image: '/images/fences.webp', title: 'Fences', description: 'Custom fence design and installation for privacy and security.' },
+    { image: '/images/roofing.webp', title: 'Roofing', description: 'Reliable roofing solutions to keep your home safe and weatherproof.' },
+    { image: '/images/drywall.webp', title: 'Drywall', description: 'Expert drywall installation, finishing, and repair services.' },
+    { image: '/images/carpentry.webp', title: 'Carpentry', description: 'Skilled carpentry work tailored to your construction or renovation needs.' },
+    { image: '/images/janitorial.webp', title: 'Janitorial', description: 'Comprehensive janitorial services for commercial and residential spaces.' },
+    { image: '/images/cabinet-repaint.webp', title: 'Cabinet Re-paint', description: 'Transform your cabinets with professional repainting and finishing.' },
+    { image: '/images/restoration.webp', title: 'Restoration', description: 'Quality restoration services to bring your property back to life.' },
   ];
 
   return (
@@ -39,7 +39,7 @@ export default function MobileHome() {
               position: 'relative',
               height: { xs: '75vh', md: '100vh' },
               width: '100%',
-              backgroundImage: 'url(/images/nice-house.jpg)',
+              backgroundImage: 'url(/images/nice-house.webp)',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
@@ -155,7 +155,7 @@ export default function MobileHome() {
             Reviving Homes, Restoring Trust
           </Typography>
           <Image
-            src="/images/home2.jpg"
+            src="/images/home2.webp"
             alt="home"
             width={900}
             height={700}

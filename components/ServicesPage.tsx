@@ -92,7 +92,7 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => (
         xl: '100vh',
       },
       width: '100%',
-      backgroundImage: 'url(/images/nice-house.jpg)',
+      backgroundImage: 'url(/images/nice-house.webp)',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
     }}

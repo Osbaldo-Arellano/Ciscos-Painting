@@ -43,15 +43,15 @@ export default function GalleryPage() {
           content="Explore Cisco's GC Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013."
         />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://ciscospainting.com/gallery" />
+        <link rel="canonical" href="https://ciscosgc.com/gallery" />
         <meta property="og:title" content="Gallery | Cisco's GC Paintingg" />
         <meta property="og:description" content="Explore Cisco's GC Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013." />
-        <meta property="og:image" content="https://ciscospainting.com/images/gallery-banner.jpg" />
-        <meta property="og:url" content="https://ciscospainting.com/gallery" />
+        <meta property="og:image" content="https://ciscosgc.com/images/gallery-banner.webp" />
+        <meta property="og:url" content="https://ciscosgc.com/gallery" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Gallery | Cisco's GC Painting" />
         <meta name="twitter:description" content="Explore Cisco's GC Painting portfolio showcasing expert painting, siding, roofing, carpentry, and restoration projects in Oregon since 2013." />
-        <meta name="twitter:image" content="https://ciscospainting.com/images/gallery-banner.jpg" />
+        <meta name="twitter:image" content="https://ciscosgc.com/images/gallery-banner.webp" />
 
         {/* JSON-LD Structured Data */}
         <script
@@ -62,8 +62,8 @@ export default function GalleryPage() {
                 "@context": "https://schema.org",
                 "@type": "LocalBusiness",
                 name: "Cisco's GC Painting",
-                image: "https://ciscospainting.com/images/logo-bg.jpg",
-                url: "https://ciscospainting.com/gallery",
+                image: "https://ciscosgc.com/images/logo-bg.jpg",
+                url: "https://ciscosgc.com/gallery",
                 telephone: "+1-503-999-9060",
                 address: {
                   "@type": "PostalAddress",
@@ -80,27 +80,27 @@ export default function GalleryPage() {
                 "@type": "CollectionPage",
                 name: "Project Gallery",
                 description: "A curated portfolio of residential and commercial work by Cisco's GC Painting.",
-                url: "https://ciscospainting.com/gallery",
+                url: "https://ciscosgc.com/gallery",
                 hasPart: [
                   {
                     "@type": "VideoObject",
                     name: "Project Walkthrough 1",
-                    contentUrl: "https://ciscospainting.com/images/videos/VID_20250620_133517.mp4",
-                    thumbnailUrl: "https://ciscospainting.com/images/video-thumb.jpg",
-                    uploadDate: "2025-06-20"
+                    contentUrl: "https://ciscosgc.com/images/videos/VID_20250620_133517.mp4",
+                    thumbnailUrl: "https://ciscosgc.com/images/videos/thumbnails/EPISODE_01_Restoring_a_Porch.png",
+                    uploadDate: "2025-06-20" 
                   },
                   {
                     "@type": "VideoObject",
                     name: "Interior Paint Showcase",
-                    contentUrl: "https://ciscospainting.com/images/videos/VID_20250623_143404.mp4",
-                    thumbnailUrl: "https://ciscospainting.com/images/video-thumb.jpg",
+                    contentUrl: "https://ciscosgc.com/images/videos/VID_20250623_143404.mp4",
+                    thumbnailUrl: "https://ciscosgc.com/images/videos/thumbnails/EPISODE_02_Restoring_a_Kitchen.png",
                     uploadDate: "2025-06-23"
                   },
                   {
                     "@type": "VideoObject",
                     name: "Exterior Siding & Trim Time-lapse",
-                    contentUrl: "https://ciscospainting.com/images/videos/VID_20250623_143410.mp4",
-                    thumbnailUrl: "https://ciscospainting.com/images/video-thumb.jpg",
+                    contentUrl: "https://ciscosgc.com/images/videos/VID_20250623_143410.mp4",
+                    thumbnailUrl: "https://ciscosgc.com/images/videos/thumbnails/EPISODE_03_Restoring_a_LivingRoom.png",
                     uploadDate: "2025-06-23"
                   }
                 ]
@@ -171,7 +171,7 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => (
       position: 'relative',
       height: { xs: '75vh', md: '100vh' },
       width: '100%',
-      backgroundImage: 'url(/images/banner.jpg)',
+      backgroundImage: 'url(/images/banner.webp)',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
     }}
@@ -271,11 +271,20 @@ function ScrollHint() {
 
 // 💡 Video Gallery Section Component
 function VideoGallerySection() {
-  const videoUrls = [
-    '/images/videos/VID_20250620_133517.mp4',
-    '/images/videos/VID_20250623_143404.mp4',
-    '/images/videos/VID_20250623_143410.mp4', 
-  ];
+    const videoData = [
+    {
+      url: '/images/videos/VID_20250620_133517.mp4',
+      thumbnail: '/images/videos/thumbnails/EPISODE_03_Restoring_a_Porch.png',
+    },
+    {
+      url: '/images/videos/VID_20250623_143404.mp4',
+      thumbnail: '/images/videos/thumbnails/EPISODE_02_Restoring_a_Kitchen.png',
+    },
+    {
+      url: '/images/videos/VID_20250623_143410.mp4',
+      thumbnail: '/images/videos/thumbnails/EPISODE_01_Restoring_a_LivingRoom.png',
+    },
+  ]
 
   return (
     <Box
@@ -287,8 +296,8 @@ function VideoGallerySection() {
         textAlign: 'left',
         ml: { sm: 0, md: 9 },
         background: `radial-gradient(circle at center, #3a3a3a 0%, #1a1a1a 100%)`,
-        borderRadius:1,
-        marginBottom:8
+        borderRadius: 1,
+        marginBottom: 8,
       }}
     >
       <Typography variant="h4" sx={{ color: '#ccc', mb: 1 }}>
@@ -310,26 +319,26 @@ function VideoGallerySection() {
           },
         }}
       >
-        {videoUrls.map((url, idx) => (
+        {videoData.map(({ url, thumbnail }, idx) => (
           <Box
             key={idx}
             sx={{
-              minWidth: { xs: '85%', sm: '60%', md: '30%', lg: '25%' }, 
+              minWidth: { xs: '85%', sm: '60%', md: '30%', lg: '25%' },
               flexShrink: 0,
               borderRadius: 2,
               overflow: 'hidden',
               position: 'relative',
-              aspectRatio: '9 / 16', // fallback below if unsupported
+              aspectRatio: '9 / 16',
               backgroundColor: '#000',
               '@supports not (aspect-ratio: 1)': {
-                paddingTop: '177.78%', // 16:9 ratio
+                paddingTop: '177.78%',
               },
             }}
           >
             <video
               controls
               src={url}
-              poster="/images/video-thumb.jpg"
+              poster={thumbnail}
               preload="metadata"
               style={{
                 position: 'absolute',

@@ -11,15 +11,15 @@ export default function ContactPage() {
           content="Contact Cisco's GC Painting for expert painting, siding, roofing, carpentry, and restoration services in Salem, Oregon and Portland metro."
         />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://ciscospainting.com/contact" />
+        <link rel="canonical" href="https://ciscosgc.com/contact" />
 
         <meta property="og:title" content="Contact Cisco's GC Painting" />
         <meta
           property="og:description"
           content="Reach out for a free estimate or questions about painting, siding, roofing, carpentry, and restoration services."
         />
-        <meta property="og:image" content="https://ciscospainting.com/images/logo-bg.jpg" />
-        <meta property="og:url" content="https://ciscospainting.com/contact" />
+        <meta property="og:image" content="https://ciscosgc.com/images/logo-bg.jpg" />
+        <meta property="og:url" content="https://ciscosgc.com/contact" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Contact Cisco's GC Painting" />
@@ -27,7 +27,7 @@ export default function ContactPage() {
           name="twitter:description"
           content="Reach out for a free estimate or questions about painting, siding, roofing, carpentry, and restoration services."
         />
-        <meta name="twitter:image" content="https://ciscospainting.com/images/logo-bg.jpg" />
+        <meta name="twitter:image" content="https://ciscosgc.com/images/logo-bg.jpg" />
 
         {/* JSON-LD Structured Data */}
         <script
@@ -37,8 +37,8 @@ export default function ContactPage() {
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
               "name": "Cisco's GC Painting",
-              "image": "https://ciscospainting.com/images/logo-bg.jpg",
-              "url": "https://ciscospainting.com/contact",
+              "image": "https://ciscosgc.com/images/logo-bg.jpg",
+              "url": "https://ciscosgc.com/contact",
               "telephone": "+1-503-999-9060",
               "address": {
                 "@type": "PostalAddress",

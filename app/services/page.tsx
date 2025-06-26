@@ -12,15 +12,15 @@ export default function ServicesPage() {
           content="Explore the wide range of quality painting, roofing, siding, and restoration services offered by Cisco's GC Painting in Salem and Portland metro."
         />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://ciscospainting.com/services" />
+        <link rel="canonical" href="https://ciscosgc.com/services" />
 
         <meta property="og:title" content="Services | Cisco's GC Painting" />
         <meta
           property="og:description"
           content="Explore the wide range of quality painting, roofing, siding, and restoration services offered by Cisco's GC Painting in Salem and Portland metro."
         />
-        <meta property="og:image" content="https://ciscospainting.com/images/services-banner.jpg" />
-        <meta property="og:url" content="https://ciscospainting.com/services" />
+        <meta property="og:image" content="https://ciscosgc.com/images/services-banner.webp" />
+        <meta property="og:url" content="https://ciscosgc.com/services" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Services | Cisco's GC Painting" />
@@ -28,7 +28,7 @@ export default function ServicesPage() {
           name="twitter:description"
           content="Explore the wide range of quality painting, roofing, siding, and restoration services offered by Cisco's GC Painting in Salem and Portland metro."
         />
-        <meta name="twitter:image" content="https://ciscospainting.com/images/services-banner.jpg" />
+        <meta name="twitter:image" content="https://ciscosgc.com/images/services-banner.webp" />
 
         {/* JSON-LD Structured Data */}
         <script
@@ -39,8 +39,8 @@ export default function ServicesPage() {
                 "@context": "https://schema.org",
                 "@type": "LocalBusiness",
                 name: "Cisco's GC Painting",
-                image: "https://ciscospainting.com/images/logo-bg.jpg",
-                url: "https://ciscospainting.com/services",
+                image: "https://ciscosgc.com/images/logo-bg.jpg",
+                url: "https://ciscosgc.com/services",
                 telephone: "+1-503-999-9060",
                 address: {
                   "@type": "PostalAddress",

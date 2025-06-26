@@ -22,6 +22,17 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/StackedServiceCards.jsx", "components/Navbar.tsx", "app/api/contact/modal/route.js", "app/api/contact/route.js", "app/gallery/page.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "components/StackedServiceCards.jsx",
+    "components/Navbar.tsx",
+    "app/api/contact/modal/route.js",
+    "app/api/contact/route.js",
+    "app/gallery/page.tsx",
+    "public/images/route.js"
+  ],
   "exclude": ["node_modules"]
 }

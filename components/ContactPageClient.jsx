@@ -45,7 +45,7 @@ const HeroSection = React.forwardRef((_, ref) => {
         position: 'relative',
         minHeight: '100vh',
         width: '100%',
-        backgroundImage: 'url(/images/banner.jpg)',
+        backgroundImage: 'url(/images/banner.webp)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
