@@ -103,48 +103,50 @@ export default function ProjectSlide({ project, isActive, slideIndex }) {
         <Box sx={{ width: { xs: '100%', md: '40%' }, display: 'flex', flexDirection: 'column' }}>
           <Slider {...mainSettings}>
             {project.images.map((src, i) => (
-              <Box
-                key={i}
-                sx={{ position: 'relative', width: '100%', height: { xs: 250, sm: 300, md: 700 } }}
-              >
-                {!loadedImages.includes(i) && (
-                  <Box
-                    sx={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      zIndex: 1,
-                      bgcolor: 'rgba(0,0,0,0.3)',
-                    }}
-                  >
-                    <CircularProgress color="inherit" size={40} />
-                  </Box>
-                )}
+            <Box
+              key={i}
+              sx={{ position: 'relative', width: '100%', height: { xs: 250, sm: 300, md: 700 } }}
+            >
+              {/* Show spinner only for the current image */}
+              {!loadedImages.includes(i) && i === activeImageIndex && (
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 1,
+                    bgcolor: 'rgba(0,0,0,0.3)',
+                  }}
+                >
+                  <CircularProgress sx={{ color: '#ccc' }} size={40} />
+                </Box>
+              )}
+
               <Image
                 src={src}
                 alt={`${project.title} - image ${i + 1}`}
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // helps browser choose best resolution
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 style={{
                   objectFit: 'cover',
                   borderRadius: 8,
                   transition: 'opacity 0.3s ease-in-out',
                   cursor: isMobile ? 'zoom-in' : 'default',
                 }}
-                priority={i < 2} // only prioritize first 2 images
-                loading={i < 2 ? 'eager' : 'lazy'} // avoid eager loading every image
-                placeholder="empty" // consider using 'blur' if you have blurDataURL
+                priority={i === activeImageIndex}
+                loading={i === activeImageIndex ? 'eager' : 'lazy'}
+                placeholder="empty"
                 onClick={() => isMobile && setZoomedImage(src)}
                 onLoad={() => handleImageLoad(i)}
               />
+            </Box>
+          ))}
 
-              </Box>
-            ))}
           </Slider>
 
           {/* Thumbnail Nav */}
