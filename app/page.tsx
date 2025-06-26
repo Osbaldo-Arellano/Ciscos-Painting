@@ -29,6 +29,8 @@ export default function HomePage() {
         />
         <meta name="twitter:image" content="https://ciscospainting.com/images/logo-bg.jpg" />
 
+        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+
         <meta name="google-site-verification" content="-F9-REPSbdFD-4Gjhw2TcjqLugLc_lwIV__k4ECWG3k" />
 
         {/* JSON-LD Structured Data */}

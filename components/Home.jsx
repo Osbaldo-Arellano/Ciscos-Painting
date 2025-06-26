@@ -69,112 +69,136 @@ export default function Home() {
       <main>
         <EstimateModal open={modalOpen} onClose={() => setModalOpen(false)} />
 
-        <Box sx={{ marginBottom: 10 }}>
+        <Box sx={{ marginBottom: 10, overflow:'hidden'}}>
           {/* Hero Section */}
-        <section>
-          <Box
-            sx={{
-              position: 'relative',
-              height: { xs: '75vh', md: '100vh' },
-              width: '100%',
-              backgroundImage: 'url(/images/nice-house.jpg)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          >
+          <section>
+            
             <Box
               sx={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
+                position: 'relative',
+                height: {
+                  xs: '75vh',
+                  md: 'calc(100vh - 64px)', // leaves room for sticky/fixed nav
+                  xl: '100vh',
+                },
                 width: '100%',
-                height: '100%',
-                bgcolor: 'rgba(0, 0, 0, 0.6)',
-                zIndex: 1,
-              }}
-            />
-
-            <Box
-              component="header"
-              sx={{
-                position: 'absolute',
-                top: '50%',
-                left: 0,
-                transform: 'translateY(-60%)',
-                zIndex: 2,
-                width: { xs: '90%', sm: '70%', md: '55%' },
-                p: { xs: 2, sm: 9 },
-                backgroundColor: 'rgba(0,0,0,0.4)',
-                backdropFilter: 'blur(6px)',
-                borderRadius: 2,
-                color: '#eee',
+                backgroundImage: 'url(/images/nice-house.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                
               }}
             >
-              <Typography variant="h6" sx={{ color: '#ccc', mb: 1 }}>
-                00/ Welcome
-              </Typography>
-              <Typography
-                component="h1"
-                sx={{
-                  fontSize: { xs: '1.8rem', sm: '2.5rem', md: '4rem' },
-                  fontFamily: '"Inter", sans-serif',
-                  lineHeight: 1.2,
-                  fontWeight: 700,
-                  mb: 2,
-                }}
-              >
-                With 20+ Years of Experience, We Are Here To Serve You
-              </Typography>
-            </Box>
-
-            <Box
-              sx={{
-                position: 'absolute',
-                bottom: { xs: 40, md: 100 },
-                left: { xs: '5%', md: '5%' },
-                color: '#fff',
-                maxWidth: { xs: '90%', sm: 400 },
-                zIndex: 2,
-              }}
-            >
+              {/* Overlay */}
               <Box
                 sx={{
-                  bgcolor: 'rgba(0,0,0,0.4)',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  bgcolor: 'rgba(0, 0, 0, 0.6)',
+                  zIndex: 1,
+                }}
+              />
+
+              {/* Main Hero Text */}
+              <Box
+                component="header"
+                sx={{
+                  position: 'absolute',
+                  top: '30%',
+                  left: 0,
+                  transform: 'translateY(-60%)',
+                  zIndex: 2,
+                  width: { xs: '90%', sm: '70%', md: '55%' },
+                  p: { xs: 2, sm: 6, md: 5, xl: 9 },
+                  backgroundColor: 'rgba(0,0,0,0.4)',
                   backdropFilter: 'blur(6px)',
                   borderRadius: 2,
-                  p: 2,
-                  mb: 3,
                   color: '#eee',
+                  mt: { xs: 0, md: 12, xl: 25 }, 
                 }}
               >
-                <Typography variant="body1" sx={{ fontSize: { xs: '0.9rem', md: '1rem' } }}>
-                  Get in touch with one of Salem&apos;s premier contractors.
-                </Typography>
+                
+               
+                  <Typography variant="h6" sx={{ color: '#ccc', mb: 1 }}>
+                    00/ Welcome
+                  </Typography>
+                  <Typography
+                    component="h1"
+                    sx={{
+                      fontSize: { xs: '1.8rem', sm: '2.5rem', md: '2rem', xl:'4rem' },
+                      fontFamily: '"Inter", sans-serif',
+                      lineHeight: 1.2,
+                      fontWeight: 700,
+                    }}
+                  >
+                    With 20+ Years of Experience, We Are Here To Serve You
+                  </Typography>
+                
               </Box>
 
-              {/* MODAL TRIGGER BUTTON */}
-              <Button
-                variant="contained"
-                size="medium"
-                onClick={() => setModalOpen(true)}
+              {/* CTA Box */}
+              <Box
                 sx={{
-                  backgroundColor: '#f44336',
+                  position: 'absolute',
+                  bottom: { xs: 40, md: 100 },
+                  left: { xs: '5%', md: '5%' },
                   color: '#fff',
-                  fontWeight: 'bold',
-                  borderRadius: '999px',
-                  px: 3,
-                  fontSize: { xs: '0.9rem', md: '1rem' },
-                  '&:hover': { backgroundColor: '#d32f2f' },
+                  maxWidth: { xs: '90%', sm: 400 },
+                  zIndex: 2,
                 }}
               >
-                Get Estimate
-              </Button>
+                <Box
+                  sx={{
+                    
+                    bgcolor: 'rgba(0,0,0,0.4)',
+                    backdropFilter: 'blur(6px)',
+                    borderRadius: 2,
+                    p: 2,
+                    mb: 3,
+                    color: '#eee',
+                  }}
+                >
+                  <Typography variant="body1" sx={{ fontSize: { xs: '0.9rem', md: '1rem' } }}>
+                    Get in touch with one of Salem&apos;s premier contractors.
+                  </Typography>
+                </Box>
+
+                {/* MODAL TRIGGER BUTTON */}
+                <Button
+                  variant="contained"
+                  size="medium"
+                  onClick={() => setModalOpen(true)}
+                  sx={{
+                    backgroundColor: '#f44336',
+                    color: '#fff',
+                    fontWeight: 'bold',
+                    borderRadius: '999px',
+                    px: 3,
+                    fontSize: { xs: '0.9rem', md: '1rem' },
+                    '&:hover': { backgroundColor: '#d32f2f' },
+                  }}
+                >
+                  Get Estimate
+                </Button>
+              </Box>
             </Box>
-          </Box>
-        </section>
+          </section>
+
         {/* Services Section */}
         <section>
-          <Box sx={{ background: '#1a1a1a', py: { xs: 8, md: 5 }, px: 9, marginTop:8, width: 'auto', marginRight: 10, borderRadius: 3}}>
+          <Box
+              sx={{
+                background: '#1a1a1a',
+                py: { xs: 6, md: 8 },
+                px: { xs: 2, sm: 4, md: 6 },
+                mt: 8,
+                width: '100%',
+                mr: { xs: 0, md: 5 },
+                borderRadius: 3,
+              }}
+            >
             <Typography variant="h5" sx={{ color: '#ccc', mb: 1 }}>
               01/ Our Services
             </Typography>
@@ -216,13 +240,14 @@ export default function Home() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 px: { xs: 3, sm: 6, md: 9 },
-                py: { xs: 6, md: 5 },
+                py: { xs: 6, md: 9 },
                 position: 'relative',
                 bgcolor: '#181818',
                 m: { xs: 2, md: 10 },
                 borderRadius: 2,
                 color: '#ccc',
                 textAlign: 'left',
+                overflow:'hidden'
               }}
             >
               <Typography variant="h5" sx={{ color: '#ccc', alignSelf: 'flex-start', mb: 1 }}>
@@ -247,7 +272,7 @@ export default function Home() {
 
                <Grid container spacing={4} sx={{ width: '100%' }}>
                   {/* Image Column - Forced Left Alignment */}
-                  <Grid>
+                  <Grid item xs={12} md={6}>
                     <Box sx={{ 
                       width: '100%',
                       maxWidth: 900,
@@ -275,7 +300,7 @@ export default function Home() {
                   md={6}
                   sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
                 >
-                  <Box sx={{ mb: 6, maxWidth: { xs: '100%', md: 500 }, mx: { xs: 'auto', md: 'unset' }, position: 'relative' }}>
+                  <Box sx={{ mb: 6, maxWidth: { xs: '100%', md: '100%' }, mx: { xs: 'auto', md: 'unset' }, position: 'relative' }}>
                     <Box
                       sx={{
                         background: `linear-gradient(
@@ -298,26 +323,64 @@ export default function Home() {
                         lineHeight: 1.2,
                         letterSpacing: '0.3px',
                         textShadow: '2px 2px 6px rgba(0,0,0,0.8)',
-                        userSelect: 'none',
-                        width: '1000px'
+                        width: '100%',
+                        maxWidth: { xs: '100%', sm: '100%', md: '100%' },
                       }}
                     >
                       Cisco's General Contractor Painting
                     </Box>
-
-                    <Typography
+                    <Box
                       sx={{
-                        fontSize: { xs: '1rem', md: '1.1rem' },
-                        lineHeight: 1.7,
-                        color: '#ccc',
-                        fontFamily: '"Inter", sans-serif',
-                        letterSpacing: '0.3px',
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: 2,
+                        maxWidth: '100%',
                       }}
                     >
-                      Cisco's GC Painting is one of Salem's premier painting, siding, fencing, roofing, drywall, carpentry,
-                      janitorial, cabinet repaint and finishing, and restoration finish contractors. Our skilled craftsmen
-                      deliver top-tier results with a focus on clean execution and quality workmanship.
-                    </Typography>
+                      {/* Paragraph */}
+                      <Box
+                        sx={{
+                          fontSize: { xs: '1rem', md: '1.15rem' },
+                          lineHeight: 1.8,
+                          color: '#ccc',
+                          fontFamily: '"Inter", sans-serif',
+                          letterSpacing: '0.35px',
+                          maxWidth: '50%',
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontSize: { xs: '1rem', md: '1.1rem' },
+                            lineHeight: 1.7,
+                            color: '#ccc',
+                            fontFamily: '"Inter", sans-serif',
+                            letterSpacing: '0.3px',
+                          }}
+                        >
+                          Cisco's GC Painting is one of Salem's premier painting, siding, fencing, roofing, drywall, carpentry,
+                          janitorial, cabinet repaint and finishing, and restoration finish contractors. Our skilled craftsmen
+                          deliver top-tier results with a focus on quality workmanship.
+                        </Typography>
+                      </Box>
+                      {/* Small logo visible only on md screens */}
+                      <Box
+                        sx={{
+                          display: { xs: 'none', md: 'flex', xl: 'flex' },
+                          // alignItems: 'center',
+                          // justifyContent: 'center',
+                          // flexShrink: 0,
+                        }}
+                      >
+                        <Image
+                          src="/images/logo-bg.jpg" // 🔁 replace with your logo path
+                          alt="Cisco's GC Logo"
+                          width={300}
+                          height={225}
+                        />
+                      </Box>
+                    </Box>
+
+                    
                   </Box>
                   <Link href="/gallery" >
                     <Button
@@ -343,19 +406,18 @@ export default function Home() {
 
               {/* Stats Cards Container */}
               <Box
-                sx={{
-                  flexGrow: 1,
-                  display: 'flex',
-                  gap: 2,
-                  flexWrap: { xs: 'wrap', md: 'nowrap' },
-                  justifyContent: 'flex-start', // Changed from 'center' to 'flex-start'
-                  alignItems: 'stretch',
-                  mt: 8,
-                  width: '100%',
-                  px: { xs: 0, md: 0 }, // Removed right padding to allow left alignment
-                  marginLeft: { md: '-8px' } // Compensate for gap spacing
-                }}
-              >
+                  sx={{
+                    flexGrow: 1,
+                    display: 'flex',
+                    gap: 2,
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                    alignItems: 'stretch',
+                    mt: 8,
+                    width: '100%',
+                    px: { xs: 2, md: 0 },
+                  }}
+                >
                 {[
                   ['20+ Years', 'Of Professional Experience', 'linear-gradient(90deg, #b71c1c, #880e4f)'], 
                   ['10+ Years', 'Serving Salem and Portland since 2013.', 'linear-gradient(90deg, #4a148c, #1a237e)'],
@@ -445,7 +507,7 @@ export default function Home() {
                 mt: 8,
                 borderRadius: 3,
                 color: '#eee',
-                mr:10
+                mr: { xs: 0, md: 5, lg: 8 }              
               }}
             >
               <Box

@@ -182,17 +182,17 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => (
       component="header"
       sx={{
         position: 'absolute',
-        top: '50%',
+        top: {md:'45%', xl:'35%'},
         left: 0,
         transform: 'translateY(-60%)',
         zIndex: 2,
-        width: { xs: '90%', sm: '70%', md: '55%' },
-        p: { xs: 2, sm: 9 },
-        bgcolor: 'rgba(0,0,0,0.5)',
+        width: { xs: '80%', sm: '70%', md: '55%' },
+        p: { xs: 2, sm: 6, md: 5, xl: 9 },
+        backgroundColor: 'rgba(0,0,0,0.4)',
         backdropFilter: 'blur(6px)',
         borderRadius: 2,
         color: '#eee',
-        textAlign: 'left',
+        mt: { xs: '80%', md: 12, xl: 25 }, 
       }}
     >
       <Typography variant="h6" sx={{ color: '#bbb', mb: 1 }} id="gallery-hero-title">

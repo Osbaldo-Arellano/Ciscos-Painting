@@ -86,9 +86,13 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => (
     aria-labelledby="hero-heading"
     sx={{
       position: 'relative',
-      height: { xs: '75vh', md: '100vh' },
+      height: {
+        xs: '80vh',
+        md: 'calc(100vh - 64px)', // leaves room for sticky/fixed nav
+        xl: '100vh',
+      },
       width: '100%',
-      backgroundImage: 'url(/images/banner.jpg)',
+      backgroundImage: 'url(/images/nice-house.jpg)',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
     }}
@@ -107,17 +111,17 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => (
       component="header"
       sx={{
         position: 'absolute',
-        top: '50%',
+        top: {xs: '50%', md:'50%', xl:'35%'},
         left: 0,
         transform: 'translateY(-60%)',
         zIndex: 2,
         width: { xs: '90%', sm: '70%', md: '55%' },
-        p: { xs: 2, sm: 9 },
-        bgcolor: 'rgba(0,0,0,0.5)',
+        p: { xs: 2, sm: 6, md: 5, xl: 9 },
+        backgroundColor: 'rgba(0,0,0,0.4)',
         backdropFilter: 'blur(6px)',
         borderRadius: 2,
         color: '#eee',
-        textAlign: 'left',
+        mt: { xs: 0, md: 12, xl: 25 }, 
       }}
     >
       <Typography
