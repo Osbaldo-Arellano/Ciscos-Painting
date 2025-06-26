@@ -1,7 +1,8 @@
+// Updated ProjectSlide component with image loading animations
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, Typography, useTheme, CircularProgress } from '@mui/material';
 import Slider from 'react-slick';
 import Image from 'next/image';
 
@@ -10,6 +11,7 @@ export default function ProjectSlide({ project, isActive }) {
   const thumbRef = useRef(null);
   const [mainSlider, setMainSlider] = useState(null);
   const [thumbnailSlider, setThumbnailSlider] = useState(null);
+  const [loadedImages, setLoadedImages] = useState([]);
   const theme = useTheme();
 
   const lastScrollY = useRef(0);
@@ -21,17 +23,11 @@ export default function ProjectSlide({ project, isActive }) {
   useEffect(() => {
     setMounted(true);
 
-    if (
-      mainRef.current &&
-      typeof mainRef.current.slickGoTo === 'function'
-    ) {
+    if (mainRef.current && typeof mainRef.current.slickGoTo === 'function') {
       setMainSlider(mainRef.current);
     }
 
-    if (
-      thumbRef.current &&
-      typeof thumbRef.current.slickGoTo === 'function'
-    ) {
+    if (thumbRef.current && typeof thumbRef.current.slickGoTo === 'function') {
       setThumbnailSlider(thumbRef.current);
     }
   }, []);
@@ -53,11 +49,9 @@ export default function ProjectSlide({ project, isActive }) {
         targetSlide--;
       }
 
-      if (targetSlide !== currentSlide.current) {
-        if (typeof mainSlider.slickGoTo === 'function') {
-          mainSlider.slickGoTo(targetSlide, false);
-          currentSlide.current = targetSlide;
-        }
+      if (targetSlide !== currentSlide.current && loadedImages.includes(targetSlide)) {
+        mainSlider.slickGoTo(targetSlide, false);
+        currentSlide.current = targetSlide;
       }
 
       scrollTimeout.current = setTimeout(() => {
@@ -71,7 +65,7 @@ export default function ProjectSlide({ project, isActive }) {
       window.removeEventListener('scroll', handleScroll);
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
-  }, [mainSlider, project.images.length]);
+  }, [mainSlider, loadedImages, project.images.length]);
 
   if (!isActive || !mounted) return null;
 
@@ -82,14 +76,15 @@ export default function ProjectSlide({ project, isActive }) {
   }
 
   function handleThumbnailClick(i) {
-    if (
-      mainRef.current &&
-      typeof mainRef.current.slickGoTo === 'function'
-    ) {
+    if (mainRef.current && typeof mainRef.current.slickGoTo === 'function') {
       mainRef.current.slickGoTo(i);
       currentSlide.current = i;
     }
   }
+
+  const handleImageLoad = (index) => {
+    setLoadedImages((prev) => [...new Set([...prev, index])]);
+  };
 
   const mainSettings = {
     asNavFor: thumbnailSlider,
@@ -105,31 +100,6 @@ export default function ProjectSlide({ project, isActive }) {
     adaptiveHeight: true,
     ref: mainRef,
     afterChange: handleMainAfterChange,
-    appendDots: (dots) => (
-      <Box sx={{ mt: 2 }}>
-        <ul
-          style={{
-            margin: 0,
-            padding: 0,
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          {dots}
-        </ul>
-      </Box>
-    ),
-    customPaging: () => (
-      <div
-        style={{
-          width: 10,
-          height: 10,
-          borderRadius: '50%',
-          background: theme.palette.primary.main,
-          opacity: 0.5,
-        }}
-      />
-    ),
   };
 
   const thumbnailSettings = {
@@ -164,24 +134,38 @@ export default function ProjectSlide({ project, isActive }) {
           flexDirection: 'column',
         }}
       >
-        {/* Main Slider */}
         <Slider {...mainSettings}>
           {project.images.map((src, i) => (
             <Box
               key={i}
-              sx={{
-                position: 'relative',
-                width: '100%',
-                height: { xs: 250, sm: 300, md: 700 },
-              }}
+              sx={{ position: 'relative', width: '100%', height: { xs: 250, sm: 300, md: 700 } }}
             >
+              {!loadedImages.includes(i) && (
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 1,
+                    bgcolor: 'rgba(0,0,0,0.3)',
+                  }}
+                >
+                  <CircularProgress color="inherit" size={40} />
+                </Box>
+              )}
               <Image
                 src={src}
                 alt={`${project.title} - image ${i + 1}`}
                 fill
-                style={{ objectFit: 'cover', borderRadius: 8 }}
+                style={{ objectFit: 'cover', borderRadius: 8, transition: 'opacity 0.3s ease-in-out' }}
                 priority={i === 0}
                 loading={i === 0 ? 'eager' : 'lazy'}
+                onLoad={() => handleImageLoad(i)}
               />
             </Box>
           ))}
@@ -226,9 +210,7 @@ export default function ProjectSlide({ project, isActive }) {
               ))}
             </Slider>
           ) : (
-            <Box
-              sx={{ position: 'relative', height: 60, width: 80, mx: 'auto' }}
-            >
+            <Box sx={{ position: 'relative', height: 60, width: 80, mx: 'auto' }}>
               <Image
                 src={project.images[0]}
                 alt={`${project.title} - thumbnail`}
