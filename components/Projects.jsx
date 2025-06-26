@@ -2,11 +2,12 @@
 
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { Box, Typography, Paper, GlobalStyles } from '@mui/material';
-import Slider from 'react-slick';
 import ProjectSlide from '@/components/ProjectSlide';
 
+// Dynamically load Slider to keep SSR bundle light
+const Slider = dynamic(() => import('react-slick'), { ssr: false });
 
 const projects = [
   {
@@ -131,60 +132,39 @@ const projects = [
 ];
 
 export default function ProjectsPage() {
+  // Track currently active slide
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const projectSettings = {
-    dots: false,
-    infinite: true,
-    speed: 800,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: true,
-    adaptiveHeight: false,
-    autoplay: true,
-    autoplaySpeed: 2500,
-    pauseOnHover: true,
-    pauseOnFocus: true,
-    centerMode: false,
-    swipeToSlide: true,
-    focusOnSelect: true,
-    draggable: true,
-    beforeChange: (oldIndex, newIndex) => setActiveIndex(newIndex),
-    appendDots: dots => (
-      <ul style={{ margin: '0px', padding: '10px' }}>{dots}</ul>
-    ),
-    customPaging: i => (
-      <button
-        type="button"
-        aria-label={`Go to project slide ${i + 1}`}
-        style={{
-          width: 12,
-          height: 12,
-          borderRadius: '50%',
-          background: '#ccc',
-          border: 'none',
-          padding: 0,
-          cursor: 'pointer',
-        }}
-      />
-    ),
+  // Memoize slider settings to avoid re-creation on each render
+  const projectSettings = useMemo(
+    () => ({
+      dots: false,
+      infinite: true,
+      speed: 800,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: true,
+      adaptiveHeight: false,
+      swipeToSlide: true,
+      focusOnSelect: true,
+      draggable: true,
+      beforeChange: (_old, next) => setActiveIndex(next),
+    }),
+    []
+  );
+
+  // Slick dot styles via GlobalStyles
+  const dotStyles = {
+    '.slick-dots': {
+      bottom: '-24px',
+      '& li button:before': { fontSize: '12px', color: '#ccc', opacity: 1 },
+      '& li.slick-active button:before': { color: '#fff' },
+    },
   };
 
   return (
     <>
-      <GlobalStyles
-        styles={{
-          '.slick-dots li button:before': {
-            color: '#ccc !important',
-            opacity: 1,
-            fontSize: '12px',
-          },
-          '.slick-dots li.slick-active button:before': {
-            color: '#fff !important',
-            opacity: 1,
-          },
-        }}
-      />
+      <GlobalStyles styles={dotStyles} />
 
       <Paper
         elevation={3}
@@ -192,38 +172,40 @@ export default function ProjectsPage() {
         aria-labelledby="gallery-heading"
         sx={{
           p: 4,
-          background: `radial-gradient(circle at center, #3a3a3a 0%, #1a1a1a 100%)`,
+          background: 'radial-gradient(circle at center, #3a3a3a 0%, #1a1a1a 100%)',
           mt: 8,
           width: '100%',
         }}
       >
-        <Typography variant="h4" sx={{ color: '#ccc', mb: 1, ml:8 }}>
+        <Typography variant="h4" sx={{ color: '#ccc', mb: 1, ml: {sm: 0, md: 8} }}>
           01/ Project Gallery
         </Typography>
-        <Typography
-          variant="h3" 
-          sx={{ mb: 4, fontWeight: 700, color: '#eee' , ml:8}}
-        >
+        <Typography variant="h3" sx={{ mb: 4, fontWeight: 700, color: '#eee', ml: {sm: 0, md: 8} }}>
           From House to Home
         </Typography>
-        <Typography variant="body1" sx={{ mb: 3, color: '#ddd', ml: 8 }}>
-          Painting, Siding, Fences, Roofing, Drywall, Carpentry, Janitorial, Cabinet Refinishing, Restoration.
+        <Typography variant="body1" sx={{ mb: 3, color: '#ddd', ml: {sm: 0, md: 8} }}>
+          Painting, Siding, Fences, Roofing, Drywall, Carpentry, Janitorial,
+          Cabinet Refinishing, Restoration.
           <br />
-          Cisco's GC Painting does it all — built on quality, finished with care.
+          Cisco's GC Painting does it all — built on quality, finished with
+          care.
         </Typography>
 
-        <Box sx={{ mt: 4, ml: 9 }}>
+        <Box sx={{ mt: 4, mx: 'auto', width: '90%' }}>
           <Slider {...projectSettings}>
-            {projects.map((project, index) => (
-              <article
-                key={index}
+            {projects.map((proj, idx) => (
+              <Box
+                key={proj.title}
                 tabIndex={0}
                 role="group"
-                aria-label={`${project.title} project`}
-                style={{ outline: 'none' }}
+                aria-label={`${proj.title} project`}
+                sx={{ outline: 'none' }}
               >
-                <ProjectSlide project={project} isActive={index === activeIndex} slideIndex={index} />
-              </article>
+                <ProjectSlide
+                  project={proj}
+                  isActive={idx === activeIndex}
+                />
+              </Box>
             ))}
           </Slider>
         </Box>

@@ -125,12 +125,13 @@ export default function GalleryPage() {
             marginRight: isDesktop ? 10 : 0,
             bgcolor: '#111',
             mb: 8,
+            ml:0
           }}
         >
           <Projects aria-label="Gallery of completed projects" />
         </Box>
 
-        {/* 🔥 New Video Gallery Section */}
+        {/* Video Gallery Section */}
         <VideoGallerySection />
 
         <Footer />

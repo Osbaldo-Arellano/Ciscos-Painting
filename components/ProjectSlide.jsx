@@ -10,17 +10,10 @@ export default function ProjectSlide({ project, isActive, slideIndex }) {
   const thumbRef = useRef(null);
   const [mainSlider, setMainSlider] = useState(null);
   const [thumbnailSlider, setThumbnailSlider] = useState(null);
-  const [loadedFirstImages, setLoadedFirstImages] = useState(new Set());
+  const [loadedImages, setLoadedImages] = useState([]);
   const theme = useTheme();
 
-  const lastScrollY = useRef(0);
-  const currentSlide = useRef(0);
-  const scrollTimeout = useRef(null);
-  const [mounted, setMounted] = useState(false);
-
   useEffect(() => {
-    setMounted(true);
-
     if (mainRef.current && typeof mainRef.current.slickGoTo === 'function') {
       setMainSlider(mainRef.current);
     }
@@ -30,67 +23,24 @@ export default function ProjectSlide({ project, isActive, slideIndex }) {
     }
   }, []);
 
-  useEffect(() => {
-    if (!mainSlider || typeof mainSlider.slickGoTo !== 'function') return;
-
-    function handleScroll() {
-      const scrollY = window.scrollY || window.pageYOffset;
-      const direction = scrollY > lastScrollY.current ? 'down' : 'up';
-      lastScrollY.current = scrollY;
-
-      const slideCount = document.querySelectorAll('[data-project-slide]').length;
-      let targetSlide = currentSlide.current;
-
-      if (direction === 'down' && currentSlide.current < slideCount - 1) {
-        targetSlide++;
-      } else if (direction === 'up' && currentSlide.current > 0) {
-        targetSlide--;
-      }
-
-      if (
-        targetSlide !== currentSlide.current &&
-        loadedFirstImages.has(targetSlide)
-      ) {
-        mainSlider.slickGoTo(targetSlide, false);
-        currentSlide.current = targetSlide;
-      }
-
-      scrollTimeout.current = setTimeout(() => {
-        scrollTimeout.current = null;
-      }, 300);
-    }
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-    };
-  }, [mainSlider, loadedFirstImages]);
-
-  if (!isActive || !mounted) return null;
+  if (!isActive) return null;
 
   const hasMultipleImages = project.images.length > 1;
 
-  function handleMainAfterChange(index) {
-    currentSlide.current = index;
-  }
+  function handleMainAfterChange(index) {}
 
   function handleThumbnailClick(i) {
     if (mainRef.current && typeof mainRef.current.slickGoTo === 'function') {
       mainRef.current.slickGoTo(i);
-      currentSlide.current = i;
     }
   }
 
-  const handleImageLoad = (slideIdx, imgIdx) => {
-    if (imgIdx === 0) {
-      setLoadedFirstImages((prev) => new Set(prev).add(slideIdx));
-    }
+  const handleImageLoad = (index) => {
+    setLoadedImages((prev) => [...new Set([...prev, index])]);
   };
 
   const mainSettings = {
-    asNavFor: thumbnailSlider,
+    // REMOVE: asNavFor
     dots: false,
     infinite: false,
     speed: 500,
@@ -106,13 +56,13 @@ export default function ProjectSlide({ project, isActive, slideIndex }) {
   };
 
   const thumbnailSettings = {
-    asNavFor: mainSlider,
+    // REMOVE: asNavFor
     dots: false,
     infinite: hasMultipleImages,
     speed: 500,
     slidesToShow: Math.min(3, project.images.length),
     slidesToScroll: 1,
-    focusOnSelect: true,
+    focusOnSelect: false, // 👈 disable auto-focus behavior
     arrows: false,
     swipe: true,
     touchMove: true,
@@ -144,6 +94,24 @@ export default function ProjectSlide({ project, isActive, slideIndex }) {
               key={i}
               sx={{ position: 'relative', width: '100%', height: { xs: 250, sm: 300, md: 700 } }}
             >
+              {!loadedImages.includes(i) && (
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 1,
+                    bgcolor: 'rgba(0,0,0,0.3)',
+                  }}
+                >
+                  <CircularProgress color="inherit" size={40} />
+                </Box>
+              )}
               <Image
                 src={src}
                 alt={`${project.title} - image ${i + 1}`}
@@ -151,13 +119,12 @@ export default function ProjectSlide({ project, isActive, slideIndex }) {
                 style={{ objectFit: 'cover', borderRadius: 8, transition: 'opacity 0.3s ease-in-out' }}
                 priority={i === 0}
                 loading={i === 0 ? 'eager' : 'lazy'}
-                onLoad={() => handleImageLoad(slideIndex, i)}
+                onLoad={() => handleImageLoad(i)}
               />
             </Box>
           ))}
         </Slider>
 
-        {/* Thumbnails */}
         <Box
           sx={{
             mt: 3,
@@ -209,7 +176,6 @@ export default function ProjectSlide({ project, isActive, slideIndex }) {
         </Box>
       </Box>
 
-      {/* Project Info */}
       <Box
         sx={{
           width: { xs: '95%', md: '60%' },
