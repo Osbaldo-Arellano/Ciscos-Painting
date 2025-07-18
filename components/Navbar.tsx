@@ -123,7 +123,7 @@ export default function Navbar() {
             >
               <Image
                 src="/images/logo.png"
-                alt="Logo"
+                alt="Cisco's GC Painting"
                 height={150}
                 width={180}
                 priority

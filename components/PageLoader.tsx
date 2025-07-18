@@ -62,7 +62,7 @@ export default function PageLoader({
       >
         <Image
           src="/images/logo-bg.jpg"
-          alt="Cisco's GC Painting logo"
+          alt="Cisco's GC Painting"
           width={120}
           height={120}
           style={{ borderRadius: '50%', marginBottom: 24 }}
