@@ -9,8 +9,8 @@ export default function PageLoader({
 }: {
   children: React.ReactNode;
 }) {
-  const [isLoading, setIsLoading] = useState(true); // logic toggle
-  const [fadeOut, setFadeOut] = useState(false);     // controls CSS fade
+  const [isLoading, setIsLoading] = useState(true); 
+  const [fadeOut, setFadeOut] = useState(false);    
 
   useEffect(() => {
     const hasSeenLoader = sessionStorage.getItem('seen-home-loader');
@@ -20,9 +20,9 @@ export default function PageLoader({
     }
 
     const handleLoad = () => {
-      setFadeOut(true); // start fade-out
+      setFadeOut(true); 
       sessionStorage.setItem('seen-home-loader', 'true');
-      setTimeout(() => setIsLoading(false), 500); // match fade duration
+      setTimeout(() => setIsLoading(false), 500);
     };
 
     if (document.readyState === 'complete') {
